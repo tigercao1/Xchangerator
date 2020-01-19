@@ -1,8 +1,8 @@
 Team involvement
-- discussed the proposal and D1 with other team members
-- decided to build a foreign exchange rate reminder iOS app: Xchangerator
-- confirmed the main features of app
-- brainstormed the mockup prototype
+- we discussed the proposal and D1
+- we decided to build a foreign exchange rates reminder iOS app: Xchangerator
+- we confirmed the main features of app
+- we brainstormed the mockup prototype
 
 Individual work
 - investigated various free and paid exchange rates api services
