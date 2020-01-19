@@ -1,0 +1,18 @@
+Team involvement
+- discussed the proposal and D1 with other team members
+- decided to build a foreign exchange rate reminder iOS app: Xchangerator
+- confirmed the main features of app
+- brainstormed the mockup prototype
+
+Individual work
+- investigated various free and paid exchange rates api services
+  - requirements
+    - hourly exchange rates updates with free or cheap plan
+    - monthly requests limit should be larger than 800
+    - support for a large number of history timeseries queries
+  - result
+    - https://openexchangerates.org/ free plan for fetching hourly updates exchange rates
+    - https://exchangeratesapi.io/ for history time period queries
+
+- purchased the domain name(xchangerator.com) for our backend service, especially for secure HTTPS API
+- did basic config on DigitalOcean for hosting our backend service
