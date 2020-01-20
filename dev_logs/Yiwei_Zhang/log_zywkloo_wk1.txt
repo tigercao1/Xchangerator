@@ -1,0 +1,13 @@
+Team involvement
+- we discussed the proposal and D1
+- we decided to build a foreign exchange rates reminder iOS app: Xchangerator
+- we confirmed the main features of app
+- we brainstormed the mockup prototype
+
+Individual work
+- Product logo and slogan design
+- Deliverable 1 slides design
+- SwiftUI investigation
+- Firebase database investigation
+- User authentication flow design
+
