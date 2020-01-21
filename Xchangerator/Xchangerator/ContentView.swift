@@ -20,7 +20,7 @@ struct ContentView: View {
                 .padding()
                 .tabItem {
                     VStack {
-                        Image("icon")
+                        Image("first")
                         .resizable()
                         .frame(width: 100,
                                height: 100,
@@ -34,7 +34,7 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("Favorite")
+                        Image("second")
                         Text("Favorite")
                         .font(.title)
                     }
@@ -44,7 +44,7 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("Notification")
+                        Image("first")
                         Text("Notification")
                     }
                 }
@@ -53,7 +53,7 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("Settings")
+                        Image("second")
                         Text("Settings")
                     }
                 }
