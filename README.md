@@ -2,9 +2,9 @@
 Carleton University COMP 3004 Project Repo
 
 
-Add SFSybol icon approaches:
+How to add SFSybol icon:
  * install SF symbols app https://developer.apple.com/design/downloads/SF-Symbols.dmg
  * brower the icons you want to export
  * export the svg of the icons
  * drag the svg into Xcode Assets.xcassets
- * call with Image("svgName")
+ * call with Image("$svgFileName")
