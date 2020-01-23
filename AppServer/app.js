@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
@@ -9,7 +10,22 @@ const apiRouter = require('./routes/api');
 
 const app = express();
 
-app.use(logger(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
+const LOGGER_FORMAT = `:remote-addr - :remote-user [:date[iso]] ":method\
+ :url HTTP/:http-version" :status :res[content-length] - :response-time ms`;
+
+if (process.env.NODE_ENV !== 'development') {
+  // create a write stream
+  const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'),
+    {
+      flags: 'a', // append mode
+    },
+  );
+  app.use(logger(LOGGER_FORMAT, { stream: accessLogStream }));
+} else {
+  app.use(logger('dev'));
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

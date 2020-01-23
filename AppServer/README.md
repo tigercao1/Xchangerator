@@ -14,5 +14,5 @@ PORT=3000
 ```
 For production
 ```
-npm start &> ~/node.log &
+npm start &
 ```

@@ -15,7 +15,7 @@ const fs = require('fs');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '80');
+const port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
 /**
@@ -89,6 +89,7 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  console.log('appserver: started');
   debug('Listening on ' + bind);
   if (typeof addr !== 'string') {
     debug(`To test: https://localhost:${addr.port}`);
