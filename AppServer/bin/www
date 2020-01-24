@@ -24,8 +24,8 @@ app.set('port', port);
  */
 
 const options = {
-  key: fs.readFileSync(path.join(KEYS_DIR, 'privkey.key')),
-  cert: fs.readFileSync(path.join(KEYS_DIR, 'fullchain.cert')),
+  key: fs.readFileSync(path.join(KEYS_DIR, 'privkey.pem')),
+  cert: fs.readFileSync(path.join(KEYS_DIR, 'fullchain.pem')),
 };
 
 const server = https.createServer(options, app);
