@@ -9,6 +9,7 @@ const KEYS_DIR = process.env.KEYS_DIR || 'keys';
 const app = require('../app');
 const debug = require('debug')('appserver:server');
 const https = require('https');
+const path = require('path');
 const fs = require('fs');
 
 /**
@@ -21,9 +22,10 @@ app.set('port', port);
 /**
  * Create HTTPS server.
  */
+
 const options = {
-  key: fs.readFileSync(`${KEYS_DIR}/server.key`),
-  cert: fs.readFileSync(`${KEYS_DIR}/server.cert`),
+  key: fs.readFileSync(path.join(KEYS_DIR, 'privkey.key')),
+  cert: fs.readFileSync(path.join(KEYS_DIR, 'fullchain.cert')),
 };
 
 const server = https.createServer(options, app);
