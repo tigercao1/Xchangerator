@@ -2,13 +2,15 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 const app = express();
+
+app.use(helmet());
 
 const LOGGER_FORMAT = `:remote-addr - :remote-user [:date[iso]] ":method\
  :url HTTP/:http-version" :status :res[content-length] - :response-time ms`;
@@ -28,7 +30,6 @@ if (process.env.NODE_ENV !== 'development') {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
