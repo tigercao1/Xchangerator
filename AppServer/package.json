@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node -r dotenv/config bin/www",
+    "start": "pm2 start pm2.config.js",
+    "delete": "pm2 delete pm2.config.js",
+    "reload": "pm2 reload pm2.config.js",
+    "restart": "pm2 restart pm2.config.js",
     "dev": "DEBUG=appserver:* node -r dotenv/config bin/www"
   },
   "dependencies": {

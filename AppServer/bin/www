@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-const KEYS_DIR = process.env.KEYS_DIR || 'keys';
-
 /**
  * Module dependencies.
  */
@@ -9,8 +7,6 @@ const KEYS_DIR = process.env.KEYS_DIR || 'keys';
 const app = require('../app');
 const debug = require('debug')('appserver:server');
 const http = require('http');
-const path = require('path');
-const fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
