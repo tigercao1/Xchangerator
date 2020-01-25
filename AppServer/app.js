@@ -8,7 +8,14 @@ const apiRouter = require('./routes/api');
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    frameguard: false,
+    hsts: false,
+    noSniff: false,
+    xssFilter: false,
+  }),
+);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
