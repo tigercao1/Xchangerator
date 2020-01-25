@@ -8,7 +8,7 @@ const KEYS_DIR = process.env.KEYS_DIR || 'keys';
 
 const app = require('../app');
 const debug = require('debug')('appserver:server');
-const https = require('https');
+const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
@@ -16,19 +16,14 @@ const fs = require('fs');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '443');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTPS server.
+ * Create HTTP server.
  */
 
-const options = {
-  key: fs.readFileSync(path.join(KEYS_DIR, 'privkey.pem')),
-  cert: fs.readFileSync(path.join(KEYS_DIR, 'fullchain.pem')),
-};
-
-const server = https.createServer(options, app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -59,7 +54,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTPS server "error" event.
+ * Event listener for HTTP server "error" event.
  */
 
 function onError(error) {
@@ -85,7 +80,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTPS server "listening" event.
+ * Event listener for HTTP server "listening" event.
  */
 
 function onListening() {
@@ -94,6 +89,7 @@ function onListening() {
   console.log('appserver: started');
   debug('Listening on ' + bind);
   if (typeof addr !== 'string') {
-    debug(`To test: https://localhost:${addr.port}`);
+    debug(`To test: http://localhost:${addr.port}`);
+    debug(`To test: http://localhost:${addr.port}/api`);
   }
 }

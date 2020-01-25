@@ -1,9 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
 const helmet = require('helmet');
-const logger = require('morgan');
+const morgan = require('morgan');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -12,25 +10,12 @@ const app = express();
 
 app.use(helmet());
 
-const LOGGER_FORMAT = `:remote-addr - :remote-user [:date[iso]] ":method\
- :url HTTP/:http-version" :status :res[content-length] - :response-time ms`;
-
-if (process.env.NODE_ENV !== 'development') {
-  // create a write stream
-  const accessLogStream = fs.createWriteStream(
-    path.join(__dirname, 'access.log'),
-    {
-      flags: 'a', // append mode
-    },
-  );
-  app.use(logger(LOGGER_FORMAT, { stream: accessLogStream }));
-} else {
-  app.use(logger('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
 }
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

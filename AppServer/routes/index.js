@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send('Please download Xchangerator from App Store');
+  res.send('Dev only! This path should be handled by Nginx in production.');
 });
 
 module.exports = router;
