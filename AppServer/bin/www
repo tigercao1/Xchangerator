@@ -43,8 +43,8 @@ server.on('listening', onListening);
 const CronJob = require('cron').CronJob;
 
 const job = new CronJob('1 * * * *', function() {
-  const d = new Date();
-  logger.log('info', 'At time every hour: ' + d);
+  logger.log('info', `cron job triggered at ${new Date()}`);
+  // fetch latest ex rates and write to file
 });
 job.start();
 logger.log('info', 'cron job started');

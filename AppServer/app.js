@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const responseTime = require('response-time');
 
 const customLogger = require('./logger');
 const logger = customLogger('appserver');
@@ -22,6 +23,9 @@ app.use(
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
+
+  //Create a middleware that adds a X-Response-Time header to responses.
+  app.use(responseTime());
 }
 
 app.use(express.json());
@@ -42,7 +46,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  logger.log('error', `Error code ${err.status}`);
+  logger.log('error', `${err.status} ${err.message}`);
   res.status(err.status || 500);
   res.end('Error');
 });

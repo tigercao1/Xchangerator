@@ -2,5 +2,3 @@ node_modules
 .idea
 .env
 .DS_Store
-keys
-access.log
