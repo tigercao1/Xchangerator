@@ -16,7 +16,7 @@ const getLatest = async () => {
     const res = await request
       .get(constants.RATES_URL_LATEST)
       // .query({ app_id: API_KEY })
-      .query({ base: 'CAD' })
+      .query({ base: 'USD' })
       .retry(3, (err, res) => {
         if (err) {
           logger.log('error', `[getLatest] retry error: ${err} ${JSON.stringify(res, null, 2)}`)
