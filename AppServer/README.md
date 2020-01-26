@@ -7,7 +7,9 @@ Create `.env` file with key value pairs for environment variables needed by the 
 Sample `.env`
 ```
 NODE_ENV=development
+API_KEY=xxx
 PORT=3000
+LOG_LEVEL=debug
 ```
 
 launch
@@ -20,6 +22,7 @@ npm run dev
 Sample `.env`
 ```
 NODE_ENV=production
+API_KEY=xxx
 ```
 
 launch

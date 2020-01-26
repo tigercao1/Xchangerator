@@ -106,6 +106,6 @@ function onListening() {
   debug('Listening on ' + bind);
   if (typeof addr !== 'string') {
     debug(`To test: http://localhost:${addr.port}`);
-    debug(`To test: http://localhost:${addr.port}/api`);
+    debug(`To test: http://localhost:${addr.port}/api/latest`);
   }
 }
