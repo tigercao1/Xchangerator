@@ -3,6 +3,9 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const customLogger = require('./logger');
+const logger = customLogger('appserver');
+
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
@@ -39,8 +42,9 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  logger.log('error', `Error code ${err.status}`);
   res.status(err.status || 500);
-  res.send('Internal Server Error');
+  res.end('Error');
 });
 
 module.exports = app;
