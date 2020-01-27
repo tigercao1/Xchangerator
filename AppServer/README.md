@@ -1,8 +1,8 @@
-#Xchangerator AppServer
+# Xchangerator AppServer
 
 
-## For development:
-Create `.env` file with key value pairs for environment variables needed by the server
+## Development:
+Create `.env` file with key-value pairs for environment variables used by the server
 
 Sample `.env`
 ```
@@ -16,7 +16,7 @@ launch
 npm run dev
 ```
 
-## For production
+## Production
 
 Sample `.env`
 ```
