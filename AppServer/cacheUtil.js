@@ -9,15 +9,18 @@ const logger = customLogger('appserver:cacheUtil');
 
 const debug = require('debug')('appserver:cacheUtil');
 
+const cacheControlConst = require('./constants/cacheControl');
+
 /**
  * Middlewares
  */
-const getFactory = key => {
+const getFactory = (key, cacheResponseDirective) => {
   return async (req, res, next) => {
     try {
       const data = await getAsync(key);
       if (data !== null) {
         debug(`Cache exists, responding immediately ${JSON.stringify(data)}`);
+        res.set('Cache-Control', cacheResponseDirective);
         res.json(JSON.parse(data));
       } else {
         next();
@@ -29,7 +32,7 @@ const getFactory = key => {
   };
 };
 
-const checkLatest = getFactory('latest');
+const checkLatest = getFactory('latest', cacheControlConst.LATEST);
 
 /**
  * Util functions

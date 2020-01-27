@@ -4,6 +4,7 @@ const { getLatest } = require('../dataFetch');
 const customLogger = require('../logger');
 const logger = customLogger('appserver');
 const { checkLatest, setexLatest } = require('../cacheUtil');
+const cacheControlConst = require('../constants/cacheControl');
 
 router.get('/', function(req, res, next) {
   res.status(405).send('Method Not Allowed');
@@ -22,6 +23,7 @@ router.get('/latest', checkLatest, async function(req, res, next) {
     // write to redis
     await setexLatest(rates.body);
 
+    res.set('Cache-Control', cacheControlConst.LATEST);
     res.json(rates.body);
   } catch (e) {
     logger.error(e.stack);

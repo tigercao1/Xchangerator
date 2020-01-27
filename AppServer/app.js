@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
+app.use('/', indexRouter); // dev only
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
