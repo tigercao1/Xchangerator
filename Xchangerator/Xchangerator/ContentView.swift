@@ -30,8 +30,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(0)
-            Text("Favorite View")
-                .font(.title)
+            FavoriteView()
                 .tabItem {
                     VStack {
                         Image("heart.circle")
