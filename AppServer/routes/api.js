@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
 router.get('/latest', checkLatest, async function(req, res, next) {
   try {
     // fetch latest rates
+    logger.info('no redis cache found, start fetching latest rates');
     const rates = await getLatest();
 
     // write to redis
