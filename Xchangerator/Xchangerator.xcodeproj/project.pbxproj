@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16F97144349D70FD2CEAC394 /* Pods_Xchangerator_XchangeratorUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7B632A715C1AFC7F74E321 /* Pods_Xchangerator_XchangeratorUITests.framework */; };
 		C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36AD23D6C2E900DB155A /* AppDelegate.swift */; };
 		C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */; };
 		C58A36B223D6C2E900DB155A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36B123D6C2E900DB155A /* ContentView.swift */; };
@@ -14,6 +15,9 @@
 		C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B623D6C2F000DB155A /* Preview Assets.xcassets */; };
 		C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B823D6C2F000DB155A /* LaunchScreen.storyboard */; };
 		C58A36C523D6C2F100DB155A /* XchangeratorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36C423D6C2F100DB155A /* XchangeratorUITests.swift */; };
+		C59F467D23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */; };
+		C59F467E23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */; };
+		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05B2BEA67E05BE57FB4BE955 /* Pods-Xchangerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator.debug.xcconfig"; path = "Target Support Files/Pods-Xchangerator/Pods-Xchangerator.debug.xcconfig"; sourceTree = "<group>"; };
+		7C7B632A715C1AFC7F74E321 /* Pods_Xchangerator_XchangeratorUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchangerator_XchangeratorUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E49B2F1F4F8A909397848A /* Pods-Xchangerator-XchangeratorUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator-XchangeratorUITests.release.xcconfig"; path = "Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator.release.xcconfig"; path = "Target Support Files/Pods-Xchangerator/Pods-Xchangerator.release.xcconfig"; sourceTree = "<group>"; };
+		99F43CA57EA737834036E8E8 /* Pods-Xchangerator-XchangeratorUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; path = "Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchangerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58A36AA23D6C2E900DB155A /* Xchangerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xchangerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58A36AD23D6C2E900DB155A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +48,7 @@
 		C58A36C023D6C2F100DB155A /* XchangeratorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XchangeratorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58A36C423D6C2F100DB155A /* XchangeratorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XchangeratorUITests.swift; sourceTree = "<group>"; };
 		C58A36C623D6C2F100DB155A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +64,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16F97144349D70FD2CEAC394 /* Pods_Xchangerator_XchangeratorUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D6A3C666517D25CF6CC6591 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05B2BEA67E05BE57FB4BE955 /* Pods-Xchangerator.debug.xcconfig */,
+				8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */,
+				99F43CA57EA737834036E8E8 /* Pods-Xchangerator-XchangeratorUITests.debug.xcconfig */,
+				82E49B2F1F4F8A909397848A /* Pods-Xchangerator-XchangeratorUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		889D629E39822106BBDF02E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */,
+				7C7B632A715C1AFC7F74E321 /* Pods_Xchangerator_XchangeratorUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C58A36A123D6C2E900DB155A = {
 			isa = PBXGroup;
 			children = (
 				C58A36AC23D6C2E900DB155A /* Xchangerator */,
 				C58A36C323D6C2F100DB155A /* XchangeratorUITests */,
 				C58A36AB23D6C2E900DB155A /* Products */,
+				0D6A3C666517D25CF6CC6591 /* Pods */,
+				889D629E39822106BBDF02E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +114,7 @@
 		C58A36AC23D6C2E900DB155A /* Xchangerator */ = {
 			isa = PBXGroup;
 			children = (
+				C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
 				C58A36B123D6C2E900DB155A /* ContentView.swift */,
@@ -114,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C58A36C923D6C2F100DB155A /* Build configuration list for PBXNativeTarget "Xchangerator" */;
 			buildPhases = (
+				3294E30E8E96E3E3A1570667 /* [CP] Check Pods Manifest.lock */,
 				C58A36A623D6C2E900DB155A /* Sources */,
 				C58A36A723D6C2E900DB155A /* Frameworks */,
 				C58A36A823D6C2E900DB155A /* Resources */,
+				499C5977A22C431481511EE9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,9 +169,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C58A36CC23D6C2F100DB155A /* Build configuration list for PBXNativeTarget "XchangeratorUITests" */;
 			buildPhases = (
+				F366528A7D4408489BC2E93E /* [CP] Check Pods Manifest.lock */,
 				C58A36BC23D6C2F100DB155A /* Sources */,
 				C58A36BD23D6C2F100DB155A /* Frameworks */,
 				C58A36BE23D6C2F100DB155A /* Resources */,
+				C216B732C3AA5E783848D4E9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */,
+				C59F467D23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */,
 				C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */,
 				C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */,
 			);
@@ -198,10 +239,92 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C59F467E23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3294E30E8E96E3E3A1570667 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Xchangerator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		499C5977A22C431481511EE9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Xchangerator/Pods-Xchangerator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Xchangerator/Pods-Xchangerator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Xchangerator/Pods-Xchangerator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C216B732C3AA5E783848D4E9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F366528A7D4408489BC2E93E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Xchangerator-XchangeratorUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C58A36A623D6C2E900DB155A /* Sources */ = {
@@ -360,6 +483,7 @@
 		};
 		C58A36CA23D6C2F100DB155A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05B2BEA67E05BE57FB4BE955 /* Pods-Xchangerator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -380,6 +504,7 @@
 		};
 		C58A36CB23D6C2F100DB155A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -400,6 +525,7 @@
 		};
 		C58A36CD23D6C2F100DB155A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99F43CA57EA737834036E8E8 /* Pods-Xchangerator-XchangeratorUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -420,6 +546,7 @@
 		};
 		C58A36CE23D6C2F100DB155A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82E49B2F1F4F8A909397848A /* Pods-Xchangerator-XchangeratorUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
