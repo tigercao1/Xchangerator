@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
