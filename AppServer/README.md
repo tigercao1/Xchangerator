@@ -9,7 +9,6 @@ Sample `.env`
 NODE_ENV=development
 API_KEY=xxx
 PORT=3000
-LOG_LEVEL=debug
 ```
 
 launch
