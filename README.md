@@ -5,6 +5,6 @@ Group name: YYES
 
 Meeting Time: Tues 4:00pm - 5:30pm
 
-Meeting Location: Library
+Meeting Location: Library Room 463
 
 Project name: Xchangerator
