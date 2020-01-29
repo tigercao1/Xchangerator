@@ -13,11 +13,7 @@ struct ContentView: View {
  
     var body: some View {
         TabView(selection: $selection){
-            Text("Home View")
-                .font(.title)
-                .multilineTextAlignment(.center)
-                .lineLimit(nil)
-                .padding()
+            HomeView()
                 .tabItem {
                     VStack {
                         Image(systemName:"house")
