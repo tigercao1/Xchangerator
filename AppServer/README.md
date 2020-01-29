@@ -1,15 +1,14 @@
-#Xchangerator AppServer
+# Xchangerator AppServer
 
 
-## For development:
-Create `.env` file with key value pairs for environment variables needed by the server
+## Development:
+Create `.env` file with key-value pairs for environment variables used by the server
 
 Sample `.env`
 ```
 NODE_ENV=development
 API_KEY=xxx
 PORT=3000
-LOG_LEVEL=debug
 ```
 
 launch
@@ -17,7 +16,7 @@ launch
 npm run dev
 ```
 
-## For production
+## Production
 
 Sample `.env`
 ```
