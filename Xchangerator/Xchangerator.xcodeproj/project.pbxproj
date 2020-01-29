@@ -14,7 +14,7 @@
 		C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B623D6C2F000DB155A /* Preview Assets.xcassets */; };
 		C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B823D6C2F000DB155A /* LaunchScreen.storyboard */; };
 		C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59F468023DEAB6E00F631C3 /* FavoriteView.swift */; };
-		C59F468623E1357600F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F468523E1357500F631C3 /* GoogleService-Info.plist */; };
+		C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F468723E13BC500F631C3 /* GoogleService-Info.plist */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,7 @@
 		C58A36BB23D6C2F000DB155A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C59F468023DEAB6E00F631C3 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		C59F468423E12B2800F631C3 /* Xchangerator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xchangerator.entitlements; sourceTree = "<group>"; };
-		C59F468523E1357500F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C59F468723E13BC500F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +91,8 @@
 		C58A36AC23D6C2E900DB155A /* Xchangerator */ = {
 			isa = PBXGroup;
 			children = (
+				C59F468723E13BC500F631C3 /* GoogleService-Info.plist */,
 				C59F468423E12B2800F631C3 /* Xchangerator.entitlements */,
-				C59F468523E1357500F631C3 /* GoogleService-Info.plist */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
 				C58A36B123D6C2E900DB155A /* ContentView.swift */,
@@ -190,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */,
-				C59F468623E1357600F631C3 /* GoogleService-Info.plist in Resources */,
+				C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */,
 				C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */,
 				C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */,
 			);
