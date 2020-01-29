@@ -19,7 +19,7 @@ struct FavoriteView: View {
         // Add a new document with a generated ID
         var ref: DocumentReference? = nil
         ref = db.collection("users").addDocument(data: [
-            "first": "Ada",
+            "first": "🏀Kobe",
             "last": "Lovelace",
             "born": 1815
         ]) { err in
@@ -84,7 +84,7 @@ struct FavoriteView: View {
         VStack {
             Text("Hello, World!")
             Button(action: self.addAdaLovelace) {
-            Text("AddAdaLovelace")
+            Text("Add🏀Kobe")
             }
             Button(action: self.addAlanTuring) {
             Text("AddAlanTuring")
