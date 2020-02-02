@@ -1,6 +1,6 @@
 Team involvement
 - I explained the pull request #4 about the working backend architecture
-- we researched the a credential issue that Xcode did not allow other team members computers building the same iOS project on a real device.
+- we researched a credential issue that Xcode did not allow other team members computers building the same iOS project on a real device.
   - found a solution using project creator's credential: Certificate(.p12) and Provisioning Profile(.mobileprovision)
 
 
