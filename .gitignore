@@ -4,5 +4,5 @@ node_modules
 .DS_Store
 Xchangerator/Pods/
 Xchangerator/Xchangerator.xcworkspace/xcuserdata
-Xchangerator/Xchangerator.xcworkspace/xcuserdata/
-Xchangerator/Xchangerator.xcodeproj/xcuserdata
+Xchangerator/Xchangerator.xcworkspace/xcuserdata/*
+Xchangerator/Xchangerator.xcodeproj/xcuserdata/*
