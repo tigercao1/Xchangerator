@@ -4,5 +4,5 @@ Team work:
 
 Individual work:
 * Firebase notifiaction hello world with Postman
-* Install Firebase Admin SDK on node server
-
+* Install and configure Firebase Admin SDK on node server. https://firebase.google.com/docs/admin/setup
+* Credential installation Wiki
