@@ -21,6 +21,8 @@ admin.initializeApp({
   databaseURL: "https://xchangerator.firebaseio.com"
 });
 
+//firestore node api: https://firebase.google.com/docs/firestore/quickstart
+let db = admin.firestore() // Todo: maybe needed to exported ;
 
 app.use(
   helmet({
