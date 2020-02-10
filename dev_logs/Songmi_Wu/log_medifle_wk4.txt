@@ -1,0 +1,10 @@
+Team involvement
+- PR code review
+
+
+Individual work (Backend)
+- add DNSSEC support
+- test API for latest exchange rates query
+- test deployment to cloudflare CDN
+- test activity logger for production
+- enable cloudflare `latest` API cache (30 min)
