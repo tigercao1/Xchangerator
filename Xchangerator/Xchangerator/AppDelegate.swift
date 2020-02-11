@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         let db = Firestore.firestore()
         // [END default_firestore]
+        
         print(db) // silence warning
         return true
     }
@@ -29,6 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
+        let apiController = APIController()
+        
+        var data: Dictionary<String, Double>? = nil
+               
+        apiController.makeRequest{ (dict) in
+            data = dict
+            print(data as Any)
+        }
+        
+               
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
