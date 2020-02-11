@@ -19,8 +19,8 @@
 		C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B323D6C2F000DB155A /* Assets.xcassets */; };
 		C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B623D6C2F000DB155A /* Preview Assets.xcassets */; };
 		C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B823D6C2F000DB155A /* LaunchScreen.storyboard */; };
-		C59F467D23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */; };
 		C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59F468023DEAB6E00F631C3 /* FavoriteView.swift */; };
+		C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F468723E13BC500F631C3 /* GoogleService-Info.plist */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +45,9 @@
 		C58A36B623D6C2F000DB155A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C58A36B923D6C2F000DB155A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C58A36BB23D6C2F000DB155A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C59F468023DEAB6E00F631C3 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		C59F468423E12B2800F631C3 /* Xchangerator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xchangerator.entitlements; sourceTree = "<group>"; };
+		C59F468723E13BC500F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +149,7 @@
 				B4C4723523E138B6004834CF /* DAO */,
 				B4C4723223E13631004834CF /* Model */,
 				C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */,
+				C59F468423E12B2800F631C3 /* Xchangerator.entitlements */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
 				C58A36B123D6C2E900DB155A /* ContentView.swift */,
@@ -246,7 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */,
-				C59F467D23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */,
+				C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */,
 				C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */,
 				C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */,
 			);
@@ -448,8 +450,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = RSK847ZSJA;
 				ENABLE_PREVIEWS = YES;
@@ -458,9 +460,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = YYES.Xchangerator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -472,8 +474,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = RSK847ZSJA;
 				ENABLE_PREVIEWS = YES;
@@ -482,9 +484,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = YYES.Xchangerator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
