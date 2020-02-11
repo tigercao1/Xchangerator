@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: officecodeprod-regular
+font link: https://github.com/nathco/Office-Code-Pro
+font author: Nathan Rutzky
+font author site: https://nath.co/
+Slogan Font: SpaceMono-Regular.ttf
+
+icon designer: Vicons Design
+icon designer link: /ViconsDesign
+        
+{"bg":"#132554","font":"#ffffff","icon":"#00A3DD","slogan":"#ffffff"}
+      
