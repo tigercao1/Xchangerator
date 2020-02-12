@@ -1,3 +1,5 @@
+const fb = require('./fb');
+
 const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
@@ -11,18 +13,6 @@ const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 const app = express();
-
-var admin = require("firebase-admin");
-
-var serviceAccount = require("xchangerator-firebase-adminsdk-q2sf5-0e1d050c6a.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://xchangerator.firebaseio.com"
-});
-
-//firestore node api: https://firebase.google.com/docs/firestore/quickstart
-let db = admin.firestore() // Todo: maybe needed to exported ;
 
 app.use(
   helmet({
