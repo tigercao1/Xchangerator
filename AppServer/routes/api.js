@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getLatest } = require('../dataFetch');
+const { getHybridLatest } = require('../dataFetch');
 const customLogger = require('../logger');
 const logger = customLogger('appserver');
 const { checkLatest, setexLatest } = require('../cacheUtil');
@@ -18,13 +18,13 @@ router.get('/latest', checkLatest, async function(req, res, next) {
   try {
     // fetch latest rates
     logger.info('no redis cache found, start fetching latest rates');
-    const rates = await getLatest();
+    const data = await getHybridLatest();
 
     // write to redis
-    await setexLatest(rates.body);
+    await setexLatest(data);
 
     res.set('Cache-Control', cacheControlConst.LATEST);
-    res.json(rates.body);
+    res.json(data);
   } catch (e) {
     logger.error(e.stack);
     res.status(502).json({ errorCode: 502 });

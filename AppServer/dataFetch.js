@@ -1,6 +1,8 @@
 const request = require('superagent');
 const constants = require('./constants/query');
 const errorConsts = require('./constants/error');
+const emojiConsts = require('./constants/emoji');
+const currencyConsts = require('./constants/currencies');
 const customLogger = require('./logger');
 const logger = customLogger('appserver:dataFetch');
 const debug = require('debug')('appserver:dataFetch');
@@ -29,4 +31,29 @@ const getLatest = async () => {
   }
 };
 
-module.exports = { getLatest };
+const getHybridLatest = async () => {
+  const res = await getLatest();
+
+  const { timestamp, base, rates } = res.body;
+  const countries = [];
+
+  for (const code in rates) {
+    if (rates.hasOwnProperty(code)) {
+      const country = {
+        unit: code,
+        rate: rates[code],
+        flag: emojiConsts[code],
+        name: currencyConsts[code],
+      };
+      countries.push(country);
+    }
+  }
+
+  return {
+    timestamp,
+    base,
+    countries,
+  };
+};
+
+module.exports = { getLatest, getHybridLatest };
