@@ -1,0 +1,3 @@
+Layed out front-end class relationships and implemented model
+Discussed with backend dev about api formatting and agreed upon a set standard
+Implementation on seperate branch
