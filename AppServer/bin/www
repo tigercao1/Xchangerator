@@ -8,7 +8,7 @@ const app = require('../app');
 const debug = require('debug')('appserver:server');
 const http = require('http');
 const CronJob = require('cron').CronJob;
-const { getLatest } = require('../dataFetch');
+const { getHybridLatest } = require('../dataFetch');
 const { setexLatest } = require('../cacheUtil');
 
 /**
@@ -49,8 +49,8 @@ if (process.env.NODE_APP_INSTANCE === '0') {
     logger.info(`cron job triggered at ${new Date()}`);
 
     // fetch latest rates and write to redis
-    const rates = await getLatest();
-    await setexLatest(rates.body);
+    const data = await getHybridLatest();
+    await setexLatest(data);
   });
   job.start();
   logger.info('cron job started');
