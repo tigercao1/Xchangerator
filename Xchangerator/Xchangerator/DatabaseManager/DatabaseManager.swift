@@ -24,8 +24,8 @@ class DatabaseManager {
         var ref: DocumentReference? = nil
         ref = db.collection("users").addDocument(data: [
             "first": "DBtest",
-            "last": "",
-            "born": 1815,
+            "last": "Zhang",
+            "born": 1987,
             "deviceToken":firebaseMsgDeviceToken
         ]) { err in
             if let err = err {
