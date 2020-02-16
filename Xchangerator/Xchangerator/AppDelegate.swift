@@ -47,8 +47,23 @@ UNUserNotificationCenterDelegate {
         }
 
         application.registerForRemoteNotifications()
-
         // [END register_for_notifications]
+        
+// //  Remove notification
+//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        var viewController = UIViewController()
+//        if (launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? NSDictionary) != nil {
+//                viewController = storyBoard.instantiateViewController(withIdentifier: "storyboardIdentifier") // user tap notification
+//                application.applicationIconBadgeNumber = 0 // For Clear Badge Counts
+//                let center = UNUserNotificationCenter.current()
+//                center.removeAllDeliveredNotifications()
+//        } else {
+//                viewController = storyBoard.instantiateViewController(withIdentifier: "storyboardIdentifier") // User not tap notificaiton
+//        }
+//        self.window?.rootViewController = viewController
+//        self.window?.makeKeyAndVisible()
+
+    
         return true
     }
     
@@ -63,14 +78,13 @@ UNUserNotificationCenterDelegate {
       if let messageID = userInfo[gcmMessageIDKey] {
         print("Message ID: \(messageID)")
       }
-        let json = JSON(userInfo["aps"] ?? nil)
+        let json = JSON(userInfo["aps"] ?? [])
         let title = json["alert"]["title"].string ?? "Title"
         let body = json["alert"]["body"].string ?? "You received a message."
         let banner = FloatingNotificationBanner(title: "\(title)",
             subtitle: "\(body)",
                                                  style: .info)
         banner.show()
-
       // Print full message
       //print(json)
     }
@@ -120,3 +134,4 @@ extension AppDelegate  {
   }
   // [END ios_10_data_message]
 }
+
