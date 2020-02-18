@@ -1,1 +1,13 @@
-
+Technical debts:
+* social login and auth
+  - [ ] Login redirection 
+  - [ ] Email login 
+  - [ ] UI polish
+  
+Features done:
+* notifications
+  - [x] setup a package for notification banner UI
+  - [x] Support iOS client notification with Postman, when the app is running in the foreground
+  
+* swift JSON parser
+  - [x] setup a package for swift JSON parser 
