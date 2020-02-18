@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
 		C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36AD23D6C2E900DB155A /* AppDelegate.swift */; };
 		C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */; };
 		C58A36B223D6C2E900DB155A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58A36B123D6C2E900DB155A /* ContentView.swift */; };
@@ -25,6 +26,7 @@
 		8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator.release.xcconfig"; path = "Target Support Files/Pods-Xchangerator/Pods-Xchangerator.release.xcconfig"; sourceTree = "<group>"; };
 		99F43CA57EA737834036E8E8 /* Pods-Xchangerator-XchangeratorUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; path = "Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchangerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C58A36AA23D6C2E900DB155A /* Xchangerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xchangerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58A36AD23D6C2E900DB155A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C51D24F423F8D3380075B342 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C53C7C4323F0E85100E0EA4F /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */,
+			);
+			path = DatabaseManager;
+			sourceTree = "<group>";
+		};
 		C58A36A123D6C2E900DB155A = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +113,8 @@
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
 				C58A36B123D6C2E900DB155A /* ContentView.swift */,
+				C51D24F423F8D3380075B342 /* Utils */,
+				C53C7C4323F0E85100E0EA4F /* DatabaseManager */,
 				C59F467F23DEAB4900F631C3 /* Page */,
 				C58A36B323D6C2F000DB155A /* Assets.xcassets */,
 				C58A36B823D6C2F000DB155A /* LaunchScreen.storyboard */,
@@ -247,6 +266,7 @@
 			files = (
 				C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */,
 				C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */,
+				C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */,
 				C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */,
 				C58A36B223D6C2E900DB155A /* ContentView.swift in Sources */,
 			);

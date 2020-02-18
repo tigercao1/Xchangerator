@@ -1,0 +1,8 @@
+Team work:
+* we researched a credential issue that Xcode did not allow other team members computers building the same iOS project on a real device.
+  - found a solution using project creator's credential: Certificate(.p12) and Provisioning Profile(.mobileprovision)
+
+Individual work:
+* Firebase notifiaction hello world with Postman
+* Install and configure Firebase Admin SDK on node server. https://firebase.google.com/docs/admin/setup
+* Credential installation Wiki
