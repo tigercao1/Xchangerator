@@ -53,4 +53,9 @@ app.use(function(err, req, res, next) {
   res.end('Error');
 });
 
+//Todo: call like this when you need crud DB
+let db = fb.initDB();
+fb.getUserById(db,'M7H4N2GByVIQbEkP6AvZ');
+fb.getUsers(db);
+
 module.exports = app;
