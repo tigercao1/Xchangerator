@@ -158,7 +158,6 @@ const getTriggeredData = async (db, getUsers) => {
   }
 };
 
-// const sendNotifications = sendNotificationsFactory();
 const sendNotifications = async () => {
   const triggeredDataArr = await getTriggeredData(db, getUsers);
   debug(triggeredDataArr);
