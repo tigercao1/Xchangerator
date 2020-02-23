@@ -127,8 +127,8 @@ const getTriggeredData = async (db, getUsers) => {
         });
 
         const notificationDocs = notificationsSnapshot.docs;
-        for (let doc of notificationDocs) {
-          const { target, condition, disabled } = doc.data();
+        for (let ntQueryDocSnapshot of notificationDocs) {
+          const { target, condition, disabled } = ntQueryDocSnapshot.data();
           const conditionArr = condition.split('-');
           const [from, to, relation] = conditionArr;
           if (
@@ -141,6 +141,9 @@ const getTriggeredData = async (db, getUsers) => {
             })
           ) {
             triggeredDataArr.push({ deviceTokens, from, to, relation, target });
+            // update notification.disabled field to true
+            const ntRef = ntQueryDocSnapshot.ref;
+            await ntRef.update({ disabled: true });
           }
         }
       } else {
@@ -151,20 +154,21 @@ const getTriggeredData = async (db, getUsers) => {
     }
     return triggeredDataArr;
   } catch (e) {
-    throw e;
+    logger.error(e.stack);
   }
 };
 
 // const sendNotifications = sendNotificationsFactory();
 const sendNotifications = async () => {
   const triggeredDataArr = await getTriggeredData(db, getUsers);
+  debug(triggeredDataArr);
 
   const finalPromiseArr = triggeredDataArr.map(async data => {
     const { deviceTokens, from, to, relation, target } = data;
     // for each notification, send it to all devices registered by the user
     const reqPromiseArr = deviceTokens.map(async deviceToken => {
       try {
-        const result = await request
+        return request
           .post(requestUrlConst.FCM)
           .set('Authorization', process.env.FCM_SERVER_KEY)
           .send({
@@ -186,9 +190,6 @@ const sendNotifications = async () => {
               );
             }
           });
-        //todo: update disabled field
-        //
-        return result;
       } catch (e) {
         logger.error(e.stack);
       }
@@ -196,7 +197,7 @@ const sendNotifications = async () => {
     return Promise.allSettled(reqPromiseArr);
   });
   const results = await Promise.allSettled(finalPromiseArr);
-  logger.info(`${results.length} notifications were sent`);
+  logger.info(`[sendNotifications] ${results.length} notifications were sent`);
 };
 
 module.exports = { db, getUsers, getTriggeredData, sendNotifications };

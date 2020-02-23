@@ -53,6 +53,6 @@ app.use(function(err, req, res, next) {
 });
 
 //test
-// sendNotifications();
+sendNotifications();
 
 module.exports = app;
