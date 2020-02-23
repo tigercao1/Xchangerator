@@ -1,4 +1,4 @@
-const { db, getUsers, getTriggeredData } = require('./fb');
+const { sendNotifications } = require('./fb');
 const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
@@ -53,10 +53,6 @@ app.use(function(err, req, res, next) {
 });
 
 //test
-// const fn = async () => {
-//   const data = await getTriggeredData(db, getUsers);
-//   console.log(data);
-// };
-// fn();
+// sendNotifications();
 
 module.exports = app;

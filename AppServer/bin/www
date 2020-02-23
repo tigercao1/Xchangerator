@@ -10,6 +10,7 @@ const http = require('http');
 const CronJob = require('cron').CronJob;
 const { getHydratedLatest } = require('../dataFetch');
 const { setexHydratedLatest } = require('../cacheUtil');
+const { sendNotifications } = require('../fb');
 
 /**
  * Activity logger
@@ -46,11 +47,14 @@ server.on('listening', onListening);
 if (process.env.NODE_APP_INSTANCE === '0') {
   logger.info(`instance 0 is running`);
   const job = new CronJob('1 * * * *', async () => {
-    logger.info(`cron job triggered at ${new Date()}`);
+    logger.info(`cron job triggered`);
 
     // fetch latest rates and write to redis
-    const data = await getHydratedLatest();
-    await setexHydratedLatest(data);
+    const hydratedLatestRates = await getHydratedLatest();
+    await setexHydratedLatest(hydratedLatestRates);
+
+    // send user notifications
+    sendNotifications();
   });
   job.start();
   logger.info('cron job started');

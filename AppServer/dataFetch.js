@@ -1,5 +1,5 @@
 const request = require('superagent');
-const constants = require('./constants/query');
+const requestUrlConst = require('./constants/requestUrl');
 const errorConsts = require('./constants/error');
 const emojiConsts = require('./constants/emoji');
 const currencyConsts = require('./constants/currency');
@@ -16,16 +16,14 @@ const getRawLatest = async () => {
   }
   try {
     const res = await request
-      .get(constants.RATES_URL_LATEST)
+      .get(requestUrlConst.RATES_URL_LATEST)
       .query({ app_id: API_KEY })
       .retry(3, (err, res) => {
         if (err) {
           logger.error(
-            `[getRawLatest] retry error: ${err} ${JSON.stringify(
-              res,
-              null,
-              2,
-            )}`,
+            `[getRawLatest] retry error:
+            ${err}
+            ${JSON.stringify(res)}`,
           );
         }
       });

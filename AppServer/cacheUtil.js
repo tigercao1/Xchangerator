@@ -3,6 +3,7 @@ const client = redis.createClient();
 const { promisify } = require('util');
 const getAsync = promisify(client.get).bind(client);
 const setexAsync = promisify(client.setex).bind(client);
+const existsAsync = promisify(client.exists).bind(client);
 
 const customLogger = require('./logger');
 const logger = customLogger('appserver:cacheUtil');
@@ -57,14 +58,27 @@ const getFactory = key => {
   };
 };
 
+const existsFactory = key => {
+  return async () => {
+    try {
+      return await existsAsync(key);
+    } catch (e) {
+      logger.error(e.stack);
+    }
+  };
+};
+
 const setexHydratedLatest = setexFactory('latest');
 const setexRawLatest = setexFactory('rawLatest');
 
-const getRawLatest = getFactory('rawLatest');
+const getRawLatestCache = getFactory('rawLatest');
+
+const existsRawLatestCache = existsFactory('rawLatest');
 
 module.exports = {
   checkLatestMid,
   setexHydratedLatest,
   setexRawLatest,
-  getRawLatest,
+  getRawLatestCache,
+  existsRawLatestCache,
 };
