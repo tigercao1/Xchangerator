@@ -76,6 +76,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C51D24F423F8D3380075B342 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C53C7C4323F0E85100E0EA4F /* DatabaseManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +133,7 @@
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
 				C58A36B123D6C2E900DB155A /* ContentView.swift */,
+				C51D24F423F8D3380075B342 /* Utils */,
 				C53C7C4323F0E85100E0EA4F /* DatabaseManager */,
 				C59F467F23DEAB4900F631C3 /* Page */,
 				C58A36B323D6C2F000DB155A /* Assets.xcassets */,

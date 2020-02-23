@@ -10,10 +10,11 @@ import UIKit
 import FirebaseUI
 import Firebase
 import FirebaseMessaging
-//import GoogleSignIn
+import NotificationBannerSwift
+import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate {
+class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDelegate {
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -24,21 +25,6 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate {
         // Override point for customization after application launch.
         // [START default_firestore]
         FirebaseApp.configure()
-        
-//        let authUI = FUIAuth.defaultAuthUI()
-//        // You need to adopt a FUIAuthDelegate protocol to receive callback
-//        authUI?.delegate = self
-//        let providers: [FUIAuthProvider] = [
-//            FUIEmailAuth(),
-//            FUIGoogleAuth()
-//        ]
-//        authUI!.providers = providers
-////        let authViewController = authUI?.authViewController()
-
-        
-        let db = Firestore.firestore()
-        // [END default_firestore]
-        print(db) // silence warning
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
@@ -62,8 +48,23 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate {
         }
 
         application.registerForRemoteNotifications()
-
         // [END register_for_notifications]
+        
+// //  Remove notification
+//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        var viewController = UIViewController()
+//        if (launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? NSDictionary) != nil {
+//                viewController = storyBoard.instantiateViewController(withIdentifier: "storyboardIdentifier") // user tap notification
+//                application.applicationIconBadgeNumber = 0 // For Clear Badge Counts
+//                let center = UNUserNotificationCenter.current()
+//                center.removeAllDeliveredNotifications()
+//        } else {
+//                viewController = storyBoard.instantiateViewController(withIdentifier: "storyboardIdentifier") // User not tap notificaiton
+//        }
+//        self.window?.rootViewController = viewController
+//        self.window?.makeKeyAndVisible()
+
+    
         return true
     }
     
@@ -78,9 +79,15 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate {
       if let messageID = userInfo[gcmMessageIDKey] {
         print("Message ID: \(messageID)")
       }
-
-      // Print full message.
-      print(userInfo)
+        let json = JSON(userInfo["aps"] ?? [])
+        let title = json["alert"]["title"].string ?? "Title"
+        let body = json["alert"]["body"].string ?? "You received a message."
+        let banner = FloatingNotificationBanner(title: "\(title)",
+            subtitle: "\(body)",
+                                                 style: .info)
+        banner.show()
+      // Print full message
+      //print(json)
     }
     
 
@@ -133,48 +140,7 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate {
 
 }
 
-// [START ios_10_message_handling]
-@available(iOS 10, *)
-extension AppDelegate : UNUserNotificationCenterDelegate {
-
-  // Receive displayed notifications for iOS 10 devices.
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification,
-    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    let userInfo = notification.request.content.userInfo
-
-    // With swizzling disabled you must let Messaging know about the message, for Analytics
-    // Messaging.messaging().appDidReceiveMessage(userInfo)
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
-    }
-
-    // Print full message.
-    print(userInfo)
-
-    // Change this to your preferred presentation option
-    completionHandler([])
-  }
-
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              didReceive response: UNNotificationResponse,
-                              withCompletionHandler completionHandler: @escaping () -> Void) {
-    let userInfo = response.notification.request.content.userInfo
-    // Print message ID.
-    if let messageID = userInfo[gcmMessageIDKey] {
-      print("Message ID: \(messageID)")
-    }
-
-    // Print full message.
-    print(userInfo)
-
-    completionHandler()
-  }
-}
-// [END ios_10_message_handling]
-
-extension AppDelegate : MessagingDelegate {
+extension AppDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
     print("Firebase registration token: \(fcmToken)")
@@ -186,11 +152,15 @@ extension AppDelegate : MessagingDelegate {
     // Note: This callback is fired at each app startup and whenever a new token is generated.
   }
   // [END refresh_token]
+    
   // [START ios_10_data_message]
   // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
   // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
   func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-    print("Received data message: \(remoteMessage.appData)")
+//    let banner = NotificationBanner(title: title, subtitle: subtitle, style: .success)
+//    banner.show()
+//        print("Received data message: \(remoteMessage.appData)")
   }
   // [END ios_10_data_message]
 }
+
