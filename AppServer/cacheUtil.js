@@ -3,6 +3,7 @@ const client = redis.createClient();
 const { promisify } = require('util');
 const getAsync = promisify(client.get).bind(client);
 const setexAsync = promisify(client.setex).bind(client);
+const existsAsync = promisify(client.exists).bind(client);
 
 const customLogger = require('./logger');
 const logger = customLogger('appserver:cacheUtil');
@@ -14,7 +15,7 @@ const cacheControlConst = require('./constants/cacheControl');
 /**
  * Middlewares
  */
-const getFactory = (key, cacheResponseDirective) => {
+const checkMidFactory = (key, cacheResponseDirective) => {
   return async (req, res, next) => {
     try {
       const data = await getAsync(key);
@@ -32,7 +33,7 @@ const getFactory = (key, cacheResponseDirective) => {
   };
 };
 
-const checkLatest = getFactory('latest', cacheControlConst.LATEST);
+const checkLatestMid = checkMidFactory('latest', cacheControlConst.LATEST);
 
 /**
  * Util functions
@@ -47,6 +48,37 @@ const setexFactory = key => {
   };
 };
 
-const setexLatest = setexFactory('latest');
+const getFactory = key => {
+  return async () => {
+    try {
+      return await getAsync(key);
+    } catch (e) {
+      logger.error(e.stack);
+    }
+  };
+};
 
-module.exports = { checkLatest, setexLatest };
+const existsFactory = key => {
+  return async () => {
+    try {
+      return await existsAsync(key);
+    } catch (e) {
+      logger.error(e.stack);
+    }
+  };
+};
+
+const setexHydratedLatest = setexFactory('latest');
+const setexRawLatest = setexFactory('rawLatest');
+
+const getRawLatestCache = getFactory('rawLatest');
+
+const existsRawLatestCache = existsFactory('rawLatest');
+
+module.exports = {
+  checkLatestMid,
+  setexHydratedLatest,
+  setexRawLatest,
+  getRawLatestCache,
+  existsRawLatestCache,
+};
