@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getHybridLatest } = require('../dataFetch');
+const { getHydratedLatest } = require('../dataFetch');
 const customLogger = require('../logger');
 const logger = customLogger('appserver');
-const { checkLatest, setexLatest } = require('../cacheUtil');
+const { checkLatestMid, setexHydratedLatest } = require('../cacheUtil');
 const cacheControlConst = require('../constants/cacheControl');
 
 router.get('/', function(req, res, next) {
@@ -11,17 +11,17 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * Read data from redis if it exists, otherwise, make a getLatest request
+ * Read data from redis if it exists, otherwise, make a getHydratedLatest request
  * and update redis key store
  */
-router.get('/latest', checkLatest, async function(req, res, next) {
+router.get('/latest', checkLatestMid, async function(req, res, next) {
   try {
     // fetch latest rates
     logger.info('no redis cache found, start fetching latest rates');
-    const data = await getHybridLatest();
+    const data = await getHydratedLatest();
 
     // write to redis
-    await setexLatest(data);
+    await setexHydratedLatest(data);
 
     res.set('Cache-Control', cacheControlConst.LATEST);
     res.json(data);
