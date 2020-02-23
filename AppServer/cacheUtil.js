@@ -14,7 +14,7 @@ const cacheControlConst = require('./constants/cacheControl');
 /**
  * Middlewares
  */
-const getFactory = (key, cacheResponseDirective) => {
+const checkMidFactory = (key, cacheResponseDirective) => {
   return async (req, res, next) => {
     try {
       const data = await getAsync(key);
@@ -32,7 +32,7 @@ const getFactory = (key, cacheResponseDirective) => {
   };
 };
 
-const checkLatest = getFactory('latest', cacheControlConst.LATEST);
+const checkLatestMid = checkMidFactory('latest', cacheControlConst.LATEST);
 
 /**
  * Util functions
@@ -47,6 +47,24 @@ const setexFactory = key => {
   };
 };
 
-const setexLatest = setexFactory('latest');
+const getFactory = key => {
+  return async () => {
+    try {
+      return await getAsync(key);
+    } catch (e) {
+      logger.error(e.stack);
+    }
+  };
+};
 
-module.exports = { checkLatest, setexLatest };
+const setexHydratedLatest = setexFactory('latest');
+const setexRawLatest = setexFactory('rawLatest');
+
+const getRawLatest = getFactory('rawLatest');
+
+module.exports = {
+  checkLatestMid,
+  setexHydratedLatest,
+  setexRawLatest,
+  getRawLatest,
+};

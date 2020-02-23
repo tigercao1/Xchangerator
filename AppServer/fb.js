@@ -5,6 +5,7 @@ const fbFieldConst = require('./constants/fbField');
 const debug = require('debug')('appserver:firestore');
 const customLogger = require('./logger');
 const logger = customLogger('appserver:firestore');
+const { getRawLatest } = require('./cacheUtil');
 
 const admin = require('firebase-admin');
 
@@ -29,18 +30,34 @@ const getAllDocsFactory = collectionPath => {
 
 const getUsers = getAllDocsFactory(fbCollectionConst.users);
 
-const computeRate = (from, to) => {
-  //todo: get from and to from `latest` cache
+const computeRate = async (from, to) => {
+  const dataString = await getRawLatest();
+  const { rates } = JSON.parse(dataString);
+  const toRate = rates[to];
+  const fromRate = rates[from];
+  if (toRate && fromRate) {
+    return toRate / fromRate;
+  }
+  return void 0;
 };
 
-const isTriggeredNotification = ({ from, to, relation, target, disabled }) => {
-  const currentRate = computeRate(from, to);
-  if (!disabled) {
-    switch (relation) {
-      case 'GT':
-        return target < currentRate;
-      case 'LT':
-        return target > currentRate;
+const isTriggeredNotification = async ({
+  from,
+  to,
+  relation,
+  target,
+  disabled,
+}) => {
+  const currentRate = await computeRate(from, to);
+  if (currentRate) {
+    debug(`currentRate + ${currentRate}`);
+    if (!disabled) {
+      switch (relation) {
+        case 'GT':
+          return target < currentRate;
+        case 'LT':
+          return target > currentRate;
+      }
     }
   }
   return false;
@@ -64,12 +81,12 @@ const getTriggeredData = async (db, getUsers) => {
         });
 
         const notificationDocs = notificationsSnapshot.docs;
-        notificationDocs.forEach(doc => {
+        for (let doc of notificationDocs) {
           const { target, condition, disabled } = doc.data();
           const conditionArr = condition.split('-');
           const [from, to, relation] = conditionArr;
           if (
-            isTriggeredNotification({
+            await isTriggeredNotification({
               from,
               to,
               relation,
@@ -79,7 +96,7 @@ const getTriggeredData = async (db, getUsers) => {
           ) {
             triggeredDataArr.push({ deviceTokens, from, to, relation, target });
           }
-        });
+        }
       } else {
         logger.error(
           `${userDocSnapshot.ref.path} ${fbFieldConst.deviceTokens} is not undefined`,
