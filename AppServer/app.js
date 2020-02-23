@@ -1,5 +1,4 @@
-const fb = require('./fb');
-
+const { db, getUsers, filterTriggeredDoc } = require('./fb');
 const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
@@ -53,9 +52,8 @@ app.use(function(err, req, res, next) {
   res.end('Error');
 });
 
-//Todo: call like this when you need crud DB
-let db = fb.initDB();
-fb.getUserById(db,'M7H4N2GByVIQbEkP6AvZ');
-fb.getUsers(db);
+//test
+const data = getTriggeredData(db, getUsers);
+console.log(data);
 
 module.exports = app;

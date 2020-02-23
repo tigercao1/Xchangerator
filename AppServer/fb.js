@@ -1,114 +1,109 @@
 const path = require('path');
-const debug = require('debug')('appserver:firebase');
+const { get } = require('lodash');
+const fbCollectionConst = require('./constants/fbCollection');
+const fbFieldConst = require('./constants/fbField');
+const debug = require('debug')('appserver:firestore');
 const customLogger = require('./logger');
-const logger = customLogger('appserver:firebase');
+const logger = customLogger('appserver:firestore');
 
-const initDB=()=> {
-    /**
-     * Firebase: Initialize Cloud Firestore
-     */
-    const admin = require('firebase-admin');
+const admin = require('firebase-admin');
 
-  let serviceAccount = require(path.join(
-      __dirname,
-      process.env.SERVICE_ACCOUNT_KEY_PATH,
-  ));
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://xchangerator.firebaseio.com',
+});
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://xchangerator.firebaseio.com',
-  });
-  let db = admin.firestore();
-  return db
-}
+const db = admin.firestore();
 
-//firestore node api: https://firebase.google.com/docs/firestore/quickstart
-
-/**
- * Middlewares
- */
-const getByIdFactory = (collRef) => {
-  return async (db, docKey) => {
-    let docRef = db.collection(collRef).doc(docKey);
-    let getDoc = docRef.get()
-        .then(doc => {
-          if (!doc.exists) {
-            debug('No such document!');
-            console.log('No such document!');
-          } else {
-            debug(`Document data:', ${doc.data()}`);
-            console.log('Document data:', doc.data());
-          }
-        })
-        .catch(err => {
-          logger.error(err.stack);
-          console.log('Error getting document', err);
-        });
+const getAllDocsFactory = collectionPath => {
+  return async db => {
+    let docQuery = db.collection(collectionPath);
+    try {
+      let docQuerySnapshot = await docQuery.get();
+      return docQuerySnapshot;
+    } catch (e) {
+      throw e;
+    }
   };
 };
 
-const getAllFactory = (collRef) => {
-  return async (db) => {
-    let docs = db.collection(collRef);
-    let allDocs = docs.get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
-          });
-        })
-        .catch(err => {
-          console.log('Error getting documents', err);
-        });
+const getUsers = getAllDocsFactory(fbCollectionConst.users);
+
+const computeRate = (from, to) => {
+  //todo: get from and to from `latest` cache
+};
+
+const isTriggeredNotification = ({ from, to, relation, target, disabled }) => {
+  const currentRate = computeRate(from, to);
+  switch (relation) {
+    case 'GT':
+      return currentRate > target;
+    case 'LT':
+      return currentRate < target;
   }
-}
-const getUserById = getByIdFactory('users'); //M7H4N2GByVIQbEkP6AvZ
-const getUsers = getAllFactory('users');
+};
 
-//
-// /**
-//  * Set data
-//  */
-//https://firebase.google.com/docs/firestore/manage-data/add-data#set_a_document
-// let initialData = {
-//   name: 'Frank',
-//   age: 12,
-//   favorites: {
-//     food: 'Pizza',
-//     color: 'Blue',
-//     subject: 'recess'
-//   }
-// };
-// // ...
-// let updateNested = db.collection('users').doc('Frank').update({
-//   age: 13,
-//   'favorites.color': 'Red'
-// });
+const getTriggeredData = async (db, getUsers) => {
+  try {
+    const triggeredDataArr = [];
+    let usersDocSnapshot = await getUsers(db);
+    for (let userDocSnapshot of usersDocSnapshot.docs) {
+      const deviceTokens = get(
+        userDocSnapshot.data(),
+        fbFieldConst.deviceTokens,
+      );
+      debug(deviceTokens);
 
-//
-// /**
-//  * update data
-//  */
-// https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-//let cityRef = db.collection('cities').doc('DC');
-//let updateSingle = cityRef.update({capital: true});
+      if (deviceTokens) {
+        const notificationsSnapshot = await getSubcollection({
+          db,
+          docSnapshotPath: userDocSnapshot.ref.path,
+          subCollectionName: fbCollectionConst.notifications,
+        });
 
+        const notificationDocs = notificationsSnapshot.docs;
+        notificationDocs.forEach(doc => {
+          const { target, condition, disabled } = doc.data();
+          const conditionArr = condition.split('-');
+          const [from, to, relation] = conditionArr;
+          if (
+            isTriggeredNotification({
+              from,
+              to,
+              relation,
+              target,
+              disabled,
+            })
+          ) {
+            triggeredDataArr.push({ deviceTokens, from, to, relation });
+          }
+        });
 
+        return triggeredDataArr;
+      } else {
+        logger.error(
+          `${userDocSnapshot.ref.path} ${fbFieldConst.deviceTokens} is not undefined`,
+        );
+      }
+    }
+  } catch (e) {
+    throw e;
+  }
+};
 
-// /**
-//  * Del doc
-//  */
-//https://firebase.google.com/docs/firestore/manage-data/delete-data#fields
+/**
+ * Get the specified subcollection querySnapshot of a document
+ * @param db
+ * @param docSnapshotPath
+ * @param subCollectionName
+ * @returns {Promise<QuerySnapshot<T>>} subColQuerySnapshot
+ */
+const getSubcollection = async ({ db, docSnapshotPath, subCollectionName }) => {
+  let subColQuery = db.collection(
+    path.join(docSnapshotPath, subCollectionName),
+  );
+  const subColQuerySnapshot = await subColQuery.get();
+  return subColQuerySnapshot;
+};
 
- // let deleteDoc = db.collection('cities').doc('DC').delete();
-
-// /**
-//  * Del collections
-//  */
-// https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
-
-// /**
-//  * Del fields
-//  */
-// https://firebase.google.com/docs/firestore/manage-data/delete-data#fields
-
-module.exports = { getUserById,getUsers,initDB };
+module.exports = { db, getUsers, getTriggeredData };

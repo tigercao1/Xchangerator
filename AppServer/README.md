@@ -30,7 +30,7 @@ Sample `.env`
 NODE_ENV=development
 API_KEY=xxx
 PORT=3000
-SERVICE_ACCOUNT_KEY_PATH=xchangerator-firebase-adminsdk-q2sf5-0e1d050c6a.json
+GOOGLE_APPLICATION_CREDENTIALS=xchangerator-firebase-adminsdk-q2sf5-0e1d050c6a.json
 ```
 
 launch
@@ -44,7 +44,7 @@ Sample `.env`
 ```
 NODE_ENV=production
 API_KEY=xxx
-SERVICE_ACCOUNT_KEY_PATH=xchangerator-firebase-adminsdk-q2sf5-0e1d050c6a.json
+GOOGLE_APPLICATION_CREDENTIALS=xchangerator-firebase-adminsdk-q2sf5-0e1d050c6a.json
 ```
 
 launch

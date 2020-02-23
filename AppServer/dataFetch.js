@@ -2,7 +2,7 @@ const request = require('superagent');
 const constants = require('./constants/query');
 const errorConsts = require('./constants/error');
 const emojiConsts = require('./constants/emoji');
-const currencyConsts = require('./constants/currencies');
+const currencyConsts = require('./constants/currency');
 const customLogger = require('./logger');
 const logger = customLogger('appserver:dataFetch');
 const debug = require('debug')('appserver:dataFetch');
@@ -27,7 +27,7 @@ const getLatest = async () => {
     debug(JSON.stringify(res, null, 2));
     return res;
   } catch (e) {
-    throw Error(e);
+    throw e;
   }
 };
 
