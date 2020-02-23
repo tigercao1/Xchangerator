@@ -7,24 +7,23 @@
 //
 
 import UIKit
-import FirebaseUI
 import Firebase
 import FirebaseMessaging
 import NotificationBannerSwift
 import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate,
+UNUserNotificationCenterDelegate {
+
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
-    
-//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//    }
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // [START default_firestore]
         FirebaseApp.configure()
+
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
@@ -108,35 +107,7 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-//    @available(iOS 9.0, *)
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-//      let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-//      return self.handleOpenUrl(url, sourceApplication: sourceApplication)
-//    }
-//
-//    @available(iOS 8.0, *)
-//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-//      return self.handleOpenUrl(url, sourceApplication: sourceApplication)
-//    }
 
-//
-//    func handleOpenUrl(_ url: URL, sourceApplication: String?) -> Bool {
-//      if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-//        return true
-//      }
-//      // other URL handling goes here.
-//      return false
-//    }
-    func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-      if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-        return true
-      }
-      // other URL handling goes here.
-      return false
-    }
 
 }
 
