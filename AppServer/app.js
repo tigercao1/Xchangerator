@@ -1,4 +1,3 @@
-const { sendNotifications } = require('./fb');
 const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
