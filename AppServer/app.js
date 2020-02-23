@@ -52,7 +52,4 @@ app.use(function(err, req, res, next) {
   res.end('Error');
 });
 
-//test
-sendNotifications();
-
 module.exports = app;
