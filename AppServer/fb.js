@@ -35,12 +35,15 @@ const computeRate = (from, to) => {
 
 const isTriggeredNotification = ({ from, to, relation, target, disabled }) => {
   const currentRate = computeRate(from, to);
-  switch (relation) {
-    case 'GT':
-      return currentRate > target;
-    case 'LT':
-      return currentRate < target;
+  if (!disabled) {
+    switch (relation) {
+      case 'GT':
+        return target < currentRate;
+      case 'LT':
+        return target > currentRate;
+    }
   }
+  return false;
 };
 
 const getTriggeredData = async (db, getUsers) => {
@@ -52,7 +55,6 @@ const getTriggeredData = async (db, getUsers) => {
         userDocSnapshot.data(),
         fbFieldConst.deviceTokens,
       );
-      debug(deviceTokens);
 
       if (deviceTokens) {
         const notificationsSnapshot = await getSubcollection({
@@ -75,17 +77,16 @@ const getTriggeredData = async (db, getUsers) => {
               disabled,
             })
           ) {
-            triggeredDataArr.push({ deviceTokens, from, to, relation });
+            triggeredDataArr.push({ deviceTokens, from, to, relation, target });
           }
         });
-
-        return triggeredDataArr;
       } else {
         logger.error(
           `${userDocSnapshot.ref.path} ${fbFieldConst.deviceTokens} is not undefined`,
         );
       }
     }
+    return triggeredDataArr;
   } catch (e) {
     throw e;
   }

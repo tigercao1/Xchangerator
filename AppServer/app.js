@@ -1,4 +1,4 @@
-const { db, getUsers, filterTriggeredDoc } = require('./fb');
+const { db, getUsers, getTriggeredData } = require('./fb');
 const createError = require('http-errors');
 const express = require('express');
 const helmet = require('helmet');
@@ -53,7 +53,10 @@ app.use(function(err, req, res, next) {
 });
 
 //test
-const data = getTriggeredData(db, getUsers);
-console.log(data);
+// const fn = async () => {
+//   const data = await getTriggeredData(db, getUsers);
+//   console.log(data);
+// };
+// fn();
 
 module.exports = app;
