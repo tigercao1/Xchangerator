@@ -14,6 +14,7 @@ const {
 } = require('./cacheUtil');
 const { getHydratedLatest } = require('./dataFetch');
 const request = require('superagent');
+const createError = require('http-errors');
 
 const admin = require('firebase-admin');
 
@@ -140,10 +141,15 @@ const getTriggeredData = async (db, getUsers) => {
               disabled,
             })
           ) {
-            triggeredDataArr.push({ deviceTokens, from, to, relation, target });
-            // update notification.disabled field to true
-            const ntRef = ntQueryDocSnapshot.ref;
-            await ntRef.update({ disabled: true });
+            const ntRef = ntQueryDocSnapshot.ref; // notificationDocRef
+            triggeredDataArr.push({
+              deviceTokens,
+              from,
+              to,
+              relation,
+              target,
+              ntRef,
+            });
           }
         }
       } else {
@@ -162,41 +168,56 @@ const sendNotifications = async () => {
   const triggeredDataArr = await getTriggeredData(db, getUsers);
   debug(triggeredDataArr);
 
+  let successCount = 0;
+  let failureCount = 0;
+
   const finalPromiseArr = triggeredDataArr.map(async data => {
-    const { deviceTokens, from, to, relation, target } = data;
+    const { deviceTokens, from, to, relation, target, ntRef } = data;
     // for each notification, send it to all devices registered by the user
     const reqPromiseArr = deviceTokens.map(async deviceToken => {
-      try {
-        return request
-          .post(requestUrlConst.FCM)
-          .set('Authorization', process.env.FCM_SERVER_KEY)
-          .send({
-            to: deviceToken,
-            notification: {
-              body: `${from} to ${to} is now ${relationConst[relation]} ${target}`,
-              title: `Xchangerator Alert`,
-              content_available: true,
-              priority: 'high',
-              sound: 'default',
-            },
-          })
-          .retry(3, (err, res) => {
-            if (err) {
-              logger.error(
-                `[sendNotifications] retry error:
+      const result = await request
+        .post(requestUrlConst.FCM)
+        .set('Authorization', process.env.FCM_SERVER_KEY)
+        .send({
+          to: deviceToken,
+          notification: {
+            body: `${from} to ${to} is now ${relationConst[relation]} ${target}`,
+            title: `Xchangerator Alert`,
+            content_available: true,
+            priority: 'high',
+            sound: 'default',
+          },
+        })
+        .retry(3, (err, res) => {
+          if (err) {
+            logger.error(
+              `[sendNotifications] retry error:
                   ${err}
                   ${JSON.stringify(res)}`,
-              );
-            }
-          });
-      } catch (e) {
-        logger.error(e.stack);
+            );
+          }
+        });
+      if (result.body.success) {
+        successCount += 1;
+        await ntRef.update({ disabled: true });
       }
+      if (result.body.failure) {
+        failureCount += 1;
+        const errorMessage = `[sendNotifications] sending error:
+            deviceToken: ${deviceToken}
+            ${JSON.stringify(result.body.results)}
+            ${result.body.failure} messages failed to send.`;
+        logger.error(errorMessage);
+        throw Error(errorMessage);
+      }
+      return result;
     });
     return Promise.allSettled(reqPromiseArr);
   });
-  const results = await Promise.allSettled(finalPromiseArr);
-  logger.info(`[sendNotifications] ${results.length} notifications were sent`);
+  await Promise.allSettled(finalPromiseArr);
+  logger.info(
+    `[sendNotifications] ${successCount} notifications sent, ${failureCount} notifications failed`,
+  );
 };
 
 module.exports = { db, getUsers, getTriggeredData, sendNotifications };
