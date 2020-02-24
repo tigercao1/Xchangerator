@@ -1,0 +1,11 @@
+* social login and auth
+  - [x] Firebase console auth config
+  - [ ] Login redirection 
+  - [ ] Email login 
+  - [ ] UI polish
+  - [x] Google login 
+* project wiki sidebarm footer, homepage optimization
+
+* notifications
+  - [x] Support iOS client notification with Postman, when running in the background
+  - [ ] Support iOS client notification with Postman, when the app is running in the foreground

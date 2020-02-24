@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1065863548144-hvgvkde70s78vcb4pkcq0r6tgh3k25jt.apps.googleusercontent.com</string>
+	<string>1065863548144-plbcb4vkch6m93e147p7obhvff9n3540.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1065863548144-hvgvkde70s78vcb4pkcq0r6tgh3k25jt</string>
+	<string>com.googleusercontent.apps.1065863548144-plbcb4vkch6m93e147p7obhvff9n3540</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCU0JzwnveuBJ6LD-T51BEE89G7n86mt7Y</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>YYES.Xchangerator</string>
+	<string>com.YYES.Xchangerator</string>
 	<key>PROJECT_ID</key>
 	<string>xchangerator</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1065863548144:ios:40d32613351d64599e4635</string>
+	<string>1:1065863548144:ios:6b6b3e905aeec0de9e4635</string>
 	<key>DATABASE_URL</key>
 	<string>https://xchangerator.firebaseio.com</string>
 </dict>

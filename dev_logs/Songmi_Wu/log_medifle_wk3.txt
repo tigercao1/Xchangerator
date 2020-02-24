@@ -1,0 +1,11 @@
+Team involvement
+- I explained the pull request #4 about the working backend architecture
+- we researched a credential issue that Xcode did not allow other team members computers building the same iOS project on a real device.
+  - found a solution using project creator's credential: Certificate(.p12) and Provisioning Profile(.mobileprovision)
+
+
+Individual work (Backend)
+- support Cron job: every 1 hr
+- fix race condition in Cron job when running multiple Node processes
+- support Redis in-memory cache for one or multiple Node processes to achieve fast and scalable incoming query responses
+- switch data API to `openexchangerates.org` after finishing server test
