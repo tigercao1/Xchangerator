@@ -1,0 +1,18 @@
+Team involvement
+- Shared knowledge on Firebase products we are using
+  - Cloud Firestore
+  - Firebase Cloud Messaging(FCM)
+- investigated firestore NoSQL data structure and query features
+  - concluded a solution on user and notification data structure，
+    which supports faster db query and scalabilty at the same time .
+-  FCM messaging test with songmi, on premises of Noder Server, rather than Postman
+
+Technical debts:
+* social login and auth
+  - [ ] Login redirection 
+  - [ ] Email login 
+  - [ ] UI polish
+
+Features done:
+* [x] Hello World Firebase Admin CRUD APIs on Node server
+	
