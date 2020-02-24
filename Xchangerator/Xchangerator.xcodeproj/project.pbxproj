@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C58A36B823D6C2F000DB155A /* LaunchScreen.storyboard */; };
 		C59F467D23DE9EB000F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */; };
 		C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59F468023DEAB6E00F631C3 /* FavoriteView.swift */; };
+		CA05BDAE23F0CF6C000E6A39 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA05BDAE23F0CF6C000E6A39 /* PartialSheet in Frameworks */,
 				D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +158,9 @@
 			dependencies = (
 			);
 			name = Xchangerator;
+			packageProductDependencies = (
+				CA05BDAD23F0CF6C000E6A39 /* PartialSheet */,
+			);
 			productName = Xchangerator;
 			productReference = C58A36AA23D6C2E900DB155A /* Xchangerator.app */;
 			productType = "com.apple.product-type.application";
@@ -184,6 +189,9 @@
 				Base,
 			);
 			mainGroup = C58A36A123D6C2E900DB155A;
+			packageReferences = (
+				CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */,
+			);
 			productRefGroup = C58A36AB23D6C2E900DB155A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -399,7 +407,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
-				DEVELOPMENT_TEAM = RSK847ZSJA;
+				DEVELOPMENT_TEAM = LP375DFX8N;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Xchangerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -423,7 +431,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
-				DEVELOPMENT_TEAM = RSK847ZSJA;
+				DEVELOPMENT_TEAM = LP375DFX8N;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Xchangerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -460,6 +468,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA05BDAD23F0CF6C000E6A39 /* PartialSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */;
+			productName = PartialSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C58A36A223D6C2E900DB155A /* Project object */;
 }
