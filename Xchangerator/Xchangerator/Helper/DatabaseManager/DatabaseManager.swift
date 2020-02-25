@@ -29,9 +29,28 @@ class DatabaseManager {
             "deviceToken":firebaseMsgDeviceToken
         ]) { err in
             if let err = err {
-                print("Error adding document: \(err), and token \(firebaseMsgDeviceToken)")
+                Logger.error("Error adding document: \(err), and token \(firebaseMsgDeviceToken)")
             } else {
-                print("Document added with ID: \(ref!.documentID), token:\(firebaseMsgDeviceToken)")
+                Logger.info("Document added with ID: \(String(describing: ref?.documentID)), token:\(firebaseMsgDeviceToken)")
+            }
+        }
+        // [END add_ada_lovelace]
+    }
+    
+    func registerUser(token firebaseMsgDeviceToken:String) {
+        // [START add_ada_lovelace]
+        // Add a new document with a generated ID
+        var ref: DocumentReference? = nil
+        ref = db.collection("users").addDocument(data: [
+            "first": "DBtest",
+            "last": "Zhang",
+            "born": 1987,
+            "deviceToken":firebaseMsgDeviceToken
+        ]) { err in
+            if let err = err {
+                Logger.error("Error adding document: \(err), and token \(firebaseMsgDeviceToken)")
+            } else {
+                Logger.info("Document added with ID: \(String(describing: ref?.documentID)), token:\(firebaseMsgDeviceToken)")
             }
         }
         // [END add_ada_lovelace]

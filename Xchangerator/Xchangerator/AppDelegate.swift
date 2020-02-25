@@ -72,27 +72,24 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
       // If you are receiving a notification message while your app is in the background,
       // this callback will not be fired till the user taps on the notification launching the application.
-      // TODO: Handle data of notification
       // With swizzling disabled you must let Messaging know about the message, for Analytics
       // Messaging.messaging().appDidReceiveMessage(userInfo)
       // Print message ID.
       if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
+        Logger.info("Message ID: \(messageID)")
       }
+        // TODO: Handle data part of notification
         let json = JSON(userInfo["aps"] ?? [])
         let title = json["alert"]["title"].string ?? "Title"
         let body = json["alert"]["body"].string ?? "You received a message."
         let banner = FloatingNotificationBanner(title: "\(title)",
-            subtitle: "\(body)",
-                                                 style: .info)
+            subtitle: "\(body)", style: .info)
         banner.show()
-      // Print full message
-      //print(json)
     }
     
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-      print("Unable to register for remote notifications: \(error.localizedDescription)")
+        Logger.error("Unable to register for remote notifications: \(error.localizedDescription)")
     }
     
     // MARK: UISceneSession Lifecycle
@@ -143,7 +140,7 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
 extension AppDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-    print("Firebase registration token: \(fcmToken)")
+    Logger.info("Firebase registration token: \(fcmToken)")
     
     let dataDict:[String: String] = ["token": fcmToken]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
