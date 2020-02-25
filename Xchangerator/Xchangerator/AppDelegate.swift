@@ -76,7 +76,7 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
       // Messaging.messaging().appDidReceiveMessage(userInfo)
       // Print message ID.
       if let messageID = userInfo[gcmMessageIDKey] {
-        Logger.info("Message ID: \(messageID)")
+        Logger.debug("Message ID: \(messageID)")
       }
         // TODO: Handle data part of notification
         let json = JSON(userInfo["aps"] ?? [])
@@ -128,11 +128,12 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-      if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-        return true
-      }
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+            
+        }
       // other URL handling goes here.
-      return false
+        return false
     }
 
 }
@@ -140,12 +141,10 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
 extension AppDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-    Logger.info("Firebase registration token: \(fcmToken)")
-    
+    Logger.debug("Firebase device token received: \(fcmToken)")
     let dataDict:[String: String] = ["token": fcmToken]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-    // TODO: If necessary send token to application server.
-    DatabaseManager.shared.addDeviceToken(token:fcmToken)
+    UserRepoManager().storeCurDeviceToken(forUserID:"current" , token:fcmToken)
     // Note: This callback is fired at each app startup and whenever a new token is generated.
   }
   // [END refresh_token]

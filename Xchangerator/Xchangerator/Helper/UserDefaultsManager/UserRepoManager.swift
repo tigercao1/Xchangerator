@@ -10,7 +10,7 @@ import Foundation
 
 class UserRepoManager {
     enum Key: String, CaseIterable {
-        case name, avatarData
+        case name, avatarData, fcmToken
         func make(for userID: String) -> String {
             return self.rawValue + "_" + userID
         }
@@ -21,6 +21,10 @@ class UserRepoManager {
         self.userDefaults = userDefaults
     }
     // MARK: - API
+    func storeCurDeviceToken(forUserID userID: String, token: String) {
+        saveValue(forKey: .fcmToken, value: token, userID: userID)
+    }
+    
     func storeInfo(forUserID userID: String, name: String, avatarData: Data) {
         saveValue(forKey: .name, value: name, userID: userID)
         saveValue(forKey: .avatarData, value: avatarData, userID: userID)
@@ -42,6 +46,9 @@ class UserRepoManager {
     }
     // MARK: - Private
     private func saveValue(forKey key: Key, value: Any, userID: String) {
+        #if DEBUG
+        Logger.info("\(key.make(for: userID)) stored in User Repo")
+        #endif
         userDefaults.set(value, forKey: key.make(for: userID))
     }
     private func readValue<T>(forKey key: Key, userID: String) -> T? {

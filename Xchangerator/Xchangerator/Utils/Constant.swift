@@ -12,7 +12,7 @@ enum Constant {
 //    static let xAssetConnector = "assetConnector"
     
     //Logger
-    static let xLogFileName = "XChangeratorLog.txt"
+    static let xLogFileName = "XChangeratorLog.log"
     
     // For UserDefault storing
 //    static let xAssetIdForRegistration = "registrationAssetId"
