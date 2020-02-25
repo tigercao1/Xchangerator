@@ -15,4 +15,5 @@ Technical debts:
 
 Features done:
 * [x] Hello World Firebase Admin CRUD APIs on Node server
+* [x] Firestore DB restrictions on Firebase console
 	
