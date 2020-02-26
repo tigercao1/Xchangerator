@@ -15,6 +15,8 @@ import SwiftyJSON
 // Bridge SwiftUI and UIkit
 //https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
 struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
+    @EnvironmentObject var stateStore: ReduxRootStateStore
+
     func makeCoordinator() -> FUIAuthBaseViewControllerWrapper.Coordinator {
         Coordinator(self)
     }
@@ -78,12 +80,17 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
              FIRUserMetadata:metadata
              */
-//            _ = retObj.user
             let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID:"current")
             
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
             DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj)
-//            Logger.debug("UserData: \(String(describing:user.email)) \(String(describing: retObj.additionalUserInfo.creationDate))")
+            self.parent.stateStore.curRoute = .content
+            
+            if let user = Auth.auth().currentUser  {
+                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:[], name:user.displayName ?? "New User")
+                let userDoc = User_DBDoc(profile:userProfile)
+                self.parent.stateStore.user = userDoc
+            }
         }
 
         func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)

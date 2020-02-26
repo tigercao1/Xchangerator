@@ -14,6 +14,7 @@ enum Constant {
     //Logger
     static let xLogFileName = "XChangeratorLog.log"
     static let maxAlertsForFree = 5
+    static let xDBtokenPrefix = "V1_"
     
     // For UserDefault storing
 //    static let xAssetIdForRegistration = "registrationAssetId"
