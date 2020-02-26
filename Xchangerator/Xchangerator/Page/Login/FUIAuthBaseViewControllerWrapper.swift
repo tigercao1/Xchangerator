@@ -35,15 +35,18 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
+//        FUIAuth.defaultAuthUI()?.shouldHideCancelButton = true
+//
         let authUI = FUIAuth.defaultAuthUI()
 
-                 // You need to adopt a FUIAuthDelegate protocol to receive callback
+     // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
             FUIEmailAuth(),
             FUIGoogleAuth()
         ]
         authUI?.providers = providers
         authUI?.delegate = context.coordinator
+        authUI?.shouldHideCancelButton = true
         //Todo: Terms of Services
 //        let xFirebaseTermsOfService = URL(string: "https://firebase.google.com/terms/")!
 //        authUI?.tosurl = xFirebaseTermsOfService

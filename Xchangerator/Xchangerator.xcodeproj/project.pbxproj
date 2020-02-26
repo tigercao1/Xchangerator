@@ -124,18 +124,11 @@
 		C53C7C4623F12EEF00E0EA4F /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C53C7C4A23F14A4E00E0EA4F /* FUIAuthBaseViewControllerWrapper.swift */,
 				C53C7C4723F12F2500E0EA4F /* LoginView.swift */,
 				C5197558240630DF00B88635 /* LoginAuthPickerViewController.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		C53C7C4923F14A0A00E0EA4F /* UIkitWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				C53C7C4A23F14A4E00E0EA4F /* FUIAuthBaseViewControllerWrapper.swift */,
-			);
-			path = UIkitWrapper;
 			sourceTree = "<group>";
 		};
 		C58A36A123D6C2E900DB155A = {
@@ -186,7 +179,6 @@
 		C59F467F23DEAB4900F631C3 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				C53C7C4923F14A0A00E0EA4F /* UIkitWrapper */,
 				C53C7C4623F12EEF00E0EA4F /* Login */,
 				C59F468323DEABB400F631C3 /* Favorites */,
 			);
