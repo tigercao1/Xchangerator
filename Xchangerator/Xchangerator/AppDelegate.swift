@@ -79,9 +79,9 @@ class AppDelegate: UIResponder,UIApplicationDelegate,FUIAuthDelegate,MessagingDe
         Logger.debug("Message ID: \(messageID)")
       }
         // TODO: Handle data part of notification
-        let json = JSON(userInfo["aps"] ?? [])
-        let title = json["alert"]["title"].string ?? "Title"
-        let body = json["alert"]["body"].string ?? "You received a message."
+        let apsJSON = JSON(userInfo["aps"] ?? [])
+        let title = apsJSON["alert"]["title"].string ?? "Title"
+        let body = apsJSON["alert"]["body"].string ?? "You received a message."
         let banner = FloatingNotificationBanner(title: "\(title)",
             subtitle: "\(body)", style: .info)
         banner.show()
