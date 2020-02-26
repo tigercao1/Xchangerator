@@ -21,18 +21,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
 //    typealias UIViewControllerType = UIViewController
     
-    func dismiss(_ authDataResult: AuthDataResult?, _ error : Error? ) -> Void {
-        guard let _ = error else {
-            Logger.error("Err: Failed to sign in with user. User:\(String(describing: authDataResult));Error:\(String(describing: error)) " )
-            return
-        }
-
-        guard let userJSONData = authDataResult else {
-            Logger.warning("Failed to sign in with user.User: \(String(describing: authDataResult)) " )
-            return
-        }
-        Logger.debug(userJSONData)
-    }
 
     func makeUIViewController(context: Context) -> UIViewController {
 //        FUIAuth.defaultAuthUI()?.shouldHideCancelButton = true
@@ -79,7 +67,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 return
             }
 
-            guard let userJSONData = authDataResult else {
+            guard let retObj = authDataResult else {
                 Logger.warning("User data corruption: \(String(describing: authDataResult)) " )
                 return
             }
@@ -89,8 +77,13 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              refreshToken:NSString
              providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
              FIRUserMetadata:metadata
- */
-            Logger.debug("UserData: \(userJSONData.user.isEmailVerified) \(String(describing: userJSONData.additionalUserInfo))")
+             */
+//            _ = retObj.user
+            let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID:"current")
+            
+            Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
+            DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj)
+//            Logger.debug("UserData: \(String(describing:user.email)) \(String(describing: retObj.additionalUserInfo.creationDate))")
         }
 
         func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)

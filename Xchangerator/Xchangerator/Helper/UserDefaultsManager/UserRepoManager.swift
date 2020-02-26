@@ -24,6 +24,10 @@ class UserRepoManager {
     func storeCurDeviceToken(forUserID userID: String, token: String) {
         saveValue(forKey: .fcmToken, value: token, userID: userID)
     }
+    func getCurDeviceToken(forUserID userID: String) -> String? {
+        let tokenString: String? = readValue(forKey: .fcmToken, userID: userID)
+        return tokenString
+    }
     
     func storeInfo(forUserID userID: String, name: String, avatarData: Data) {
         saveValue(forKey: .name, value: name, userID: userID)
