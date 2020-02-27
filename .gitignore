@@ -6,3 +6,5 @@ Xchangerator/Pods/
 Xchangerator/Xchangerator.xcworkspace/xcuserdata
 Xchangerator/Xchangerator.xcworkspace/xcuserdata/
 Xchangerator/Xchangerator.xcodeproj/xcuserdata
+AppServer/xchangerator-firebase-adminsdk*.json
+
