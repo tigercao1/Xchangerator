@@ -25,8 +25,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
     
 
     func makeUIViewController(context: Context) -> UIViewController {
-//        FUIAuth.defaultAuthUI()?.shouldHideCancelButton = true
-//
         let authUI = FUIAuth.defaultAuthUI()
 
      // You need to adopt a FUIAuthDelegate protocol to receive callback
