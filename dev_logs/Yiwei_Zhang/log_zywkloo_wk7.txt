@@ -25,3 +25,8 @@
 
 * Global State Store 
 - [X] Implemented Redux like global state store
+
+* Setting Page
+- [x] Basic info display
+- [x] Sign out button 
+
