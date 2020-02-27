@@ -24,19 +24,7 @@ UNUserNotificationCenterDelegate {
         // [START default_firestore]
         FirebaseApp.configure()
         // [END default_firestore]
-        
-        let apiController = APIController()
-        
-        var data: Dictionary<String, Double> = [:]
-        
-        apiController.makeRequest{ (dict) in
-            data = dict
-            print(data)
-        }
-        
-        
 
-        
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
         // [END set_messaging_delegate]

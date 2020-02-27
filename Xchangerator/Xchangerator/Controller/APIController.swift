@@ -10,27 +10,20 @@ import Foundation
 
 class APIController {
     
-    func makeRequest(_ completion: @escaping (Dictionary<String, Double>) -> ()) -> Void {
+    func makeRequest(_ completion: @escaping(CountryList) -> ()) {
         let session = URLSession.shared
-        let url = URL(string: "https://xchangerator.com/api/latest")!
-        let task = session.dataTask(with: url, completionHandler: {data, response, error in
-            do {
-                // make sure this JSON is in the format we expect
-                if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                    // try to read out a string array
-                    let rates = json["rates"] as! [String: Double]
-                    completion(rates)
-                }
-            } catch let error as NSError {
-                print("Failed to load: \(error.localizedDescription)")
-            }
-            // Do something...
+        guard let url = URL(string: "https://xchangerator.com/api/latest") else {return}
+        let task = session.dataTask(with: url, completionHandler:  {data, response, error in
+            guard let dataResponse = data,
+                error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    return}
+            //here dataResponse received from a network request
+            let decoder = JSONDecoder()
+            let countries = try! decoder.decode(CountryList.self, from: dataResponse)
+            completion(countries)
         })
         task.resume()
-    }
-    
-    func returnRates(_ rates: Dictionary<String, Double>) -> Dictionary<String, Double> {
-        return rates
     }
     
 }

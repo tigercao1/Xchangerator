@@ -20,15 +20,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
+        
+        let countries = apiCall()
+        
         let contentView = ContentView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(countries))
             self.window = window
             window.makeKeyAndVisible()
         }
+    }
+    
+    func apiCall() -> Countries {
+        let apiController = APIController()
+        var countries = Countries()
+        apiController.makeRequest{(data) in countries = Countries(countryList:data)}
+        while countries.getModel().count <= 1 {
+            sleep(1)
+        }
+        return countries
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

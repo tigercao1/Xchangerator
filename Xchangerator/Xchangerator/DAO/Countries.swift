@@ -8,19 +8,25 @@
 
 import Foundation
 
-class Countries {
-    var countries = Set<Country>()
+class Countries: ObservableObject{
+    var countries = Array<Country>()
     
     init() {
-        countries.insert(Country(name: "Test", flag: "👻", unit: "GHO", rate: 109.1))
+        countries.append(Country(flag: "👻",  name: "Test", rate: 109.1, unit: "GHO"))
+    }
+    
+    init(countryList: CountryList) {
+        for country in countryList.countries {
+            countries.append(country)
+        }
     }
     
     func add(_ country: Country) -> Country {
         let temp = country
-        countries.insert(temp)
+        countries.append(temp)
         return temp
     }
-    
+        
     func findByName(_ name: String) throws -> Country {
         for temp in countries {
             if temp.name == name {
@@ -50,7 +56,7 @@ class Countries {
         return temp
     }
     
-    func getModel() -> Set<Country> {
+    func getModel() -> Array<Country> {
         return countries
     }
 }

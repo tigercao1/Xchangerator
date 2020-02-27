@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct Country: Hashable {
-    var name: String = ""
+struct Country: Hashable, Codable {
     var flag: String = ""
-    let unit: String
+    var name: String = ""
     var rate: Double = 0
+    let unit: String
+
 }
 
 //class Country: Hashable {

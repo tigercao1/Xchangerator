@@ -4,13 +4,12 @@
 //
 //  Created by 张一唯 on 2020-01-21.
 //  Copyright © 2020 YYES. All rights reserved.
-//
+//  Authors: Yizhang Cao
 
 import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
- 
     var body: some View {
         TabView(selection: $selection){
             HomeView()

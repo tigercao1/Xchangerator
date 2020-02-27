@@ -14,4 +14,5 @@ enum EntityExceptions: Error {
 
 enum HTTPRequestExceptions: Error {
     case DataRetrievalException(String)
+    case JSONParsingException(String)
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
+		B4240F122404D3D60001EE6D /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4240F112404D3D60001EE6D /* CountryList.swift */; };
 		B4C4722F23E0B60F004834CF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4722E23E0B60F004834CF /* HomeView.swift */; };
 		B4C4723423E13642004834CF /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4723323E13642004834CF /* Country.swift */; };
 		B4C4723723E138C1004834CF /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4723623E138C1004834CF /* Countries.swift */; };
@@ -31,6 +33,8 @@
 		8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator.release.xcconfig"; path = "Target Support Files/Pods-Xchangerator/Pods-Xchangerator.release.xcconfig"; sourceTree = "<group>"; };
 		99F43CA57EA737834036E8E8 /* Pods-Xchangerator-XchangeratorUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; path = "Target Support Files/Pods-Xchangerator-XchangeratorUITests/Pods-Xchangerator-XchangeratorUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchangerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		B4240F112404D3D60001EE6D /* CountryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		B4C4722E23E0B60F004834CF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B4C4723323E13642004834CF /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		B4C4723623E138C1004834CF /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
@@ -82,6 +86,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C51D24F423F8D3380075B342 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C53C7C4323F0E85100E0EA4F /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */,
+			);
+			path = DatabaseManager;
+			sourceTree = "<group>";
+		};
+		B4240F102404CC7D0001EE6D /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C59F468723E13BC500F631C3 /* GoogleService-Info.plist */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		B4C4722D23E0B5F8004834CF /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C4723323E13642004834CF /* Country.swift */,
+				B4240F112404D3D60001EE6D /* CountryList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,6 +158,7 @@
 				C58A36AB23D6C2E900DB155A /* Products */,
 				0D6A3C666517D25CF6CC6591 /* Pods */,
 				889D629E39822106BBDF02E8 /* Frameworks */,
+				B4240F102404CC7D0001EE6D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,7 +177,7 @@
 				B4C4723823EC5573004834CF /* Controller */,
 				B4C4723523E138B6004834CF /* DAO */,
 				B4C4723223E13631004834CF /* Model */,
-				C59F467C23DE9EB000F631C3 /* GoogleService-Info.plist */,
+				C59F468723E13BC500F631C3 /* GoogleService-Info.plist */,
 				C59F468423E12B2800F631C3 /* Xchangerator.entitlements */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
@@ -251,6 +280,7 @@
 			files = (
 				C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */,
 				C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */,
+				C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */,
 				C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */,
 				C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */,
 			);
@@ -305,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4240F122404D3D60001EE6D /* CountryList.swift in Sources */,
 				B4C4723423E13642004834CF /* Country.swift in Sources */,
 				C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */,
 				C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */,
