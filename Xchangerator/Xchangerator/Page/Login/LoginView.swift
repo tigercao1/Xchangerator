@@ -44,19 +44,8 @@ struct LoginView : View {
             }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
             ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
         }
-
     }
-
-//    public func status() {
-//        self.viewState = CGSize(width: 0, height: 0)
-//        self.MainviewState = CGSize(width: 0, height: screenHeight)
-//    }
 }
-//struct LoginView: View {
-//    var body: some View {
-//        FUIAuthBaseViewControllerWrapper()
-//    }
-//}
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

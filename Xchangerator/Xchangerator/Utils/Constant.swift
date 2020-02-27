@@ -8,17 +8,12 @@
 
 
 enum Constant {
-    //User default
-//    static let xAssetConnector = "assetConnector"
     
     //Logger
     static let xLogFileName = "XChangeratorLog.log"
     static let maxAlertsForFree = 5
+    
+    //DB
     static let xDBtokenPrefix = "V1_"
-    
-    // For UserDefault storing
-//    static let xAssetIdForRegistration = "registrationAssetId"
-    
-//    static let xSetPreferenceActionPosition = 99
 
 }
