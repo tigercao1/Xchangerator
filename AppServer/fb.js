@@ -154,7 +154,7 @@ const getTriggeredData = async (db, getUsers) => {
         }
       } else {
         logger.error(
-          `${userDocSnapshot.ref.path} ${fbFieldConst.deviceTokens} is not undefined`,
+          `${userDocSnapshot.ref.path} ${fbFieldConst.deviceTokens} is undefined`,
         );
       }
     }
