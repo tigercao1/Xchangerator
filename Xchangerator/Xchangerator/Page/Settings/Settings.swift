@@ -27,12 +27,8 @@ struct Settings: View {
     
  //https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation
     var body: some View {
+        NavigationView{
              VStack{
-//
-//                        MapView(coordinate: CLLocationCoordinate2D(
-//                                          latitude: -116.166868,
-//                                          longitude: 34.011286))        .edgesIgnoringSafeArea(.top)
-//                            .frame(height: 300)
                 Spacer()
                 ImageView(withURL:stateStore.user.profile.photoURL! )
                     .frame(width:100, height:100).clipShape(Circle())
@@ -64,7 +60,7 @@ struct Settings: View {
                     HStack {
                         Image(systemName: "escape")
                             .font(.title).padding(.horizontal,20)
-                        Text("SignOut")
+                        Text("Sign Out")
                             .fontWeight(.semibold)
                             .font(.headline)
                     }
@@ -74,10 +70,11 @@ struct Settings: View {
                     .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing))
                     .cornerRadius(30)
                     .padding(.horizontal, CGFloat(20))
+                    
                 }.padding()
-
-                        
-         }
+                
+             }.navigationBarTitle(Text("Settings"))//
+        }
     }
 }
 

@@ -7,12 +7,14 @@
 //
 
 import Foundation
-
+import Combine
 
 class ReduxRootStateStore: ObservableObject {
     @Published var curRoute: Key = .auth
     @Published var secondaryRoute: ContentSubKey = .home
     @Published var user: User_DBDoc = User_DBDoc ()
+    @Published var isLandscape: Bool = false
+
 
     enum Key: String, CaseIterable {
         case auth, content

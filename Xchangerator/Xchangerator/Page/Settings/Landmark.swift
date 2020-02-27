@@ -6,7 +6,7 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-
+/*
 import SwiftUI
 import CoreLocation
 
@@ -42,3 +42,4 @@ struct Coordinates: Hashable, Codable {
     var latitude: Double
     var longitude: Double
 }
+*/

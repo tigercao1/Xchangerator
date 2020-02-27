@@ -19,7 +19,6 @@ public var screenHeight: CGFloat {
     return UIScreen.main.bounds.height
 }
 struct LoginView : View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var stateStore: ReduxRootStateStore
     
     @State private var bottomViewState = CGSize(width: 0, height: screenHeight)
@@ -31,16 +30,16 @@ struct LoginView : View {
 // Bridge SwiftUI and UIkit
 //https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
                 FUIAuthBaseViewControllerWrapper()
-                VStack(alignment: .center, spacing: screenHeight*0.3){
-                    Image(colorScheme == .light ? "default-monochrome-black":"default-monochrome").padding(.top, screenHeight*0.3).padding(.horizontal, 10).offset(y:-screenWidth/3)//
-                    HStack{
+                VStack(alignment: .trailing, spacing: screenHeight*0.2){
+                    HStack(alignment: .center){
                         Text("Build by YYES. with")
                             .fontWeight(.regular)
                             .foregroundColor(Color.blue)
                     Image(systemName:"heart.circle").foregroundColor(Color.blue)
-
-                    }.offset(y:screenWidth*0.15).padding(.bottom,10)
+                        }.padding(20).frame(width: screenWidth, height: screenHeight-50,
+                        alignment: .bottom)
                 }
+                .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
             }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
             ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
         }

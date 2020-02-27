@@ -26,7 +26,7 @@
 		C5AADDDF240700B30077D669 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDDE240700B30077D669 /* Landmark.swift */; };
 		C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE1240702EC0077D669 /* CircleImage.swift */; };
 		C5AADDE4240704950077D669 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE3240704950077D669 /* MapView.swift */; };
-		C5AADDE624071B650077D669 /* DataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE524071B650077D669 /* DataStruct.swift */; };
+		C5AADDE624071B650077D669 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE524071B650077D669 /* DataModels.swift */; };
 		C5AADDE824072AD60077D669 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE724072AD60077D669 /* ImageLoader.swift */; };
 		C5AADDEB240747530077D669 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE9240747530077D669 /* LoginView.swift */; };
 		C5AADDEC240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */; };
@@ -62,7 +62,7 @@
 		C5AADDDE240700B30077D669 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		C5AADDE1240702EC0077D669 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		C5AADDE3240704950077D669 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		C5AADDE524071B650077D669 /* DataStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStruct.swift; sourceTree = "<group>"; };
+		C5AADDE524071B650077D669 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		C5AADDE724072AD60077D669 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		C5AADDE9240747530077D669 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUIAuthBaseViewControllerWrapper.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 				C519754D2404DB0100B88635 /* UserDefaultsManager */,
 				C51975512404DD3C00B88635 /* TextManager.swift */,
 				C5AADDD62406EB5F0077D669 /* EnvStateStore.swift */,
-				C5AADDE524071B650077D669 /* DataStruct.swift */,
+				C5AADDE524071B650077D669 /* DataModels.swift */,
 				C5AADDE724072AD60077D669 /* ImageLoader.swift */,
 			);
 			path = Helper;
@@ -387,7 +387,7 @@
 				C5AADDD72406EB5F0077D669 /* EnvStateStore.swift in Sources */,
 				C5AADDEB240747530077D669 /* LoginView.swift in Sources */,
 				C519754F2404DB9F00B88635 /* Logger.swift in Sources */,
-				C5AADDE624071B650077D669 /* DataStruct.swift in Sources */,
+				C5AADDE624071B650077D669 /* DataModels.swift in Sources */,
 				C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */,
 				C51975522404DD3C00B88635 /* TextManager.swift in Sources */,
 				C5AADDDF240700B30077D669 /* Landmark.swift in Sources */,
