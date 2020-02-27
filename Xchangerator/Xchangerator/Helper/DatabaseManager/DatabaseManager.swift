@@ -68,7 +68,7 @@ class DatabaseManager {
                 if let err = err {
                     Logger.error("Error adding document: \(err), and token \(String(describing: firebaseMsgDeviceToken))")
                 } else {
-                    Logger.info("Document added with ID: \(String(describing: userRef.documentID)), token:\(String(describing: firebaseMsgDeviceToken))")
+                    Logger.debug("User Doc set with ID: \(String(describing: userRef.documentID)), token:\(String(describing: firebaseMsgDeviceToken))")
                 }
             }
         }

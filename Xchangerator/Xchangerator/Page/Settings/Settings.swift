@@ -14,16 +14,6 @@ import CoreLocation
 struct Settings: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var stateStore: ReduxRootStateStore
-
-//    @State private var user: User_Profile
-
-
-//    let uid = user.uid
-//    let email = user.email
-    // providerID
-    //displayName
-    //photoURL
-    //phonenumber
     
     private func signOut() {
         do {
