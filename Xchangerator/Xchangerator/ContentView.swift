@@ -43,16 +43,15 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("first")
-                        Text("Notification")
+                        Image(systemName:"exclamationmark.bubble")
+                        Text("Alerts")
                     }
                 }
                 .tag(2)
-            Text("Settings View")
-                .font(.title)
+            Settings()
                 .tabItem {
                     VStack {
-                        Image("second")
+                        Image(systemName:"gear")
                         Text("Settings")
                     }
                 }
