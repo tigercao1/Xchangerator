@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA05BDAE23F0CF6C000E6A39 /* PartialSheet in Frameworks */,
 				D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +237,9 @@
 			dependencies = (
 			);
 			name = Xchangerator;
+			packageProductDependencies = (
+				CA05BDAD23F0CF6C000E6A39 /* PartialSheet */,
+			);
 			productName = Xchangerator;
 			productReference = C58A36AA23D6C2E900DB155A /* Xchangerator.app */;
 			productType = "com.apple.product-type.application";
@@ -264,6 +268,9 @@
 				Base,
 			);
 			mainGroup = C58A36A123D6C2E900DB155A;
+			packageReferences = (
+				CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */,
+			);
 			productRefGroup = C58A36AB23D6C2E900DB155A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -487,7 +494,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
-				DEVELOPMENT_TEAM = RSK847ZSJA;
+				DEVELOPMENT_TEAM = LP375DFX8N;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Xchangerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,7 +518,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
-				DEVELOPMENT_TEAM = RSK847ZSJA;
+				DEVELOPMENT_TEAM = LP375DFX8N;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Xchangerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,6 +555,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA05BDAD23F0CF6C000E6A39 /* PartialSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */;
+			productName = PartialSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C58A36A223D6C2E900DB155A /* Project object */;
 }
