@@ -1,0 +1,27 @@
+* Technical Debts
+- [ ] Change to dependency injection
+- [ ] Login Page refactor with AuthViewController
+- [ ] Tune imageLoadbalancer
+- [ ] MapView or Geolocation???? 
+
+* Social login and auth
+- [x] Login redirection 
+- [x] Email login 
+- [x] UI polish
+- [x] register user in Firebase console
+
+* Utils
+- [x] added Loggerr
+- [x] added Constant
+- [x] added CommonUI/CircleAvatarImageView
+- [x] added Constant
+
+* DB manager
+- [x] UserProfile Struct
+
+* UserRepo manager
+- [x] Tmp UserDefault implementation
+- [x] Comply with UserProfile Struct format
+
+* Global State Store 
+- [X] Implemented Redux like global state store
