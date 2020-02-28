@@ -36,7 +36,7 @@ struct LoginView : View {
                             .fontWeight(.regular)
                             .foregroundColor(Color.blue)
                     Image(systemName:"heart.circle").foregroundColor(Color.blue)
-                        }.padding(20).frame(width: screenWidth, height: screenHeight-50,
+                    }.padding(20).frame(width: screenWidth, height: screenHeight*0.85,
                         alignment: .bottom)
                 }
                 .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
