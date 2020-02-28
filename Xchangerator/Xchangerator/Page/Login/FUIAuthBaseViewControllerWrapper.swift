@@ -16,6 +16,7 @@ import SwiftyJSON
 //https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
 struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     func makeCoordinator() -> FUIAuthBaseViewControllerWrapper.Coordinator {
         Coordinator(self)
@@ -93,12 +94,40 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
         func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)
         {
-            Logger.debug("Finish\(operation)")
+            Logger.debug("Finish \(operation)")
         }
 //        // Todo: customize the login page
 //        func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
 //          return CustomAuthPickerViewController(authUI: authUI)
 //        }
+//        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//
+//        }
+//
+        func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+            
+            let loginViewController = FUIAuthPickerViewController(authUI: authUI)
+            
+  
+            let logoFrame = self.parent.stateStore.isLandscape ? CGRect(x: screenWidth*0.1, y: screenHeight*0.12, width: screenWidth*0.8, height: screenHeight*0.2): CGRect(x: screenWidth*0.1, y: screenHeight*0.2, width: screenWidth*0.8, height: screenHeight*0.3)
+            let logoImageView = UIImageView(frame: logoFrame)
+            
+//                                Image(colorScheme == .light ? "default-monochrome-black":"default-monochrome").padding(.top, screenHeight*0.3).padding(.horizontal, 10).offset(y:-screenWidth/3)//
+            logoImageView.image = UIImage(named: self.parent.colorScheme == .light ? "default-monochrome-black":"default-monochrome")
+            logoImageView.contentMode = .scaleAspectFit
+
+            
+           
+            //fix this once Firebase UI releases the dark mode support for sign-in
+            
+    //        loginViewController.view.subviews.backgroundColor = .white
+    //        loginViewController.view.subviews[0].subviews[0].backgroundColor = .white
+            
+            loginViewController.view.addSubview(logoImageView)
+            loginViewController.view.bringSubviewToFront(logoImageView)
+            return loginViewController
+        }
+        
     }
 }
 
