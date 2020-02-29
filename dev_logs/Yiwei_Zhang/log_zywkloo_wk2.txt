@@ -1,0 +1,13 @@
+Team involvement
+- we rehearsed the d1 presentation
+- import SFsymbol icon 
+- configure Firestore
+
+Individual work
+- Xcode Proj init 
+- Implemented Tab View
+- Imported Tab View icon
+- Configured Cloud Firestore
+- Init cocoaPods
+- Install Firebase core SDK
+- Cloud Firestore Read and Create on iOS

@@ -1,0 +1,17 @@
+Team involvement
+- discussion on Firebase products we are using
+  - Cloud Firestore
+  - Firebase Cloud Messaging(FCM)
+- investigated firestore NoSQL data structure and query features
+  - concluded a solution on user and notification data structure which support fast firestore db query features in the future.
+- integration test with Yiwei on FCM messaging
+
+Individual work (Backend)
+- PR#7
+  - firestore setup integration
+  - firestore db query all user docs to construct triggered notifications
+  - refactor `api/latest` cache logic to get exchange rate computation work
+  - send triggered notifications to messaging service in cron job
+  - update notification.disabled status to true after the notification was triggered
+- PR#13
+  - update AppServer FCM error handling logic

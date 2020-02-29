@@ -1,0 +1,10 @@
+Team involvement
+- `/api/latest` endpoint data structure discussion
+- code review: PR#6, PR#7
+
+Individual work (Backend)
+- integrate PR#7 into AppServer by importing credentials via environment variables
+- change `/api/latest` endpoint response data structure to reduce mobile end workload
+- update AppServer README
+  - add installation and launch guide on Redis for local development
+  - add PR#7 sample for .env file

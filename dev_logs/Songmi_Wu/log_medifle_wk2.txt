@@ -1,0 +1,13 @@
+Team involvement
+- we rehearsed the d1 presentation
+- I introduced a basic Node.js-based backend architecture
+
+Individual work
+- set up basic `Node.js` Express server
+- config domain name with cloud server
+- support https(TLS 1.2, TLS 1.3) on cloud server
+- put Node.js server behind Nginx as recommended by Express
+- support url redirect from http to https on Nginx
+- support http2, HSTS(HTTP Strict Transport Security), IPv6
+- add more security enhancement on Nginx and Node server
+- add Node process manager(pm2) for production
