@@ -28,24 +28,29 @@ struct HomeView: View {
         NavigationView {
             VStack {
                 HStack {
+                    Image(systemName:"mappin.and.ellipse").resizable()
+                        .frame(width: 15, height: 15)
+                        .padding(.leading, 15)
                     Text("🇨🇦")
-                        .padding(.leading, 50)
+                        .padding(.leading, 25)
                         .font(.largeTitle)
                     TextField("Amount", text: $baseCurrencyAmt)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
                         .fixedSize()
-                        .frame(width: 170)
+                        .frame(width: 140)
                     Text(baseCurrencyUnit)
                     
                     Button(action: {
                         self.modalPresented = true
                     }) {
-                    Image("ellipsis").padding(.trailing, 10).padding(.leading, 20)
+                    Image("ellipsis")
+                        .padding(.trailing, 10)
+                        .padding(.leading, 20)
                     }
                 }
                     .overlay(
-                        RoundedRectangle(cornerRadius: 30)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.black, lineWidth: 0.5)
                     ).padding()
                 ScrollView{
@@ -62,7 +67,7 @@ struct HomeView: View {
                             Text(country.unit).padding(.trailing, 50)
                         }
                             .overlay(
-                                RoundedRectangle(cornerRadius: 30)
+                                RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.black, lineWidth: 0.5)
                             ).padding()
                     }
