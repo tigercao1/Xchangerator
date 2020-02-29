@@ -11,12 +11,16 @@ import PartialSheet
 import SwiftUI
 
 struct HomeView: View {
+    
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCurrencyUnit: String = "CAD"
     @EnvironmentObject var countries: Countries
     @State private var modalPresented: Bool = false
-    @State private var longer: Bool = false
-    
+    @State private var favourite: Bool = false
+    @State private var showLinkTarget = false
+    @State private var chartClicked = false
+    @State private var setAlertClicked = false
+
     func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
         let converter = Converter(countries)
@@ -76,24 +80,32 @@ struct HomeView: View {
                 
             }
             
-        }.partialSheet(presented: $modalPresented) {
-            VStack {
-                Group {
-                    Text("Settings Panel")
-                        .font(.subheadline)
-                    Toggle(isOn: self.$longer) {
-                        Text("Advanced")
-                    }
-                    .padding()
-                }
-                .frame(height: 50)
-                if self.longer {
-                    VStack {
-                        Text("More settings here...")
-                    }
-                    .frame(height: 200)
-                }
-            }
         }
+    }.partialSheet(presented: $modalPresented) {
+    VStack {
+        Group {
+            Toggle(isOn: self.$favourite) {
+                Text("Add to Favourite")
+            }
+            .padding()
+            Text("Chart").gesture(
+                TapGesture().onEnded {
+                    action: do {
+                      self.chartClicked = true
+                    }})
+            Text("Set Alert").gesture(
+            TapGesture().onEnded {
+                action: do {
+                  self.setAlertClicked = true
+                }})
+                
+                
+            .padding(.leading)
+            
+        }.frame(height: 65)
+        
+//        if self.favourite {
+//            //add to favourite
+//        }
     }
 }
