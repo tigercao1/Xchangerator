@@ -1,0 +1,4 @@
+Work log - Elaine Deng - Week 3, Week 4
+
+- Learning SwiftUI for project
+- make pop up menu for homepage
