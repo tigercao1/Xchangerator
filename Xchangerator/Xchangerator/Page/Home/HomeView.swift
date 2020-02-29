@@ -80,32 +80,30 @@ struct HomeView: View {
                 
             }
             
-        }
-    }.partialSheet(presented: $modalPresented) {
-    VStack {
-        Group {
-            Toggle(isOn: self.$favourite) {
-                Text("Add to Favourite")
+        }.partialSheet(presented: $modalPresented) {
+
+            VStack {
+                Group {
+                    Toggle(isOn: self.$favourite) {
+                        Text("Add to Favourite")
+                    }
+                    .padding()
+                    Text("Chart").gesture(
+                        TapGesture().onEnded {
+                            action: do {
+                            self.chartClicked = true
+                            }})
+                    Text("Set Alert").gesture(
+                    TapGesture().onEnded {
+                        action: do {
+                        self.setAlertClicked = true
+                        }})
+                        
+                        
+                    .padding(.leading)
+                    
+                }.frame(height: 65)
             }
-            .padding()
-            Text("Chart").gesture(
-                TapGesture().onEnded {
-                    action: do {
-                      self.chartClicked = true
-                    }})
-            Text("Set Alert").gesture(
-            TapGesture().onEnded {
-                action: do {
-                  self.setAlertClicked = true
-                }})
-                
-                
-            .padding(.leading)
-            
-        }.frame(height: 65)
-        
-//        if self.favourite {
-//            //add to favourite
-//        }
+        }
     }
 }
