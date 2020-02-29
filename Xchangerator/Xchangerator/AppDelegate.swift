@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseUI
 import Firebase
 import FirebaseMessaging
 import NotificationBannerSwift
@@ -18,13 +19,11 @@ UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // [START default_firestore]
         FirebaseApp.configure()
-        // [END default_firestore]
-
+        
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
         // [END set_messaging_delegate]
@@ -36,14 +35,14 @@ UNUserNotificationCenterDelegate {
           // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
 
-          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-          UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: {_, _ in })
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
         } else {
-          let settings: UIUserNotificationSettings =
-          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-          application.registerUserNotificationSettings(settings)
+            let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
         }
 
         application.registerForRemoteNotifications()
@@ -71,27 +70,24 @@ UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
       // If you are receiving a notification message while your app is in the background,
       // this callback will not be fired till the user taps on the notification launching the application.
-      // TODO: Handle data of notification
       // With swizzling disabled you must let Messaging know about the message, for Analytics
       // Messaging.messaging().appDidReceiveMessage(userInfo)
       // Print message ID.
       if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
+        Logger.debug("Message ID: \(messageID)")
       }
-        let json = JSON(userInfo["aps"] ?? [])
-        let title = json["alert"]["title"].string ?? "Title"
-        let body = json["alert"]["body"].string ?? "You received a message."
+        // TODO: Handle data part of notification
+        let apsJSON = JSON(userInfo["aps"] ?? [])
+        let title = apsJSON["alert"]["title"].string ?? "Title"
+        let body = apsJSON["alert"]["body"].string ?? "You received a message."
         let banner = FloatingNotificationBanner(title: "\(title)",
-            subtitle: "\(body)",
-                                                 style: .info)
+            subtitle: "\(body)", style: .info)
         banner.show()
-      // Print full message
-      //print(json)
     }
     
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-      print("Unable to register for remote notifications: \(error.localizedDescription)")
+        Logger.error("Unable to register for remote notifications: \(error.localizedDescription)")
     }
     
     // MARK: UISceneSession Lifecycle
@@ -111,18 +107,34 @@ UNUserNotificationCenterDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+//
+//    func handleOpenUrl(_ url: URL, sourceApplication: String?) -> Bool {
+//      if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+//        return true
+//      }
+//      // other URL handling goes here.
+//      return false
+//    }
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+            
+        }
+      // other URL handling goes here.
+        return false
+    }
 
 }
 
 extension AppDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-    print("Firebase registration token: \(fcmToken)")
-    
+    Logger.debug("Firebase device token received: \(fcmToken)")
     let dataDict:[String: String] = ["token": fcmToken]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-    // TODO: If necessary send token to application server.
-    DatabaseManager.shared.addDeviceToken(token:fcmToken)
+    UserRepoManager().storeCurDeviceToken(forUserID:"current" , token:fcmToken)
     // Note: This callback is fired at each app startup and whenever a new token is generated.
   }
   // [END refresh_token]

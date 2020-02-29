@@ -16,10 +16,6 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image(systemName:"house")
-                        .resizable()
-                        .frame(width: 100,
-                               height: 100,
-                               alignment: .center)
                         Text("Home")
                             .font(.title)
                     }
@@ -34,20 +30,19 @@ struct ContentView: View {
                     }
                 }
                 .tag(1)
-            Text("Notification View")
+            Alerts()
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("first")
-                        Text("Notification")
+                        Image(systemName:"exclamationmark.bubble")
+                        Text("Alerts")
                     }
                 }
                 .tag(2)
-            Text("Settings View")
-                .font(.title)
+            Settings()
                 .tabItem {
                     VStack {
-                        Image("second")
+                        Image(systemName:"gear")
                         Text("Settings")
                     }
                 }

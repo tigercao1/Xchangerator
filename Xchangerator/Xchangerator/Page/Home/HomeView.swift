@@ -13,13 +13,13 @@ import SwiftUI
 struct HomeView: View {
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCurrencyUnit: String = "CAD"
-    @EnvironmentObject var countries: Countries
+    @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var modalPresented: Bool = false
     @State private var longer: Bool = false
     
     func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
-        let converter = Converter(countries)
+        let converter = Converter(stateStore.countries)
         let convertedAmount = converter.convert(self.baseCurrencyUnit, targetCurrencyUnit, amount)
         return String(format:"%.2f",convertedAmount)
     }
@@ -54,7 +54,7 @@ struct HomeView: View {
                             .stroke(Color.black, lineWidth: 0.5)
                     ).padding()
                 ScrollView{
-                    ForEach(countries.getModel(), id:\.self) { country in
+                    ForEach(stateStore.countries.getModel(), id:\.self) { country in
                         HStack {
                             Text(country.flag)
                                 .padding(.leading, 50)
