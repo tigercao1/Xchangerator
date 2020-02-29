@@ -11,11 +11,15 @@ import PartialSheet
 import SwiftUI
 
 struct HomeView: View {
+    
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCurrencyUnit: String = "CAD"
     @State private var modalPresented: Bool = false
-    @State private var longer: Bool = false
-    
+    @State private var favourite: Bool = false
+    @State private var showLinkTarget = false
+    @State private var chartClicked = false
+    @State private var setAlertClicked = false
+
     func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
         // To be replaced by generic converter
@@ -41,7 +45,7 @@ struct HomeView: View {
                 Button(action: {
                     self.modalPresented = true
                 }) {
-                Image("ellipsis").padding(.trailing, 10).padding(.leading, 20)
+                    Image("ellipsis").padding(.trailing, 10).padding(.leading, 20).foregroundColor(.black)
                 }
             }
                 .overlay(
@@ -67,20 +71,29 @@ struct HomeView: View {
     }.partialSheet(presented: $modalPresented) {
     VStack {
         Group {
-            Text("Settings Panel")
-                .font(.subheadline)
-            Toggle(isOn: self.$longer) {
-                Text("Advanced")
+            Toggle(isOn: self.$favourite) {
+                Text("Add to Favourite")
             }
             .padding()
-        }
-        .frame(height: 50)
-        if self.longer {
-            VStack {
-                Text("More settings here...")
-            }
-            .frame(height: 200)
-        }
+            Text("Chart").gesture(
+                TapGesture().onEnded {
+                    action: do {
+                      self.chartClicked = true
+                    }})
+            Text("Set Alert").gesture(
+            TapGesture().onEnded {
+                action: do {
+                  self.setAlertClicked = true
+                }})
+                
+                
+            .padding(.leading)
+            
+        }.frame(height: 65)
+        
+//        if self.favourite {
+//            //add to favourite
+//        }
     }
     }
 }
