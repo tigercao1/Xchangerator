@@ -67,7 +67,7 @@ struct Settings: View {
                     .frame(minWidth: 0, maxWidth: screenWidth*0.6)
                     .padding()
                     .foregroundColor(.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing))
+                    .background(Color.themeBlueGreenMixed)
                     .cornerRadius(30)
                     .padding(.horizontal, CGFloat(20))
                     
@@ -82,4 +82,7 @@ struct Settings_Previews: PreviewProvider {
     static var previews: some View {
         Settings()
     }
+}
+extension Color {
+    static let themeBlueGreenMixed =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
 }

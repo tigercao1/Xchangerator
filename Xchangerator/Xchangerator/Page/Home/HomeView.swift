@@ -36,8 +36,8 @@ struct HomeView: View {
                         .frame(width: 15, height: 15)
                         .padding(.leading, 15)
                     Text("🇨🇦")
-                        .padding(.leading, 25)
-                        .font(.largeTitle)
+                        .padding(.leading, screenWidth*0.05)
+                        .font(.title)
                     TextField("Amount", text: $baseCurrencyAmt)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
@@ -48,14 +48,14 @@ struct HomeView: View {
                     Button(action: {
                         self.modalPresented = true
                     }) {
-                    Image("ellipsis")
+                    Image(systemName: "ellipsis")
                         .padding(.trailing, 10)
                         .padding(.leading, 20)
                     }
                 }
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 0.5)
+                            .stroke(Color.themeBlueGreenMixedBold)
                     ).padding()
                 ScrollView{
                     ForEach(stateStore.countries.getModel(), id:\.self) { country in
@@ -72,7 +72,7 @@ struct HomeView: View {
                         }
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.black, lineWidth: 0.5)
+                                    .stroke(Color.blue, lineWidth: 0.5)
                             ).padding()
                     }
                 }
@@ -80,8 +80,7 @@ struct HomeView: View {
                 
             }
             
-        }.partialSheet(presented: $modalPresented) {
-
+        }.navigationBarTitle("Caculation").partialSheet(presented: $modalPresented) {
             VStack {
                 Group {
                     Toggle(isOn: self.$favourite) {
@@ -98,12 +97,16 @@ struct HomeView: View {
                         action: do {
                         self.setAlertClicked = true
                         }})
-                        
-                        
                     .padding(.leading)
                     
                 }.frame(height: 65)
             }
         }
     }
+}
+
+
+
+extension Color {
+    static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
 }

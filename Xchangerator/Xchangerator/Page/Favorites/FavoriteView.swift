@@ -18,7 +18,7 @@ struct FavoriteView: View {
         NavigationView {
           List(disciplines, id: \.self) { discipline in
             Text(discipline)
-          }         .navigationBarTitle(Text("Favorites").foregroundColor(.blue))//
+          }.navigationBarTitle("Favorites")//
         }
 
     }
