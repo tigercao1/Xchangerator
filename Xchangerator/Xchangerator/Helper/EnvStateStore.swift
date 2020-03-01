@@ -32,7 +32,7 @@ func ApiCall() -> Countries {
     while countries.getModel().count <= 1 {
         sleep(1)
     }
-    Logger.warning(countries.getModel())
+    Logger.debug(countries.getModel())
     return countries
 }
 

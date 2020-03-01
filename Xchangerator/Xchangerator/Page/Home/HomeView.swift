@@ -63,54 +63,80 @@ struct HomeView: View {
                         RoundedRectangle(cornerRadius:  CGFloat(10))
                             .stroke(Color.themeBlueGreenMixedBold)
                     ).padding()
-//                ScrollView{
-                    List(stateStore.countries.getModel(), id: \.self) {
-//                    ForEach(stateStore.countries.getModel(), id:\.self
-                        country in
-                        HStack {
-                            Text(country.flag)
-                                .font(.largeTitle)
-                                .padding(.leading,  35)
-                            Text(self.convert(country.unit))
-                                .multilineTextAlignment(.trailing)
-                                .fixedSize()
-                                .frame(width: screenWidth*0.35).padding()
-                            Text(country.unit)
-                                .font(.headline)
-                                .padding(.trailing, 20.0)
-                            
-                        }
-                    }
-                //}
-            }.navigationBarTitle("Exchange Rates ").onTapGesture {
-                self.endEditing()
-            }
-        }.partialSheet(presented: $modalPresented) {
-            VStack {
-                Group {
-                    Toggle(isOn: self.$favourite) {
-                        Text("Add to Favourite")                      .font(.title)
 
+                List(stateStore.countries.getModel(), id: \.self) {
+                    country in
+                    HStack {
+                        Text(country.flag)
+                            .font(.largeTitle)
+                            .padding(.leading,  35)
+                        Text(self.convert(country.unit))
+                            .multilineTextAlignment(.trailing)
+                            .fixedSize()
+                            .frame(width: screenWidth*0.35).padding()
+                        Text(country.unit)
+                            .font(.headline)
+                            .padding(.trailing, 20.0)
+                        
                     }
-                    .padding()
-                    Text("Chart")
-                        .font(.title)
-                        .gesture(
-                        TapGesture().onEnded {
-                            action: do {
-                            self.chartClicked = true
-                            }})
-                    Text("Set Alert")
-                        .font(.title)
-                        .gesture(
-                            TapGesture().onEnded {
-                                action: do {
-                                    self.setAlertClicked = true
-                                }})
-                        .padding(.leading)
-                    
-                }.frame(height: 65)
-            }
+                }
+            }.navigationBarTitle("Exchange Rates ")
+            
+        }.onTapGesture {
+            self.endEditing()
+            
+        }.partialSheet(
+            presented: $modalPresented
+        ) {
+            //Package: https://github.com/AndreaMiotto/PartialSheet
+            ZStack {
+                Color.partialSheetBg
+//                    .cornerRadius(30)
+//                    .padding(.horizontal, 5)
+
+                VStack {
+                    Group {
+                        Toggle(isOn: self.$favourite) {
+//                            Image(systemName: "heart")
+//                                .font(.title)
+                            Text("Add to Favourites")
+                                .padding()
+                                .font(.headline)
+                        }.padding(.horizontal, 50)
+                        Spacer()
+                        HStack{
+                            Button(action: {
+                                          do {
+                                          self.chartClicked = true
+                                          }
+                                      }) {
+                                          VStack {
+                                              Image(systemName: "chart.bar")
+                                                  .font(.title)
+                                              Text("Chart")
+                                                  .fontWeight(.semibold)
+                                                  .font(.title)
+                                          }
+                            }.buttonStyle(GradientBackgroundStyle())
+                            Button(action: {
+                                          do {
+                                              self.setAlertClicked = true
+                                          }
+                                      }) {
+                                          VStack {
+                                              Image(systemName: "bell")
+                                                  .font(.title)
+                                              Text("Set Alert")
+                                                  .fontWeight(.semibold)
+                                                  .font(.title)
+                                          }
+                            }.buttonStyle(GradientBackgroundStyle())
+                        }
+                        
+                    }
+                }
+
+            }.frame(height: screenHeight*0.3)
         }
     }
 }
@@ -124,39 +150,26 @@ extension UIApplication {
 
 extension Color {
     static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
+    static let partialSheetBg =  LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray]), startPoint: .top, endPoint: .bottom)
+}
+
+struct Home_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environmentObject(ReduxRootStateStore())
+    }
 }
 
 
-//
-//extension TextField{
-//    @IBInspectable var doneAccessory: Bool{
-//        get{
-//            return self.doneAccessory
-//        }
-//        set (hasDone) {
-//            if hasDone{
-//                addDoneButtonOnKeyboard()
-//            }
-//        }
-//    }
-//
-//    func addDoneButtonOnKeyboard()
-//    {
-//        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-//        doneToolbar.barStyle = .default
-//
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-//
-//        let items = [flexSpace, done]
-//        doneToolbar.items = items
-//        doneToolbar.sizeToFit()
-//
-//        self.inputAccessoryView = doneToolbar
-//    }
-//
-//    @objc func doneButtonAction()
-//    {
-//        self.resignFirstResponder()
-//    }
-//}
+struct GradientBackgroundStyle: ButtonStyle {
+ 
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .padding()
+            .foregroundColor(.white)
+            .background(LinearGradient(gradient: Gradient(colors: [Color("DarkGreen"), Color("LightGreen")]), startPoint: .leading, endPoint: .trailing))
+            .cornerRadius(10)
+            .padding(.horizontal, 20)
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
+}

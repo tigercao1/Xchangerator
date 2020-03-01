@@ -80,7 +80,7 @@ struct Settings: View {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings()
+        Settings().environmentObject(ReduxRootStateStore())
     }
 }
 extension Color {
