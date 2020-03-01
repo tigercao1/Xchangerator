@@ -12,6 +12,8 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
 
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCurrencyUnit: String = "CAD"
@@ -58,7 +60,7 @@ struct HomeView: View {
                         
                     }
                     
-                }.padding()
+                }.frame(width: screenWidth*0.8).padding()
                     .overlay(
                         RoundedRectangle(cornerRadius:  CGFloat(10))
                             .stroke(Color.themeBlueGreenMixedBold)
@@ -97,13 +99,15 @@ struct HomeView: View {
                 VStack {
                     Group {
                         Toggle(isOn: self.$favourite) {
-//                            Image(systemName: "heart")
-//                                .font(.title)
-                            Text("Add to Favourites")
-                                .padding()
-                                .font(.headline)
-                        }.padding(.horizontal, 50)
-                        Spacer()
+                            HStack{
+                                Image(systemName: "heart")
+                                    .font(.title)
+                                Text("Add to Favourites")
+                                    .padding()
+                                    .font(.headline)
+                            }.foregroundColor(.black)
+                        }.padding(.top,30)
+                        .padding(.horizontal,30)                     .padding(.bottom,5)
                         HStack{
                             Button(action: {
                                           do {
@@ -115,7 +119,7 @@ struct HomeView: View {
                                                   .font(.title)
                                               Text("Chart")
                                                   .fontWeight(.semibold)
-                                                  .font(.title)
+                                                  .font(.headline)
                                           }
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
@@ -128,10 +132,11 @@ struct HomeView: View {
                                                   .font(.title)
                                               Text("Set Alert")
                                                   .fontWeight(.semibold)
-                                                  .font(.title)
+                                                  .font(.headline)
                                           }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
+                        Spacer()
                         
                     }
                 }
@@ -149,7 +154,7 @@ extension UIApplication {
 
 
 extension Color {
-    static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
+    static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .topLeading, endPoint: .trailing)
     static let partialSheetBg =  LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray]), startPoint: .top, endPoint: .bottom)
 }
 
@@ -165,11 +170,15 @@ struct GradientBackgroundStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding()
+            .padding(.vertical,10)
             .foregroundColor(.white)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("DarkGreen"), Color("LightGreen")]), startPoint: .leading, endPoint: .trailing))
-            .cornerRadius(10)
-            .padding(.horizontal, 20)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+//            .background(Color.themeBlueGreenMixedBold)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius:  CGFloat(10)).stroke(Color.partialSheetBg))
+            .padding(20)
+//            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .opacity(configuration.isPressed  ? 0.2 : 1.0)
+
     }
 }
