@@ -11,10 +11,10 @@ import PartialSheet
 import SwiftUI
 
 struct HomeView: View {
-    
+    @EnvironmentObject var stateStore: ReduxRootStateStore
+
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCurrencyUnit: String = "CAD"
-    @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var modalPresented: Bool = false
     @State private var favourite: Bool = false
     @State private var showLinkTarget = false
@@ -27,77 +27,89 @@ struct HomeView: View {
         let convertedAmount = converter.convert(self.baseCurrencyUnit, targetCurrencyUnit, amount)
         return String(format:"%.2f",convertedAmount)
     }
-    
+    private func endEditing() {
+           UIApplication.shared.endEditing()
+       }
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
                     Image(systemName:"mappin.and.ellipse").resizable()
-                        .frame(width: 15, height: 15)
-                        .padding(.leading, 15)
+                        .frame(width:  CGFloat(15), height:  CGFloat(15))
+                        .padding(.leading,  CGFloat(15))
                     Text("🇨🇦")
-                        .padding(.leading, screenWidth*0.05)
+                        .frame(width:  CGFloat(20), height:  CGFloat(15))
+                        .padding(.leading,  CGFloat(20))
                         .font(.title)
                     TextField("Amount", text: $baseCurrencyAmt)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .fixedSize()
-                        .frame(width: 140)
+                                           .keyboardType(.numberPad)
+                                           .multilineTextAlignment(.trailing)
+                                           .fixedSize()
+                        .frame(width: screenWidth*0.20)
+
                     Text(baseCurrencyUnit)
                     
                     Button(action: {
                         self.modalPresented = true
                     }) {
-                    Image(systemName: "ellipsis")
-                        .padding(.trailing, 10)
-                        .padding(.leading, 20)
+                            Image(systemName: "ellipsis")
+                            .padding(.trailing,  CGFloat(10))
+                            .padding(.leading,  CGFloat(20))
+                        
                     }
-                }
+                    
+                }.padding()
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius:  CGFloat(10))
                             .stroke(Color.themeBlueGreenMixedBold)
                     ).padding()
-                ScrollView{
-                    ForEach(stateStore.countries.getModel(), id:\.self) { country in
+//                ScrollView{
+                    List(stateStore.countries.getModel(), id: \.self) {
+//                    ForEach(stateStore.countries.getModel(), id:\.self
+                        country in
                         HStack {
                             Text(country.flag)
-                                .padding(.leading, 50)
+//                                .frame(width: 20, height: 15)
                                 .font(.largeTitle)
+                                .padding(.leading,  20)
                             Text(self.convert(country.unit))
-                                .keyboardType(.numberPad)
                                 .multilineTextAlignment(.trailing)
                                 .fixedSize()
-                                .frame(width: 170)
-                            Text(country.unit).padding(.trailing, 50)
+                                .frame(width: screenWidth*0.35).padding()
+                            Text(country.unit)
+//                                .frame(width: 20, height: 15)
+                                .font(.headline)
+                                .padding(.trailing, 20.0)
+                            
                         }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 0.5)
-                            ).padding()
                     }
-                }
-                
-                
+                //}
+            }.navigationBarTitle("Exchange Rates ").onTapGesture {
+                self.endEditing()
             }
-            
-        }.navigationBarTitle("Caculation").partialSheet(presented: $modalPresented) {
+        }.partialSheet(presented: $modalPresented) {
             VStack {
                 Group {
                     Toggle(isOn: self.$favourite) {
-                        Text("Add to Favourite")
+                        Text("Add to Favourite")                      .font(.title)
+
                     }
                     .padding()
-                    Text("Chart").gesture(
+                    Text("Chart")
+                        .font(.title)
+                        .gesture(
                         TapGesture().onEnded {
                             action: do {
                             self.chartClicked = true
                             }})
-                    Text("Set Alert").gesture(
-                    TapGesture().onEnded {
-                        action: do {
-                        self.setAlertClicked = true
-                        }})
-                    .padding(.leading)
+                    Text("Set Alert")
+                        .font(.title)
+                        .gesture(
+                            TapGesture().onEnded {
+                                action: do {
+                                    self.setAlertClicked = true
+                                }})
+                        .padding(.leading)
                     
                 }.frame(height: 65)
             }
@@ -105,8 +117,48 @@ struct HomeView: View {
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 
 extension Color {
     static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
 }
+
+
+//
+//extension TextField{
+//    @IBInspectable var doneAccessory: Bool{
+//        get{
+//            return self.doneAccessory
+//        }
+//        set (hasDone) {
+//            if hasDone{
+//                addDoneButtonOnKeyboard()
+//            }
+//        }
+//    }
+//
+//    func addDoneButtonOnKeyboard()
+//    {
+//        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//        doneToolbar.barStyle = .default
+//
+//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+//
+//        let items = [flexSpace, done]
+//        doneToolbar.items = items
+//        doneToolbar.sizeToFit()
+//
+//        self.inputAccessoryView = doneToolbar
+//    }
+//
+//    @objc func doneButtonAction()
+//    {
+//        self.resignFirstResponder()
+//    }
+//}

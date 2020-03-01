@@ -46,10 +46,10 @@ struct Settings: View {
                         Text(stateStore.user.profile.email)
                             .font(.subheadline)
                         Spacer()
-                    Text(String(describing:stateStore.user.profile.photoURL!))
+                    Text(stateStore.user.profile.photoURL!.absoluteString)
                         .font(.subheadline)
                     }.onAppear {
-                        Logger.debug( String(describing:self.stateStore.user.profile.photoURL!)
+                        Logger.debug( String(self.stateStore.user.profile.photoURL!.absoluteString)
                         )
                     }
                 }
