@@ -69,15 +69,13 @@ struct HomeView: View {
                         country in
                         HStack {
                             Text(country.flag)
-//                                .frame(width: 20, height: 15)
                                 .font(.largeTitle)
-                                .padding(.leading,  20)
+                                .padding(.leading,  35)
                             Text(self.convert(country.unit))
                                 .multilineTextAlignment(.trailing)
                                 .fixedSize()
                                 .frame(width: screenWidth*0.35).padding()
                             Text(country.unit)
-//                                .frame(width: 20, height: 15)
                                 .font(.headline)
                                 .padding(.trailing, 20.0)
                             
