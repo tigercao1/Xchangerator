@@ -35,10 +35,13 @@
 		C5AADDDF240700B30077D669 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDDE240700B30077D669 /* Landmark.swift */; };
 		C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE1240702EC0077D669 /* CircleImage.swift */; };
 		C5AADDE4240704950077D669 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE3240704950077D669 /* MapView.swift */; };
-		C5AADDE624071B650077D669 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE524071B650077D669 /* DataModels.swift */; };
+		C5AADDE624071B650077D669 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE524071B650077D669 /* UserProfile.swift */; };
 		C5AADDE824072AD60077D669 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE724072AD60077D669 /* ImageLoader.swift */; };
 		C5AADDEB240747530077D669 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE9240747530077D669 /* LoginView.swift */; };
 		C5AADDEC240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */; };
+		C5D3D4F3240B651300AAF402 /* DatabaseManager.swift in Resources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
+		C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
+		C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,10 +81,11 @@
 		C5AADDDE240700B30077D669 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		C5AADDE1240702EC0077D669 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		C5AADDE3240704950077D669 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		C5AADDE524071B650077D669 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		C5AADDE524071B650077D669 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		C5AADDE724072AD60077D669 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		C5AADDE9240747530077D669 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUIAuthBaseViewControllerWrapper.swift; sourceTree = "<group>"; };
+		C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B437C0CD240B081E0057D584 /* PartialSheet in Frameworks */,
+				C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */,
 				D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C4722E23E0B60F004834CF /* HomeView.swift */,
+				C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C4723323E13642004834CF /* Country.swift */,
+				C5AADDE524071B650077D669 /* UserProfile.swift */,
 				B4240F112404D3D60001EE6D /* CountryList.swift */,
 			);
 			path = Model;
@@ -182,7 +188,6 @@
 				C519754D2404DB0100B88635 /* UserDefaultsManager */,
 				C51975512404DD3C00B88635 /* TextManager.swift */,
 				C5AADDD62406EB5F0077D669 /* EnvStateStore.swift */,
-				C5AADDE524071B650077D669 /* DataModels.swift */,
 				C5AADDE724072AD60077D669 /* ImageLoader.swift */,
 			);
 			path = Helper;
@@ -379,7 +384,7 @@
 			files = (
 				C58A36BA23D6C2F000DB155A /* LaunchScreen.storyboard in Resources */,
 				C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */,
-				B437C0CC240B081E0057D584 /* DatabaseManager.swift in Resources */,
+				C5D3D4F3240B651300AAF402 /* DatabaseManager.swift in Resources */,
 				C58A36B723D6C2F000DB155A /* Preview Assets.xcassets in Resources */,
 				C58A36B423D6C2F000DB155A /* Assets.xcassets in Resources */,
 			);
@@ -464,6 +469,7 @@
 				B4C4722F23E0B60F004834CF /* HomeView.swift in Sources */,
 				B4C4723B23EC6077004834CF /* Exceptions.swift in Sources */,
 				B4C4723723E138C1004834CF /* Countries.swift in Sources */,
+				C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */,
 				C58A36B223D6C2E900DB155A /* ContentView.swift in Sources */,
 				B4C4723D23EC6665004834CF /* APIController.swift in Sources */,
 				C5AADDE824072AD60077D669 /* ImageLoader.swift in Sources */,
@@ -473,7 +479,7 @@
 				C5AADDD72406EB5F0077D669 /* EnvStateStore.swift in Sources */,
 				C5AADDEB240747530077D669 /* LoginView.swift in Sources */,
 				C519754F2404DB9F00B88635 /* Logger.swift in Sources */,
-				C5AADDE624071B650077D669 /* DataModels.swift in Sources */,
+				C5AADDE624071B650077D669 /* UserProfile.swift in Sources */,
 				C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */,
 				C51975522404DD3C00B88635 /* TextManager.swift in Sources */,
 				C5AADDDF240700B30077D669 /* Landmark.swift in Sources */,

@@ -30,7 +30,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
      // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
-            FUIEmailAuth(),
+//            FUIEmailAuth(),  //Todo: freeze or disable email input, after login successfully
             FUIGoogleAuth()
         ]
         authUI?.providers = providers
