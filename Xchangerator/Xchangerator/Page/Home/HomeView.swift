@@ -48,42 +48,34 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack(spacing: 30){
+                HStack(alignment: .center, spacing: 30){
                     VStack(alignment: .leading){
                         HStack(spacing: 20) {
                             Text(baseCountry.flag)
                                 .font(.title)
-                                .frame(width: 20, hheight: 15)
+                                .frame(width: 30, height: 15)
                             TextField("Amount", text: $baseCurrencyAmt)
                                 .keyboardType(.numberPad)
-                                .frame(width: screenWidth*0.20)
+                                .frame(width: screenWidth*0.3)
                                 .multilineTextAlignment(.trailing)
-                                .fixedSize()
-                                
-
                             Text(baseCountry.unit)
                                 .onAppear{
                                     self.setBaseCurrency()
                             }
-                            
-                            Button(action: {
-                                self.modalPresented = true
-                            }) {
-                                Image(systemName: "ellipsis")
-                            }
-                        }
+                            .frame(width: 50)
+                            .font(.headline)
+                        }.padding(.top, 10)
                         HStack {
                             Text(baseCountry.name)
-                                .fixedSize()
                                 .font(.system(size: 15))
                                 .foregroundColor(.gray)
-                                .frame(screenWidth*0.4, alignment: .leading)
-                                .padding(.bottom, 5)
+                                .frame(width: screenWidth*0.7, alignment: .leading)
+                                .padding([.bottom, .top], 5)
                         }
-                    }
+                    }.padding(.leading, 30)
                 }
                 .padding(.bottom, 5)
-                .fixedSize(horizontal: true, vertical: false)
+                .fixedSize(horizontal: true, vertical: true)
                 .frame(width: screenWidth*0.8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -91,7 +83,7 @@ struct HomeView: View {
                     )
                 
                 List(stateStore.countries.getModel(), id: \.self) { country in
-                    HStack(spacing: 30) {
+                    HStack(spacing: 20) {
                         VStack(alignment: .leading) {
                             HStack(spacing: 20) {
                                 Text(country.flag)
@@ -100,37 +92,40 @@ struct HomeView: View {
                                     .frame(width: 20, height: 15)
                                 Text(self.convert(country.unit))
                                     .fixedSize()
-                                    .frame(width: screenWidth*0.35, alignment: .trailing)
+                                    .frame(width: screenWidth*0.4, alignment: .trailing)
                                 Text(country.unit)
+                                    .fixedSize()
+                                    .frame(width: 40, alignment: .leading)
                                     .font(.headline)
                             }
-                            HStack{
+                            HStack(){
                                 Text(country.name)
                                     .fixedSize()
                                     .font(.system(size: 15))
                                     .foregroundColor(.gray)
                                     .frame(maxWidth: 80, alignment: .leading)
-                                    .padding(.bottom, 5)
-                            }
-                        }
-                        Button(action: {
-                            self.modalPresented = true
-                        }) {
-                            Image("ellipsis")
-                        }
+                                    .padding([.bottom, .top], 5)
+                            }.frame(alignment: .leading)
+                        }.padding(.leading, 35)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                TapGesture()
+                                    .onEnded { _ in
+                                        self.switchBase(country)
+                                    }
+                            )
+                        Divider()
+                        Image(systemName: "ellipsis")
+                            .aspectRatio(contentMode:.fill)
+                            .frame(height: 30)
+                            .gesture(
+                                TapGesture()
+                                    .onEnded { _ in
+                                        self.modalPresented = true
+                                    }
+                            )
                     }
-                    .fixedSize(horizontal: true, vertical: false)
-                    .frame(width: 360)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 0.5)
-                    ).padding(.top, 10)
-                    .gesture(
-                        TapGesture()
-                            .onEnded { _ in
-                                self.switchBase(country)
-                            }
-                    )
+                    .padding(.top, 10)
                 }
             }.navigationBarTitle("Exchange Rates ")
             
