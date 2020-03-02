@@ -16,10 +16,10 @@ class Converter {
         self.countries = countries
     }
     
-    func convert(_ baseCurrency: String, _ targetCurrency: String, _ amt: Double) -> Double {
-        let tempBaseCountry = try? countries.findByUnit(baseCurrency)
+    func convert(_ targetCurrency: String, _ amt: Double) -> Double {
+        let tempBaseCountry = countries.baseCountry
         let tempTargetCountry = try? countries.findByUnit(targetCurrency)
-        let conversionRate = (tempTargetCountry!.rate / tempBaseCountry!.rate)
+        let conversionRate = (tempTargetCountry!.rate / tempBaseCountry.rate)
         return amt * conversionRate
     }
     
