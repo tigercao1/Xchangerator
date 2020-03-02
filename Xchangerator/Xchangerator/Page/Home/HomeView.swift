@@ -102,7 +102,7 @@ struct HomeView: View {
                             HStack{
                                 Image(systemName: "heart")
                                     .font(.title)
-                                Text("Add to Favourites")
+                                Text("Add to Favorites")
                                     .padding()
                                     .font(.headline)
                             }.foregroundColor(.black)
@@ -135,8 +135,7 @@ struct HomeView: View {
                                                   .font(.headline)
                                           }
                             }.buttonStyle(GradientBackgroundStyle())
-                        }
-                        Spacer()
+                        }.padding(.bottom,25)
                         
                     }
                 }
