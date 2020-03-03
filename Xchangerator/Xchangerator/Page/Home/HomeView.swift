@@ -94,7 +94,7 @@ struct HomeView: View {
                                     .frame(width: screenWidth*0.35, alignment: .trailing)
                                     .fixedSize()
                                 Text(country.unit)
-                                    .frame(width: 40, alignment: .leading)
+                                    .frame(width: 50, alignment: .leading)
                                     .font(.headline)
                                     .fixedSize()
                             }
