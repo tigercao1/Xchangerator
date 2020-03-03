@@ -40,6 +40,11 @@
 		C5D3D4F3240B651300AAF402 /* DatabaseManager.swift in Resources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
 		C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
 		C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */; };
+		C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F45240E13B600C402E6 /* CardView.swift */; };
+		CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */; };
+		CAB49F6A240DC34A008ED8C6 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CAB49F69240DC34A008ED8C6 /* URLImage */; };
+		CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */; };
+		CAB49F6E240DDA2C008ED8C6 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +89,10 @@
 		C5AADDE9240747530077D669 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUIAuthBaseViewControllerWrapper.swift; sourceTree = "<group>"; };
 		C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWrapper.swift; sourceTree = "<group>"; };
+		C5FF8F45240E13B600C402E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMain.swift; sourceTree = "<group>"; };
+		CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */,
+				CAB49F6A240DC34A008ED8C6 /* URLImage in Frameworks */,
 				D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +256,6 @@
 				C59F468423E12B2800F631C3 /* Xchangerator.entitlements */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
-				C58A36B123D6C2E900DB155A /* ContentView.swift */,
 				C51975502404DC8E00B88635 /* Helper */,
 				C51D24F423F8D3380075B342 /* Utils */,
 				C59F467F23DEAB4900F631C3 /* Page */,
@@ -269,6 +278,7 @@
 		C59F467F23DEAB4900F631C3 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				C58A36B123D6C2E900DB155A /* ContentView.swift */,
 				B4C4722D23E0B5F8004834CF /* Home */,
 				C5AADDE0240702D40077D669 /* CommonUI */,
 				C5AADDDB2406F75C0077D669 /* Alerts */,
@@ -292,6 +302,9 @@
 			children = (
 				C5AADDD92406F7400077D669 /* Settings.swift */,
 				C5AADDDE240700B30077D669 /* Landmark.swift */,
+				CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */,
+				CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */,
+				CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -309,6 +322,7 @@
 			children = (
 				C5AADDE1240702EC0077D669 /* CircleImage.swift */,
 				C5AADDE3240704950077D669 /* MapView.swift */,
+				C5FF8F45240E13B600C402E6 /* CardView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -334,6 +348,7 @@
 			name = Xchangerator;
 			packageProductDependencies = (
 				CA05BDAD23F0CF6C000E6A39 /* PartialSheet */,
+				CAB49F69240DC34A008ED8C6 /* URLImage */,
 			);
 			productName = Xchangerator;
 			productReference = C58A36AA23D6C2E900DB155A /* Xchangerator.app */;
@@ -365,6 +380,7 @@
 			mainGroup = C58A36A123D6C2E900DB155A;
 			packageReferences = (
 				CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */,
+				CAB49F68240DC34A008ED8C6 /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = C58A36AB23D6C2E900DB155A /* Products */;
 			projectDirPath = "";
@@ -457,11 +473,13 @@
 				B4240F122404D3D60001EE6D /* CountryList.swift in Sources */,
 				B4C4723423E13642004834CF /* Country.swift in Sources */,
 				C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */,
+				CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */,
 				C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */,
 				C5AADDDA2406F7400077D669 /* Settings.swift in Sources */,
 				C5AADDEC240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift in Sources */,
 				C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */,
 				C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */,
+				C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */,
 				C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */,
 				B4C4723F23F0B3BC004834CF /* Converter.swift in Sources */,
 				B4C4722F23E0B60F004834CF /* HomeView.swift in Sources */,
@@ -481,6 +499,8 @@
 				C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */,
 				C51975522404DD3C00B88635 /* TextManager.swift in Sources */,
 				C5AADDDF240700B30077D669 /* Landmark.swift in Sources */,
+				CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */,
+				CAB49F6E240DDA2C008ED8C6 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +712,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		CAB49F68240DC34A008ED8C6 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.10;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -699,6 +727,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CA05BDAC23F0CF6C000E6A39 /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
+		};
+		CAB49F69240DC34A008ED8C6 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CAB49F68240DC34A008ED8C6 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

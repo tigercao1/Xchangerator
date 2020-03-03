@@ -10,21 +10,48 @@ import Foundation
 
 class Countries: ObservableObject{
     var countries = Array<Country>()
+    var baseCountry: Country
     
     init() {
         countries.append(Country(flag: "👻",  name: "Test", rate: 109.1, unit: "GHO"))
+        baseCountry = countries[0]
     }
     
     init(countryList: CountryList) {
         for country in countryList.countries {
-            countries.append(country)
+            if country.flag == "" {
+                countries.append(Country(flag: "🇺🇳", name: country.name, rate: country.rate, unit: country.unit))
+            } else {
+                countries.append(Country(flag: country.flag, name: country.name, rate: country.rate, unit: country.unit))
+            }
+        }
+        baseCountry = countries[0]
+        do {
+            try baseCountry = findByUnit("CAD")
+            try self.delete("CAD")
+            // TODO:
+            // Can be replaced by location based info
+        } catch {
+            Logger.error("Base country is set to the first element in list.")
         }
     }
     
-    func add(_ country: Country) -> Country {
-        let temp = country
-        countries.append(temp)
-        return temp
+    func setBaseCountry(_ country: Country) {
+        self.addToFirst(baseCountry)
+        self.baseCountry = country
+        do {
+            try self.delete(country.unit)
+        } catch {
+            print("Ran into issues while setting base country")
+        }
+    }
+    
+    func add(_ country: Country) {
+        countries.append(country)
+    }
+    
+    func addToFirst(_ country: Country) {
+        countries.insert(country, at: 0)
     }
         
     func findByName(_ name: String) throws -> Country {
@@ -49,6 +76,9 @@ class Countries: ObservableObject{
         var temp: Country
         do {
             temp = try findByUnit(unit)
+            if let index = countries.firstIndex(of: temp) {
+                countries.remove(at: index)
+            }
         } catch is EntityExceptions {
             throw EntityExceptions.EntityNotFoundException("Currency " + unit +  " not deleted")
         }

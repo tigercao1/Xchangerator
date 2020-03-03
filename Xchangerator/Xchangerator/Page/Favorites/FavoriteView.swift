@@ -12,7 +12,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FavoriteView: View {
-    let db = Firestore.firestore()
     let disciplines = ["CAD-US", "CAD-FR", "CAD-CNY", "CAD-JPY"]
     var body: some View {
         NavigationView {

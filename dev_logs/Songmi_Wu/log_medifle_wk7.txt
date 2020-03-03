@@ -1,0 +1,12 @@
+Team involvement
+- d2 deliverable
+    - draw component diagram (AppServer part)
+    - edit status report
+
+Individual work (Backend)
+- test push notifications on real iOS device
+    - 1 hour cron job works
+    - one-time alert works
+    - 1 user with multi-devices works
+    - multiuser with multi-devices works
+- fix AppServer error handling message typo, re-deploy to production environment

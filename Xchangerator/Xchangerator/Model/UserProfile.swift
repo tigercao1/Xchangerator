@@ -11,7 +11,7 @@ import MapKit
 public struct User_Profile: Codable {
 
     let email: String
-    let photoURL: URL?
+    let photoURL: URL
     let deviceTokens: Array<String>
     let name:String
 
@@ -21,13 +21,16 @@ public struct User_Profile: Codable {
         case deviceTokens  //deviceTokens
         case name
     }
+    
+    //Default image"https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    
     init(){
         email = ""
-        photoURL =  nil
+        photoURL = NSURL(string:"https://concordia.ab.ca/wp-content/themes/concordia_2016/images/placeholder-avatar.png")! as URL; //""
         deviceTokens = []
         name = ""
     }
-    init(email:String ,photoURL:URL?,deviceTokens:Array<String>, name:String){
+    init(email:String ,photoURL:URL,deviceTokens:Array<String>, name:String){
         self.email = email
         self.photoURL =  photoURL
         self.deviceTokens = deviceTokens

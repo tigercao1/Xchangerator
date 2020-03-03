@@ -30,3 +30,7 @@
 - [x] Basic info display
 - [x] Sign out button 
 
+* D2
+- [x] Page1 March dev plan and current progress
+- [x] Page2 mobile diagram
+

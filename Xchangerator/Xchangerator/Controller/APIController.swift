@@ -16,7 +16,7 @@ class APIController {
         let task = session.dataTask(with: url, completionHandler:  {data, response, error in
             guard let dataResponse = data,
                 error == nil else {
-                    print(error?.localizedDescription ?? "Response Error")
+                    Logger.error(error?.localizedDescription ?? "Response Error")
                     return}
             //here dataResponse received from a network request
             let decoder = JSONDecoder()

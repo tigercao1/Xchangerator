@@ -1,0 +1,5 @@
+Added API controller for api calls and JSON data parsing
+Data processing into models and stored into data access objects
+Display data on UI in a scroll view
+D2 component diagram UI section
+D2 demo report

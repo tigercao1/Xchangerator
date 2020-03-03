@@ -1,0 +1,3 @@
+Added front data model
+Added front end Exception handling and varias Exceptions
+Added front end data access object

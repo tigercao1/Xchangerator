@@ -1,0 +1,4 @@
+UI refinements on homeview
+Added ability to change base currency
+Adjusted UI components to dynamically fit different screen size and Light/Dark Mode
+
