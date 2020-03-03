@@ -43,8 +43,11 @@ struct SettingsMain: View {
         VStack{
              List(settingItems) { settingItem in
                 NavigationLink(destination: SettingDetailView(settingItem: settingItem)) {
-                    Image(systemName: settingItem.image)
-                    Text(settingItem.text)
+                    Image(systemName: settingItem.image).font(.headline)
+                        .padding();
+                    Text(settingItem.text).font(.headline)
+                    Spacer()
+
                 }
              }
           
