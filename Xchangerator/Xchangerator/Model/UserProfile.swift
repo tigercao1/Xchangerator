@@ -21,6 +21,9 @@ public struct User_Profile: Codable {
         case deviceTokens  //deviceTokens
         case name
     }
+    
+    //Default image"https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    
     init(){
         email = ""
         photoURL =  nil

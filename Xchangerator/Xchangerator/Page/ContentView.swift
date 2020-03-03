@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 0
+    @State var selection = 0
     var body: some View {
         TabView(selection: $selection){
             HomeView()
@@ -39,7 +39,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
-            Settings()
+            Settings(selectionFromParent: $selection)
                 .tabItem {
                     VStack {
                         Image(systemName:"gear")

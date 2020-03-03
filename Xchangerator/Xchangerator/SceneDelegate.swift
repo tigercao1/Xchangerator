@@ -12,7 +12,6 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let stateStore = ReduxRootStateStore()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -22,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let rootView = LoginView()
+        let stateStore = ReduxRootStateStore()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -64,8 +64,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // added this function to register when the device is rotated
     func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
-        stateStore.isLandscape.toggle()
-        Logger.debug("stateStore.isLandscape:\(stateStore.isLandscape)")
+//        stateStore.isLandscape.toggle()
+//        Logger.debug("stateStore.isLandscape:\(stateStore.isLandscape)")
     }
 
 
