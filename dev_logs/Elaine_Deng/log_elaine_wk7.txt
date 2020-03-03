@@ -1,0 +1,38 @@
+Work log - Elaine Deng - Week 7
+
+- Implemented settings menu
+
+- Fixed user profile photo didn't show up
+
+- Added Profile, Notification, About to settings menu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
