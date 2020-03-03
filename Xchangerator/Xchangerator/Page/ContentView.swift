@@ -39,7 +39,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
-            SettingsMain()
+            SettingsMain(selectionFromParent: $selection)
                 .tabItem {
                     VStack {
                         Image(systemName:"gear")

@@ -27,7 +27,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UIViewController {
         let authUI = FUIAuth.defaultAuthUI()
-
+        
      // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
 //            FUIEmailAuth(),  //Todo: freeze or disable email input, after login successfully
@@ -43,6 +43,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 //        authUI?.privacyPolicyURL = xFirebasePrivacyPolicy
 
         let authViewController = authUI?.authViewController()
+        
 //        authUI.delegate = authViewController as? FUIAuthDelegate
         return authViewController!
     }
@@ -88,7 +89,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             if let user = Auth.auth().currentUser  {
                 let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:[], name:user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile:userProfile)
-                self.parent.stateStore.user = userDoc
+                self.parent.stateStore.initStateStore(userDoc:userDoc)
+//                self.parent.stateStore.user = userDoc
             }
         }
 

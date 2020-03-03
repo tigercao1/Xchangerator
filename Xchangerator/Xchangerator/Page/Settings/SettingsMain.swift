@@ -18,7 +18,8 @@ struct SettingItem: Identifiable {
     var text: String
 }
 struct SettingsMain: View {
-    
+    @Binding var selectionFromParent : Int
+
    var settingItems: [SettingItem] = [
     SettingItem(image: "person", text: "Profile"),
     SettingItem(image: "envelope", text: "Notification"),
@@ -28,15 +29,15 @@ struct SettingsMain: View {
 
     
     private func signOut() {
-          do {
-              try FUIAuth.defaultAuthUI()!.signOut()
-          } catch {
-              Logger.error(error)
-              return
-          }
-          self.stateStore.curRoute = .auth
-      }
-    
+        do {
+            try FUIAuth.defaultAuthUI()!.signOut()
+        } catch {
+            Logger.error(error)
+            return
+        }
+        self.stateStore.resetRoute()
+        self.selectionFromParent = 0
+    }
    var body: some View {
       NavigationView {
         VStack{
@@ -64,6 +65,7 @@ struct SettingsMain: View {
                 .padding(.horizontal, CGFloat(20))
                 
             }.padding()
+            Spacer()
         }.navigationBarTitle("Settings")
     }
     }
@@ -87,6 +89,6 @@ struct SettingDetailView: View {
 
 struct SettingsMain_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsMain()
+        ContentView().environmentObject(ReduxRootStateStore())
     }
 }

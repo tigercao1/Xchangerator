@@ -254,7 +254,6 @@
 				C59F468423E12B2800F631C3 /* Xchangerator.entitlements */,
 				C58A36AD23D6C2E900DB155A /* AppDelegate.swift */,
 				C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */,
-				C58A36B123D6C2E900DB155A /* ContentView.swift */,
 				C51975502404DC8E00B88635 /* Helper */,
 				C51D24F423F8D3380075B342 /* Utils */,
 				C59F467F23DEAB4900F631C3 /* Page */,
@@ -277,6 +276,7 @@
 		C59F467F23DEAB4900F631C3 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				C58A36B123D6C2E900DB155A /* ContentView.swift */,
 				B4C4722D23E0B5F8004834CF /* Home */,
 				C5AADDE0240702D40077D669 /* CommonUI */,
 				C5AADDDB2406F75C0077D669 /* Alerts */,

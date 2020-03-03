@@ -21,9 +21,12 @@ public struct User_Profile: Codable {
         case deviceTokens  //deviceTokens
         case name
     }
+    
+    //Default image"https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    
     init(){
         email = ""
-        photoURL = NSURL(string:"https://concordia.ab.ca/wp-content/themes/concordia_2016/images/placeholder-avatar.png")! as URL; ""
+        photoURL = NSURL(string:"https://concordia.ab.ca/wp-content/themes/concordia_2016/images/placeholder-avatar.png")! as URL; //""
         deviceTokens = []
         name = ""
     }
