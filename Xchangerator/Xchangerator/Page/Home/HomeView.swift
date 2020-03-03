@@ -78,7 +78,7 @@ struct HomeView: View {
                 .frame(width: screenWidth*0.8, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 0.5)
+                            .stroke(self.colorScheme == .light ? Color.black : Color.white, lineWidth: 0.5)
                     )
                 .fixedSize()
                 
