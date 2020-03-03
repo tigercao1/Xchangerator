@@ -14,6 +14,8 @@ import CoreLocation
 struct Settings: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    @Binding var selectionFromParent : Int
+
     
     private func signOut() {
         do {
@@ -22,7 +24,8 @@ struct Settings: View {
             Logger.error(error)
             return
         }
-        self.stateStore.curRoute = .auth
+        self.stateStore.resetRoute()
+        self.selectionFromParent = 0
     }
     
  //https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation
@@ -80,7 +83,7 @@ struct Settings: View {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings().environmentObject(ReduxRootStateStore())
+        ContentView().environmentObject(ReduxRootStateStore())
     }
 }
 extension Color {

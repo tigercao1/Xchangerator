@@ -32,7 +32,7 @@ class Countries: ObservableObject{
             // TODO:
             // Can be replaced by location based info
         } catch {
-            print("Base country is set to the first element in list.")
+            Logger.error("Base country is set to the first element in list.")
         }
     }
     
