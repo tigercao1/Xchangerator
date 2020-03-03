@@ -14,7 +14,7 @@ class ReduxRootStateStore: ObservableObject {
     @Published var secondaryRoute: ContentSubKey = .home
     @Published var user: User_DBDoc = User_DBDoc ()
     @Published var isLandscape: Bool = false
-
+    @Published var countries: Countries = ApiCall()
 
     enum Key: String, CaseIterable {
         case auth, content
@@ -22,5 +22,17 @@ class ReduxRootStateStore: ObservableObject {
     enum ContentSubKey: String, CaseIterable {
         case home, favorites, alerts, settings
     }
+
+}
+
+func ApiCall() -> Countries {
+    let apiController = APIController()
+    var countries = Countries()
+    apiController.makeRequest{(data) in countries = Countries(countryList:data)}
+    while countries.getModel().count <= 1 {
+        sleep(1)
+    }
+    Logger.debug(countries.getModel())
+    return countries
 }
 

@@ -51,7 +51,7 @@ public struct User_DBDoc: Codable {
     }
 }
 
-// make your own annotation image
+// make your own annotation image For Mapkit
 //https://developer.apple.com/documentation/mapkit/mapkit_annotations/annotating_a_map_with_custom_data
 struct CustomAnnotationPoint: Hashable {
     
