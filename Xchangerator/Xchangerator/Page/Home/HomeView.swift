@@ -48,9 +48,9 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack(alignment: .center, spacing: 30){
+                HStack(spacing: screenWidth*0.05){
                     VStack(alignment: .leading){
-                        HStack(spacing: 20) {
+                        HStack(spacing: screenWidth*0.05) {
                             Text(baseCountry.flag)
                                 .font(.title)
                                 .frame(width: 30, height: 15)
@@ -69,44 +69,44 @@ struct HomeView: View {
                             Text(baseCountry.name)
                                 .font(.system(size: 15))
                                 .foregroundColor(.gray)
-                                .frame(width: screenWidth*0.7, alignment: .leading)
-                                .padding([.bottom, .top], 5)
+                                .frame(maxWidth: screenWidth*0.7, alignment: .leading)
+                                .fixedSize()
                         }
-                    }.padding(.leading, 30)
+                    }.padding(.leading, screenWidth*0.07)
                 }
                 .padding(.bottom, 5)
-                .fixedSize(horizontal: true, vertical: true)
-                .frame(width: screenWidth*0.8)
+                .frame(width: screenWidth*0.8, alignment: .leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.black, lineWidth: 0.5)
                     )
+                .fixedSize()
                 
                 List(stateStore.countries.getModel(), id: \.self) { country in
-                    HStack(spacing: 20) {
+                    HStack(spacing: screenWidth*0.06) {
                         VStack(alignment: .leading) {
-                            HStack(spacing: 20) {
+                            HStack(spacing: screenWidth*0.05) {
                                 Text(country.flag)
                                     .font(.title)
-                                    .fixedSize()
                                     .frame(width: 20, height: 15)
+                                    .fixedSize()
                                 Text(self.convert(country.unit))
+                                    .frame(width: screenWidth*0.35, alignment: .trailing)
                                     .fixedSize()
-                                    .frame(width: screenWidth*0.4, alignment: .trailing)
                                 Text(country.unit)
-                                    .fixedSize()
                                     .frame(width: 40, alignment: .leading)
                                     .font(.headline)
+                                    .fixedSize()
                             }
                             HStack(){
                                 Text(country.name)
-                                    .fixedSize()
                                     .font(.system(size: 15))
                                     .foregroundColor(.gray)
-                                    .frame(maxWidth: 80, alignment: .leading)
+                                    .frame(maxWidth: screenWidth*0.6, alignment: .leading)
                                     .padding([.bottom, .top], 5)
+                                    .fixedSize()
                             }.frame(alignment: .leading)
-                        }.padding(.leading, 35)
+                        }.padding(.leading, screenWidth*0.06)
                             .contentShape(Rectangle())
                             .gesture(
                                 TapGesture()
