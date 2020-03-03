@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B4240F122404D3D60001EE6D /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4240F112404D3D60001EE6D /* CountryList.swift */; };
+		B437C0CC240B081E0057D584 /* DatabaseManager.swift in Resources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
+		B437C0CD240B081E0057D584 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
 		B4C4722F23E0B60F004834CF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4722E23E0B60F004834CF /* HomeView.swift */; };
 		B4C4723423E13642004834CF /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4723323E13642004834CF /* Country.swift */; };
 		B4C4723723E138C1004834CF /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4723623E138C1004834CF /* Countries.swift */; };

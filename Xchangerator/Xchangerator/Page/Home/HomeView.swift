@@ -12,75 +12,120 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-
-
     @State private var baseCurrencyAmt: String = "100"
-    @State private var baseCurrencyUnit: String = "CAD"
+    @State private var baseCountry: Country = Country()
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var modalPresented: Bool = false
     @State private var favourite: Bool = false
     @State private var showLinkTarget = false
     @State private var chartClicked = false
     @State private var setAlertClicked = false
 
-    func convert(_ targetCurrencyUnit: String) -> String {
+    private func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
         let converter = Converter(stateStore.countries)
-        let convertedAmount = converter.convert(self.baseCurrencyUnit, targetCurrencyUnit, amount)
+        let convertedAmount = converter.convert(targetCurrencyUnit, amount)
         return String(format:"%.2f",convertedAmount)
     }
+    
+    private func isBaseCurrency(_ name: String) -> Bool {
+        return name == baseCountry.name
+    }
+    
+    private func setBaseCurrency() {
+        self.baseCountry = self.stateStore.countries.baseCountry
+    }
+    
+    private func switchBase(_ newBase: Country) {
+        self.stateStore.countries.setBaseCountry(newBase)
+        self.setBaseCurrency()
+    }
+
     private func endEditing() {
-           UIApplication.shared.endEditing()
-       }
+        UIApplication.shared.endEditing()
+    }
+
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Image(systemName:"mappin.and.ellipse").resizable()
-                        .frame(width:  CGFloat(15), height:  CGFloat(15))
-                        .padding(.leading,  CGFloat(15))
-                    Text("🇨🇦")
-                        .frame(width:  CGFloat(20), height:  CGFloat(15))
-                        .padding(.leading,  CGFloat(20))
-                        .font(.title)
-                    TextField("Amount", text: $baseCurrencyAmt)
-                                           .keyboardType(.numberPad)
-                                           .multilineTextAlignment(.trailing)
-                                           .fixedSize()
-                        .frame(width: screenWidth*0.20)
-
-                    Text(baseCurrencyUnit)
-                    
-                    Button(action: {
-                        self.modalPresented = true
-                    }) {
-                            Image(systemName: "ellipsis")
-                            .padding(.trailing,  CGFloat(10))
-                            .padding(.leading,  CGFloat(20))
-                        
-                    }
-                    
-                }.frame(width: screenWidth*0.8).padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius:  CGFloat(10))
-                            .stroke(Color.themeBlueGreenMixedBold)
-                    ).padding()
-
-                List(stateStore.countries.getModel(), id: \.self) {
-                    country in
-                    HStack {
-                        Text(country.flag)
-                            .font(.largeTitle)
-                            .padding(.leading,  35)
-                        Text(self.convert(country.unit))
-                            .multilineTextAlignment(.trailing)
-                            .fixedSize()
-                            .frame(width: screenWidth*0.35).padding()
-                        Text(country.unit)
+                HStack(spacing: screenWidth*0.05){
+                    VStack(alignment: .leading){
+                        HStack(spacing: screenWidth*0.05) {
+                            Text(baseCountry.flag)
+                                .font(.title)
+                                .frame(width: 30, height: 15)
+                            TextField("Amount", text: $baseCurrencyAmt)
+                                .keyboardType(.numberPad)
+                                .frame(width: screenWidth*0.3)
+                                .multilineTextAlignment(.trailing)
+                            Text(baseCountry.unit)
+                                .onAppear{
+                                    self.setBaseCurrency()
+                            }
+                            .frame(width: 50)
                             .font(.headline)
-                            .padding(.trailing, 20.0)
-                        
+                        }.padding(.top, 10)
+                        HStack {
+                            Text(baseCountry.name)
+                                .font(.system(size: 15))
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: screenWidth*0.7, alignment: .leading)
+                                .fixedSize()
+                        }
+                    }.padding(.leading, screenWidth*0.07)
+                }
+                .padding(.bottom, 5)
+                .frame(width: screenWidth*0.8, alignment: .leading)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(self.colorScheme == .light ? Color.black : Color.white, lineWidth: 0.5)
+                    )
+                .fixedSize()
+                
+                List(stateStore.countries.getModel(), id: \.self) { country in
+                    HStack(spacing: screenWidth*0.06) {
+                        VStack(alignment: .leading) {
+                            HStack(spacing: screenWidth*0.05) {
+                                Text(country.flag)
+                                    .font(.title)
+                                    .frame(width: 20, height: 15)
+                                    .fixedSize()
+                                Text(self.convert(country.unit))
+                                    .frame(width: screenWidth*0.35, alignment: .trailing)
+                                    .fixedSize()
+                                Text(country.unit)
+                                    .frame(width: 50, alignment: .leading)
+                                    .font(.headline)
+                                    .fixedSize()
+                            }
+                            HStack(){
+                                Text(country.name)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.gray)
+                                    .frame(maxWidth: screenWidth*0.6, alignment: .leading)
+                                    .padding([.bottom, .top], 5)
+                                    .fixedSize()
+                            }.frame(alignment: .leading)
+                        }.padding(.leading, screenWidth*0.06)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                TapGesture()
+                                    .onEnded { _ in
+                                        self.switchBase(country)
+                                    }
+                            )
+                        Divider()
+                        Image(systemName: "ellipsis")
+                            .aspectRatio(contentMode:.fill)
+                            .frame(height: 30)
+                            .gesture(
+                                TapGesture()
+                                    .onEnded { _ in
+                                        self.modalPresented = true
+                                    }
+                            )
                     }
+                    .padding(.top, 10)
                 }
             }.navigationBarTitle("Exchange Rates ")
             
