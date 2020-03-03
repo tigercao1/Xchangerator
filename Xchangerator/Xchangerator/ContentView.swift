@@ -44,7 +44,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
-            Settings()
+            SettingsMain()
                 .tabItem {
                     VStack {
                         Image(systemName:"gear")

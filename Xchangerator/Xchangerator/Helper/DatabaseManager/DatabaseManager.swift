@@ -52,7 +52,7 @@ class DatabaseManager {
                 newTokenArr = newTokenArr.filter{ $0 != "" }
                 Logger.debug("Document data: \(newTokenArr)")
                 
-                userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
+                userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
                 
             } else {
                 //create all the fields for the new user
@@ -60,7 +60,7 @@ class DatabaseManager {
                 if let wrappedFcmToken = firebaseMsgDeviceToken  {
                         newTokenArr.append(wrappedFcmToken)
                 }
-                userProfile = User_Profile(email:user.email ?? "New_\(uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:newTokenArr, name:user.displayName ?? "New User")
+                userProfile = User_Profile(email:user.email ?? "New_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "New User")
                 //Todo:add subcollection and 5 sub doc
             }
             let userDoc = User_DBDoc(profile:userProfile)

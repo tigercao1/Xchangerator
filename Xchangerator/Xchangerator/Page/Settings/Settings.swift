@@ -10,6 +10,7 @@ import Foundation
 import FirebaseUI
 import SwiftUI
 import CoreLocation
+import URLImage
 
 struct Settings: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -29,29 +30,27 @@ struct Settings: View {
     var body: some View {
         NavigationView{
              VStack{
-                Spacer()
-                ImageView(withURL:stateStore.user.profile.photoURL! )
-                    .frame(width:100, height:100).clipShape(Circle())
+                Spacer().frame(height: screenHeight*0.01)
+                URLImage(stateStore.user.profile.photoURL){ proxy in
+                    proxy.image
+                        .resizable()                     // Make image resizable
+                        .aspectRatio(contentMode: .fill) // Fill the frame
+                        .clipped()                       // Clip overlaping parts
+                }
+                    .frame(width:120, height:120).clipShape(Circle())
                     .overlay(Circle().stroke(Color.white, lineWidth: 4))
                     .shadow(radius: 10)
                     .padding(.vertical, screenHeight*0.15)
                     .frame(width: 200, height: screenHeight/4).edgesIgnoringSafeArea(.top)
                     
-                Spacer()
-                VStack(alignment: .leading) {
+                VStack {
                     Text(stateStore.user.profile.name)
                         .font(.title)
-
-                    HStack(alignment: .top) {
-                        Text(stateStore.user.profile.email)
-                            .font(.subheadline)
-                        Spacer()
-                    Text(String(describing:stateStore.user.profile.photoURL!))
-                        .font(.subheadline)
-                    }.onAppear {
-                        Logger.debug( String(describing:self.stateStore.user.profile.photoURL!)
-                        )
-                    }
+                    Spacer().frame(height: screenHeight*0.02)
+                    
+                    Text(stateStore.user.profile.email)
+                        .font(.subheadline).padding(.top)
+                    
                 }
                 .padding()
                 
@@ -73,7 +72,7 @@ struct Settings: View {
                     
                 }.padding()
                 
-             }.navigationBarTitle(Text("Settings"))//
+             }.navigationBarTitle(Text("Profile"))//
         }
     }
 }

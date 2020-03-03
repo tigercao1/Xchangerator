@@ -86,7 +86,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             self.parent.stateStore.curRoute = .content
             
             if let user = Auth.auth().currentUser  {
-                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:[], name:user.displayName ?? "New User")
+                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:[], name:user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile:userProfile)
                 self.parent.stateStore.user = userDoc
             }
