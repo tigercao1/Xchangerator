@@ -15,25 +15,14 @@ import URLImage
 struct Settings: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var stateStore: ReduxRootStateStore
-//    @Binding var selectionFromParent : Int
 
-//
-//    private func signOut() {
-//        do {
-//            try FUIAuth.defaultAuthUI()!.signOut()
-//        } catch {
-//            Logger.error(error)
-//            return
-//        }
-//        self.stateStore.resetRoute()
-//        self.selectionFromParent = 0
-//    }
     
  //https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation
     var body: some View {
-        NavigationView{
              VStack{
                 Spacer().frame(height: screenHeight*0.01)
+                Spacer()
+
                 URLImage(stateStore.user.profile.photoURL){ proxy in
                     proxy.image
                         .resizable()                     // Make image resizable
@@ -58,25 +47,8 @@ struct Settings: View {
                 .padding()
                 
                 Spacer()
-//                Button(action: self.signOut){
-//                    HStack {
-//                        Image(systemName: "escape")
-//                            .font(.title).padding(.horizontal,20)
-//                        Text("Sign Out")
-//                            .fontWeight(.semibold)
-//                            .font(.headline)
-//                    }
-//                    .frame(minWidth: 0, maxWidth: screenWidth*0.6)
-//                    .padding()
-//                    .foregroundColor(.white)
-//                    .background(Color.themeBlueGreenMixed)
-//                    .cornerRadius(30)
-//                    .padding(.horizontal, CGFloat(20))
-//
-//                }.padding()
                 
-             }.navigationBarTitle(Text("Profile"))//
-        }
+             }.navigationBarTitle(Text("Profile"), displayMode: .automatic)
     }
 }
 
