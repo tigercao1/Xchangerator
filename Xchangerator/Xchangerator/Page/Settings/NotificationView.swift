@@ -12,7 +12,6 @@ struct NotificationView: View {
     @State private var turnOnNotification: Bool = false
 
     var body: some View {
-        NavigationView{
             VStack(alignment: .leading){
                 Toggle(isOn: self.$turnOnNotification) {
                     HStack{
@@ -20,8 +19,19 @@ struct NotificationView: View {
                             .padding()
                     }.foregroundColor(.black)
                 }.padding()
-            }.navigationBarTitle("Notification").edgesIgnoringSafeArea(.top)
-        }
+                Toggle(isOn: self.$turnOnNotification) {
+                    HStack{
+                        Text("Turn on Notification")
+                            .padding()
+                    }.foregroundColor(.black)
+                }.padding()
+                Toggle(isOn: self.$turnOnNotification) {
+                    HStack{
+                        Text("Turn on Notification")
+                            .padding()
+                    }.foregroundColor(.black)
+                }.padding()
+            }.navigationBarTitle(Text("Notification"), displayMode: .automatic).edgesIgnoringSafeArea(.top)
     }
 }
 
