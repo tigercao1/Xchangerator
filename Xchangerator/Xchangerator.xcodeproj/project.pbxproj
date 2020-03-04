@@ -41,6 +41,8 @@
 		C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
 		C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */; };
 		C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F45240E13B600C402E6 /* CardView.swift */; };
+		C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */; };
+		C5FF8F4A240EE1FC00C402E6 /* EditableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */; };
 		CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */; };
 		CAB49F6A240DC34A008ED8C6 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CAB49F69240DC34A008ED8C6 /* URLImage */; };
 		CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */; };
@@ -90,6 +92,8 @@
 		C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUIAuthBaseViewControllerWrapper.swift; sourceTree = "<group>"; };
 		C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWrapper.swift; sourceTree = "<group>"; };
 		C5FF8F45240E13B600C402E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCardView.swift; sourceTree = "<group>"; };
+		C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCardView.swift; sourceTree = "<group>"; };
 		CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMain.swift; sourceTree = "<group>"; };
 		CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				C5AADDE1240702EC0077D669 /* CircleImage.swift */,
 				C5AADDE3240704950077D669 /* MapView.swift */,
 				C5FF8F45240E13B600C402E6 /* CardView.swift */,
+				C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */,
+				C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 			files = (
 				B4240F122404D3D60001EE6D /* CountryList.swift in Sources */,
 				B4C4723423E13642004834CF /* Country.swift in Sources */,
+				C5FF8F4A240EE1FC00C402E6 /* EditableCardView.swift in Sources */,
 				C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */,
 				CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */,
 				C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */,
@@ -497,6 +504,7 @@
 				C519754F2404DB9F00B88635 /* Logger.swift in Sources */,
 				C5AADDE624071B650077D669 /* UserProfile.swift in Sources */,
 				C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */,
+				C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */,
 				C51975522404DD3C00B88635 /* TextManager.swift in Sources */,
 				C5AADDDF240700B30077D669 /* Landmark.swift in Sources */,
 				CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */,
