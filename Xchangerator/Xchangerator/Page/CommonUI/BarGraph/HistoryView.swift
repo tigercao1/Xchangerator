@@ -54,7 +54,7 @@ struct HistoryView: View {
                                     country: self.stateStore.countries.getModel()[history.id-998] ,
                                     isEditable: false,
                                     showFromParent: false,
-                                    barNumFromParent:String(history.id-500+history.distance*10)
+                                    barNumFromParent:String(history.distance*10)
                                 )
 
                             }
