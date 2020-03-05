@@ -30,8 +30,9 @@ struct EditableCardView: View {
             
             if (show) {
                 VStack(){
-                    Text("Notify Me When: ")
+                    Text("NOTIFY ME WHEN: ")
                         .fontWeight(.bold)
+                        .padding(.top,3)
                        .font(Font.title)
                        .multilineTextAlignment(.center)
                        .animation(.spring())
@@ -148,7 +149,8 @@ struct CountryHeadlineCardView: View {
             HStack(){
                 Text(country.flag)
                     .font( showFromParent ? Font.largeTitle : Font.subheadline)
-                    .frame(height: 15)
+                    .multilineTextAlignment(.center)
+                    .frame(width: !showFromParent ? 20 : 40, height: 15)
                     .padding()
       
                 if ( isEditable ){
@@ -170,7 +172,7 @@ struct CountryHeadlineCardView: View {
                     .font( showFromParent ? Font.title : Font.subheadline)
 //                    .frame(width: showFromParent ?   screenWidth*0.15 : 20)
             }.foregroundColor(.white)
-                .frame(width: showFromParent ? screenWidth*0.7 : screenWidth*0.40, alignment: .leading)
+                .frame(width: showFromParent ? screenWidth*0.8 : screenWidth*0.40, alignment: .leading)
                 .padding(.top, showFromParent ? 5 : 0)
                 .padding(.bottom, showFromParent ? 5 : 0)
                 .layoutPriority(100)

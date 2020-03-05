@@ -18,6 +18,9 @@ struct Alerts: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
     
+    private func endEditing() {
+        UIApplication.shared.endEditing()
+    }
 
     var body: some View {
         NavigationView{
@@ -36,6 +39,9 @@ struct Alerts: View {
                         // Spacer()
                     }
                 }.scaledToFill()
+            }.onTapGesture {
+                self.endEditing()
+                
             }
             .navigationBarTitle(Text("Alerts"))//
             
