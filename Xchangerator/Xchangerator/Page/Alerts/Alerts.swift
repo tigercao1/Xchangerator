@@ -9,21 +9,21 @@
 import Foundation
 import FirebaseUI
 import SwiftUI
-import CoreLocation
-import MapKit
+//import CoreLocation
+//import MapKit
 
 //get current location
 //https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
 struct Alerts: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    
 
     var body: some View {
         NavigationView{
-//            AlertCardView(country1ForShort:"CAD", country2ForShort:"USD",operatorAlert:">",numBar:1010)
             List(stateStore.countries.getModel(), id: \.self) { country in
                 Spacer()
-                EditableCardView(country1: country, country2: country, conditionOperator: ">", numBar: 100)
+                EditableCardView(country1: country, country2: country, conditionOperator: ">", numBar: Float.random(in: 1..<1000))
                 Spacer()
             }
             .navigationBarTitle(Text("Alerts"))//
