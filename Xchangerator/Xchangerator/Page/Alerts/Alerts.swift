@@ -21,10 +21,21 @@ struct Alerts: View {
 
     var body: some View {
         NavigationView{
-            List(stateStore.countries.getModel(), id: \.self) { country in
-                Spacer()
-                EditableCardView(country1: country, country2: country, conditionOperator: ">", numBar: Float.random(in: 1..<1000))
-                Spacer()
+            ScrollView() {
+                VStack {
+                    ForEach(stateStore.countries.getModel()[..<10], id: \.self)
+                    {
+                        country in
+                           // Spacer()
+                            EditableCardView(
+                                country1: country,
+                                country2: self.stateStore.countries.baseCountry,
+                                conditionOperator: "LT",
+                                numBar: String(format:"%.2f",Float.random(in: 1..<1000))
+                           )
+                        // Spacer()
+                    }
+                }.scaledToFill()
             }
             .navigationBarTitle(Text("Alerts"))//
             
@@ -32,6 +43,7 @@ struct Alerts: View {
         
     }
 }
+
 
 #if DEBUG
 struct Alerts_Previews : PreviewProvider {
