@@ -14,7 +14,7 @@ struct EditableCardView: View {
     @State private var  disabled = true
     var country1: Country
     var country2: Country
-    var conditionOperator: String
+    @State var conditionOperator: String
     @State var numBar: String
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
@@ -44,11 +44,14 @@ struct EditableCardView: View {
                         showFromParent: $show ,
                         barNumFromParent: $numBar
                     )
-                    Image(systemName: conditionOperator == "LT" ? "less.circle.fill" : "greaterthan.circle.fill")
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .frame(height: 15)
+                    Button(action: {
+                        self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
+                             }){
+                            Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill": "greaterthan.circle.fill")
+
                         .foregroundColor(.lightBlue).layoutPriority(200)
+                    }.animation(.spring())
+
                     CountryHeadlineCardView(
                         country:country2 ,
                         isEditable: true,
@@ -59,25 +62,28 @@ struct EditableCardView: View {
                 .foregroundColor(Color.white)
                 .animation(.easeInOut)
             } else {
-                HStack{
-                    CountryHeadlineCardView(
-                        country:country1 ,
-                        isEditable: false,
-                        showFromParent: $show ,
-                        barNumFromParent: $numBar
-                    )
-                    Image(systemName: conditionOperator == "LT" ? "less" : "greaterthan")
-                        .resizable()
+                ZStack{
+                    HStack{
+                        CountryHeadlineCardView(
+                            country:country1 ,
+                            isEditable: false,
+                            showFromParent: $show ,
+                            barNumFromParent: $numBar
+                        )
+
+                        CountryHeadlineCardView(
+                            country:country2 ,
+                            isEditable: true,
+                            showFromParent: $show,
+                            barNumFromParent: $numBar
+                        )
+                    }
+                    Image(systemName: conditionOperator == "LT" ? "lessthan" : "greaterthan")
+//                        .resizable()
                         .foregroundColor(Color.white)
-                        .frame(width: 15)
+                        .frame(width: 15, height: 15)
                         .padding()
                         .layoutPriority(500)
-                    CountryHeadlineCardView(
-                        country:country2 ,
-                        isEditable: true,
-                        showFromParent: $show,
-                        barNumFromParent: $numBar
-                    )
                 }.animation(.easeInOut)
 
             }
@@ -91,7 +97,7 @@ struct EditableCardView: View {
                         Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white: Color.lightBlue)
                             .font(Font.title.weight(.semibold))
                             .imageScale(.small)
-                       Text(disabled ? "Disabled" : "Activate")
+                       Text(disabled ? "Disabled" : "Active")
                         .foregroundColor(disabled ? Color.white: Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
                             .fontWeight(.bold)
                             .font(show ? Font.title : Font.headline)
@@ -148,9 +154,9 @@ struct CountryHeadlineCardView: View {
                 if ( isEditable ){
                     TextField("Amount", text: $barNumFromParent)
 //                            .underline(showFromParent)
-                        .disabled(showFromParent)
+                        .disabled(!showFromParent)
                         .font( showFromParent ? Font.title: Font.headline)
-                        .frame(width: showFromParent ?   screenWidth*0.3 : 50)
+                        .frame(width: showFromParent ?   screenWidth*0.3 : 60)
                         .foregroundColor(showFromParent ? Color.lightBlue : Color.white )
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.leading)
@@ -162,9 +168,9 @@ struct CountryHeadlineCardView: View {
                 Text(country.unit)
                     .fontWeight(.bold)
                     .font( showFromParent ? Font.title : Font.subheadline)
-                    .frame(width: showFromParent ?   screenWidth*0.15 : 20)
+//                    .frame(width: showFromParent ?   screenWidth*0.15 : 20)
             }.foregroundColor(.white)
-                .frame(width: showFromParent ? screenWidth*0.7 : screenWidth*0.40, alignment: .center)
+                .frame(width: showFromParent ? screenWidth*0.7 : screenWidth*0.40, alignment: .leading)
                 .padding(.top, showFromParent ? 5 : 0)
                 .padding(.bottom, showFromParent ? 5 : 0)
                 .layoutPriority(100)
