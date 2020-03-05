@@ -20,19 +20,19 @@ struct NotificationView: View {
                     HStack{
                         Text("Turn on notification")
                             .padding()
-                    }.foregroundColor(.black)
+                    }
                 }.padding()
                 Toggle(isOn: self.$turnOnSound) {
                     HStack{
                         Text("Enable notification sound")
                             .padding()
-                    }.foregroundColor(.black)
+                    }
                 }.padding()
                 Toggle(isOn: self.$turnOnIconBadge) {
                     HStack{
                         Text("Display red dot in top right of the icon")
                             .padding()
-                    }.foregroundColor(.black)
+                    }
                 }.padding()
             }.navigationBarTitle(Text("Notification"), displayMode: .automatic).edgesIgnoringSafeArea(.top)
     }

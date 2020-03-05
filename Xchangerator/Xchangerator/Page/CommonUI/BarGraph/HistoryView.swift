@@ -36,10 +36,12 @@ struct HistoryView: View {
                                 }
                             }){
                                 Image(systemName: "star.fill").foregroundColor(Color.yellow)
+                                    .transition(.slide)
                                 .imageScale(.large)
                                 .rotationEffect(.degrees(isHide ? 90 : 0))
                                 .scaleEffect(!isHide ? 1.5 : 0)
-                            }.padding()
+                            }
+                            .padding()
                             VStack(alignment: .leading) {
                                 CountryHeadlineReadOnlyView(
                                             country: self.stateStore.countries.getModel()[history.id-1000] ,
