@@ -128,7 +128,7 @@ struct EditableCardView: View {
         }
         .padding()
         .padding(.top, 15)
-        .frame(width: show ? screenWidth*0.92 : screenWidth*0.90, height: show ? 350 : 100)
+        .frame(width: show ? screenWidth*0.85 : screenWidth*0.88, height: show ? 350 : 100)
         .background(disabled ? Color.gray : Color.blue)
         .cornerRadius(25)
         .animation(.spring())
