@@ -12,11 +12,22 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FavoriteView: View {
-    let disciplines = ["CAD-US", "CAD-FR", "CAD-CNY", "CAD-JPY"]
+//    let disciplines = ["CAD-US", "CAD-FR", "CAD-CNY", "CAD-JPY"]
+
     var body: some View {
         NavigationView {
-          List(disciplines, id: \.self) { discipline in
-            Text(discipline)
+            ScrollView() {
+                VStack {
+                    ForEach(historyData, id: \.self){
+                        history in
+                        VStack {
+                            //  Text(history.name)
+                            HistoryView(history: history)
+                                .padding()
+//                            Spacer()
+                            }
+                    }
+                }
           }.navigationBarTitle("Favorites")//
         }
 
@@ -25,6 +36,8 @@ struct FavoriteView: View {
 
 struct FavoriteView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+          ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:1).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+          .previewDisplayName(deviceName)
+        }
     }
 }

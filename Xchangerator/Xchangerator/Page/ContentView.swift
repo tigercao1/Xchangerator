@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var selection = 0
     var body: some View {
         TabView(selection: $selection){
-            HomeView()
+            HomeView(selectionFromParent: $selection)
                 .tabItem {
                     VStack {
                         Image(systemName:"house")

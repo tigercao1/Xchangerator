@@ -19,12 +19,6 @@ class ReduxRootStateStore: ObservableObject {
     enum Key: String, CaseIterable {
         case auth, content
     }
-//    enum ContentSubKey: Int, CaseIterable {
-//        case home = 0,
-//        favorites = 1,
-//        alerts = 2,
-//        settings = 3
-//    }
     
     func resetRoute() -> Void{
         self.secondaryRoute = 0

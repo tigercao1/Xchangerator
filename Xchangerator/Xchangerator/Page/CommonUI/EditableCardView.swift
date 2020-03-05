@@ -80,7 +80,6 @@ struct EditableCardView: View {
                         )
                     }
                     Image(systemName: conditionOperator == "LT" ? "lessthan" : "greaterthan")
-//                        .resizable()
                         .foregroundColor(Color.white)
                         .frame(width: 15, height: 15)
                         .padding()
@@ -129,7 +128,7 @@ struct EditableCardView: View {
         }
         .padding()
         .padding(.top, 15)
-        .frame(width: show ? screenWidth*0.92 : screenWidth*0.92, height: show ? screenHeight*0.3 : screenHeight*0.1)
+        .frame(width: show ? screenWidth*0.92 : screenWidth*0.90, height: show ? 350 : 100)
         .background(disabled ? Color.gray : Color.blue)
         .cornerRadius(25)
         .animation(.spring())
@@ -170,7 +169,6 @@ struct CountryHeadlineCardView: View {
                 Text(country.unit)
                     .fontWeight(.bold)
                     .font( showFromParent ? Font.title : Font.subheadline)
-//                    .frame(width: showFromParent ?   screenWidth*0.15 : 20)
             }.foregroundColor(.white)
                 .frame(width: showFromParent ? screenWidth*0.8 : screenWidth*0.40, alignment: .leading)
                 .padding(.top, showFromParent ? 5 : 0)
@@ -187,7 +185,9 @@ extension Color {
 #if DEBUG
 struct EditableCardView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView(selection:2).environmentObject(ReduxRootStateStore())
+          ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+          .previewDisplayName(deviceName)
+        }
     }
 }
 #endif

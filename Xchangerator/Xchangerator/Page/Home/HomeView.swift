@@ -20,6 +20,8 @@ struct HomeView: View {
     @State private var showLinkTarget = false
     @State private var chartClicked = false
     @State private var setAlertClicked = false
+    @Binding var selectionFromParent : Int
+
 
     private func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
@@ -156,7 +158,7 @@ struct HomeView: View {
                         HStack{
                             Button(action: {
                                           do {
-                                          self.chartClicked = true
+                                            self.chartClicked.toggle()
                                           }
                                       }) {
                                           VStack {
@@ -169,6 +171,7 @@ struct HomeView: View {
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
+                                            self.selectionFromParent = 2
                                               self.setAlertClicked = true
                                           }
                                       }) {
@@ -180,12 +183,16 @@ struct HomeView: View {
                                                   .font(.headline)
                                           }
                             }.buttonStyle(GradientBackgroundStyle())
-                        }.padding(.bottom,25)
-                        
+                        }
+                        if (self.chartClicked) {
+                            HistoryDetail(history: historyData[0]).padding()
+                            
+                        }
+                        Divider().padding(.bottom,30)
                     }
                 }
 
-            }.frame(height: screenHeight*0.3)
+            }.frame(height: (self.chartClicked ? screenHeight*0.45: screenHeight*0.3) )
         }
     }
 }
@@ -204,7 +211,9 @@ extension Color {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(ReduxRootStateStore())
+        ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:0).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+                 .previewDisplayName(deviceName)
+               }
     }
 }
 

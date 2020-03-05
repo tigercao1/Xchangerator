@@ -10,24 +10,27 @@ import SwiftUI
 
 struct NotificationView: View {
     @State private var turnOnNotification: Bool = false
+    @State private var turnOnSound: Bool = false
+    @State private var turnOnIconBadge: Bool = false
+
 
     var body: some View {
             VStack(alignment: .leading){
                 Toggle(isOn: self.$turnOnNotification) {
                     HStack{
-                        Text("Turn on Notification")
+                        Text("Turn on notification")
                             .padding()
                     }.foregroundColor(.black)
                 }.padding()
-                Toggle(isOn: self.$turnOnNotification) {
+                Toggle(isOn: self.$turnOnSound) {
                     HStack{
-                        Text("Turn on Notification")
+                        Text("Enable notification sound")
                             .padding()
                     }.foregroundColor(.black)
                 }.padding()
-                Toggle(isOn: self.$turnOnNotification) {
+                Toggle(isOn: self.$turnOnIconBadge) {
                     HStack{
-                        Text("Turn on Notification")
+                        Text("Display red dot in top right of the icon")
                             .padding()
                     }.foregroundColor(.black)
                 }.padding()
