@@ -1,0 +1,8 @@
+* D3 outline
+* The client prototype of Favorites page 
+* The client prototype of bar chart visualization:
+  - History Cell
+  - History View
+* Alert page, the client part
+* Notification page tweaks
+
