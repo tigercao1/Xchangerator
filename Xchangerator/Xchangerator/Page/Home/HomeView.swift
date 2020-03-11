@@ -14,6 +14,7 @@ struct HomeView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCountry: Country = Country()
+    @State private var targetCountry: Country = Country()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var modalPresented: Bool = false
     @State private var favourite: Bool = false
@@ -39,12 +40,39 @@ struct HomeView: View {
     }
     
     private func switchBase(_ newBase: Country) {
+        self.favourite = false
         self.stateStore.countries.setBaseCountry(newBase)
         self.setBaseCurrency()
     }
 
     private func endEditing() {
         UIApplication.shared.endEditing()
+    }
+    
+    private func isFavorite() -> Bool {
+        let currentConversion = FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry)
+        do {
+            try self.stateStore.favoriteConversions.find(currentConversion)
+            return true
+        } catch {
+            return false
+        }
+        
+    }
+    
+    private func addToFavorite() -> String {
+        let converter = Converter(stateStore.countries)
+        if (!isFavorite()) {
+            stateStore.favoriteConversions.add(FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        }
+        return ""
+    }
+    
+    private func deleteFromFavorite() -> String {
+        if (isFavorite()) {
+            try? stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry))
+        }
+        return ""
     }
 
     var body: some View {
@@ -90,7 +118,7 @@ struct HomeView: View {
                             HStack(spacing: screenWidth*0.05) {
                                 Text(country.flag)
                                     .font(.title)
-                                    .frame(width: 20, height: 15)
+                                    .frame(width: 30, height: 15)
                                     .fixedSize()
                                 Text(self.convert(country.unit))
                                     .frame(width: screenWidth*0.35, alignment: .trailing)
@@ -123,6 +151,8 @@ struct HomeView: View {
                             .gesture(
                                 TapGesture()
                                     .onEnded { _ in
+                                        self.targetCountry = country
+                                        self.favourite = self.isFavorite()
                                         self.modalPresented = true
                                     }
                             )
@@ -146,6 +176,11 @@ struct HomeView: View {
                 VStack {
                     Group {
                         Toggle(isOn: self.$favourite) {
+                            if (self.favourite) {
+                                Text("\(self.addToFavorite())")
+                            } else {
+                                Text("\(self.deleteFromFavorite())")
+                            }
                             HStack{
                                 Image(systemName: "heart")
                                     .font(.title)

@@ -25,66 +25,49 @@ struct HistoryView: View {
     }
     
     var body: some View {
-        Group{
-            if (!self.isHide){
-                VStack {
-                        HStack {
+        List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
+            HStack {
 
-                            Button(action: {
-                                withAnimation {
-                                    self.isHide.toggle()
-                                }
-                            }){
-                                Image(systemName: "star.fill").foregroundColor(Color.yellow)
-                                    .transition(.slide)
-                                .imageScale(.large)
-                                .rotationEffect(.degrees(isHide ? 90 : 0))
-                                .scaleEffect(!isHide ? 1.5 : 0)
-                            }
-                            .padding()
-                            VStack(alignment: .leading) {
-                                CountryHeadlineReadOnlyView(
-                                            country: self.stateStore.countries.getModel()[history.id-1000] ,
-                                            isEditable: false,
-                                            showFromParent: false,
-                                            barNumFromParent: "100"
-                                        )
-                            
-                                CountryHeadlineReadOnlyView(
-                                    country: self.stateStore.countries.getModel()[history.id-998] ,
-                                    isEditable: false,
-                                    showFromParent: false,
-                                    barNumFromParent:String(history.distance*10)
-                                )
-
-                            }
-                            
-                            Spacer()
-                            HistoryGraph(history: history, path: \.week)
-                                .frame(width: 45, height: 30)
-                                .animation(nil)
-                            Button(action: {
-                                withAnimation {
-                                    self.showDetail.toggle()
-                                }
-                            }) {
-                                Image(systemName: "chevron.right.circle")
-                                    .imageScale(.large)
-                                    .rotationEffect(.degrees(self.showDetail ? 90 : 0))
-                                    .scaleEffect(showDetail ? 1.5 : 1)
-                                    .padding()
-                            }
-                        }
-                        //.padding(10)
-
-                        if showDetail {
-                            HistoryDetail(history: history)
-                                .transition(transition)
-                            }
-                    
+                Button(action: {
+                }){
+                    Image(systemName: "star.fill").foregroundColor(Color.yellow)
+                        .transition(.slide)
+                    .imageScale(.large)
+                        .rotationEffect(.degrees(self.isHide ? 90 : 0))
+                        .scaleEffect(!self.isHide ? 1.5 : 0)
                 }
-            } else {
+                .padding()
+                
+                CountryHeadlineReadOnlyView(
+                    country: country,
+                            isEditable: false,
+                            showFromParent: false,
+                            barNumFromParent: "100"
+                        )
+                
+                Spacer()
+                HistoryGraph(history: self.history, path: \.week)
+                    .frame(width: 45, height: 30)
+                    .animation(nil)
+                Button(action: {
+                    withAnimation {
+                        self.showDetail.toggle()
+                    }
+                }) {
+                    Image(systemName: "chevron.right.circle")
+                        .imageScale(.large)
+                        .rotationEffect(.degrees(self.showDetail ? 90 : 0))
+                        .scaleEffect(self.showDetail ? 1.5 : 1)
+                        .padding()
+                }
             }
+            //.padding(10)
+
+            if self.showDetail {
+                HistoryDetail(history: self.history)
+                .transition(self.transition)
+            }
+                
         }
     }
 }
@@ -94,15 +77,16 @@ struct HistoryView: View {
 
 
 struct CountryHeadlineReadOnlyView: View {
-    var country: Country
+    var country: FavoriteConversion
 //    var number: Float
     var isEditable : Bool
     var showFromParent:Bool
     var barNumFromParent:String
 
     var body: some View {
+        VStack {
             HStack(){
-                Text(country.flag)
+                Text(country.baseCurrency.flag)
                     .font( showFromParent ? Font.largeTitle : Font.subheadline)
                     .multilineTextAlignment(.center)
                     .frame(width: !showFromParent ? 15 : 40)
@@ -112,7 +96,7 @@ struct CountryHeadlineReadOnlyView: View {
                     .font( showFromParent ? Font.title: Font.headline)
                     .frame(width: showFromParent ?   screenWidth*0.3 : 60)
             
-                Text(country.unit)
+                Text(country.baseCurrency.unit)
                     .fontWeight(.bold)
                     .font( showFromParent ? Font.title : Font.subheadline)
             }
@@ -120,6 +104,27 @@ struct CountryHeadlineReadOnlyView: View {
                 .padding(.top, showFromParent ? 5 : 0)
                 .padding(.bottom, showFromParent ? 5 : 0)
                 .layoutPriority(100)
+            HStack(){
+                Text(country.targetCurrency.flag)
+                    .font( showFromParent ? Font.largeTitle : Font.subheadline)
+                    .multilineTextAlignment(.center)
+                    .frame(width: !showFromParent ? 15 : 40)
+                    .padding()
+
+                Text(String(format: "%.2f", (Double(barNumFromParent) ?? 0 ) * country.rate))
+                    .font( showFromParent ? Font.title: Font.headline)
+                    .frame(width: showFromParent ?   screenWidth*0.3 : 60)
+            
+                Text(country.targetCurrency.unit)
+                    .fontWeight(.bold)
+                    .font( showFromParent ? Font.title : Font.subheadline)
+            }
+                .frame(width: showFromParent ? screenWidth*0.8 : screenWidth*0.2, alignment: .leading)
+                .padding(.top, showFromParent ? 5 : 0)
+                .padding(.bottom, showFromParent ? 5 : 0)
+                .layoutPriority(100)
+        }
+            
     }
 }
 struct HistoryView_Previews: PreviewProvider {

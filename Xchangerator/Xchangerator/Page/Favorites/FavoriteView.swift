@@ -12,26 +12,58 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FavoriteView: View {
-//    let disciplines = ["CAD-US", "CAD-FR", "CAD-CNY", "CAD-JPY"]
+    @EnvironmentObject var stateStore: ReduxRootStateStore
+    @State var items: Array<FavoriteConversion> = []
+    
+    private func reload() {
+        self.items = self.stateStore.favoriteConversions.getModel()
+    }
+    
+    private func deleteFav(_ country: FavoriteConversion) {
+        try? self.stateStore.favoriteConversions.deleteById(country.id.uuidString)
+        self.reload()
+    }
 
     var body: some View {
         NavigationView {
-            ScrollView() {
-                VStack {
-                    ForEach(historyData, id: \.self){
-                        history in
-                        VStack {
-                            //  Text(history.name)
-                            HistoryView(history: history)
-                                .padding()
-//                            Spacer()
-                            }
+            List(items, id: \.self) { country in
+                HStack{
+                    Button(action: {
+                        self.deleteFav(country)
+                    }){
+                        Image(systemName: "star.fill").foregroundColor(Color.yellow)
+                            .transition(.slide)
+                        .imageScale(.large)
+                            .rotationEffect(.degrees(90))
+                            .scaleEffect(1.5)
                     }
+                    .padding()
+                    CountryHeadlineReadOnlyView(
+                    country: country,
+                            isEditable: false,
+                            showFromParent: false,
+                            barNumFromParent: "100"
+                        )
                 }
-          }.navigationBarTitle("Favorites")//
-        }
-
+                
+            }.onAppear(perform: {
+                self.reload()
+            })
+            
+            .navigationBarTitle("Favorites")
+//                VStack {
+//                    ForEach(historyData, id: \.self){
+//                        history in
+//                        VStack {
+//                            //  Text(history.name)
+//                            HistoryView(history: history)
+//                                .padding()
+//                            Spacer()
+//                            }
+//                    }
+          }
     }
+
 }
 
 struct FavoriteView_Previews: PreviewProvider {
