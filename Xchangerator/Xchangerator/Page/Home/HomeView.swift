@@ -219,10 +219,10 @@ struct HomeView: View {
                                           }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        if (self.chartClicked) {
-                            HistoryDetail(history: historyData[0]).padding()
-                            
-                        }
+//                        if (self.chartClicked) {
+//                            HistoryDetail(history: historyData[0]).padding()
+//                            
+//                        }
                         Divider().padding(.bottom,30)
                     }
                 }

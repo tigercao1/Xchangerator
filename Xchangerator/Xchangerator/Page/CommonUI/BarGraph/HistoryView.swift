@@ -7,75 +7,75 @@
 //
 
 import SwiftUI
-
-struct HistoryView: View {
-    var history: HistoryCell
-    @EnvironmentObject var stateStore: ReduxRootStateStore
-    
-    @State private var showDetail = false
-    @State var isHide = false
-
-    
-    var transition: AnyTransition {
-        let insertion = AnyTransition.move(edge: .trailing)
-            .combined(with: .opacity)
-        let removal = AnyTransition.scale
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
-    }
-    
-    var body: some View {
-        List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
-            HStack {
-
-                Button(action: {
-                }){
-                    Image(systemName: "star.fill").foregroundColor(Color.yellow)
-                        .transition(.slide)
-                    .imageScale(.large)
-                        .rotationEffect(.degrees(self.isHide ? 90 : 0))
-                        .scaleEffect(!self.isHide ? 1.5 : 0)
-                }
-                .padding()
-                
-                CountryHeadlineReadOnlyView(
-                    country: country,
-                            isEditable: false,
-                            showFromParent: false,
-                            barNumFromParent: "100"
-                        )
-                
-                Spacer()
-                HistoryGraph(history: self.history, path: \.week)
-                    .frame(width: 45, height: 30)
-                    .animation(nil)
-                Button(action: {
-                    withAnimation {
-                        self.showDetail.toggle()
-                    }
-                }) {
-                    Image(systemName: "chevron.right.circle")
-                        .imageScale(.large)
-                        .rotationEffect(.degrees(self.showDetail ? 90 : 0))
-                        .scaleEffect(self.showDetail ? 1.5 : 1)
-                        .padding()
-                }
-            }
-            //.padding(10)
-
-            if self.showDetail {
-                HistoryDetail(history: self.history)
-                .transition(self.transition)
-            }
-                
-        }
-    }
-}
-
-
-
-
-
+//
+//struct HistoryView: View {
+//    var history: HistoryCell
+//    @EnvironmentObject var stateStore: ReduxRootStateStore
+//    
+//    @State private var showDetail = false
+//    @State var isHide = false
+//
+//    
+//    var transition: AnyTransition {
+//        let insertion = AnyTransition.move(edge: .trailing)
+//            .combined(with: .opacity)
+//        let removal = AnyTransition.scale
+//            .combined(with: .opacity)
+//        return .asymmetric(insertion: insertion, removal: removal)
+//    }
+//    
+//    var body: some View {
+//        List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
+//            HStack {
+//
+//                Button(action: {
+//                }){
+//                    Image(systemName: "star.fill").foregroundColor(Color.yellow)
+//                        .transition(.slide)
+//                    .imageScale(.large)
+//                        .rotationEffect(.degrees(self.isHide ? 90 : 0))
+//                        .scaleEffect(!self.isHide ? 1.5 : 0)
+//                }
+//                .padding()
+//                
+//                CountryHeadlineReadOnlyView(
+//                    country: country,
+//                            isEditable: false,
+//                            showFromParent: false,
+//                            barNumFromParent: "100"
+//                        )
+//                
+//                Spacer()
+//                HistoryGraph(history: self.history, path: \.week)
+//                    .frame(width: 45, height: 30)
+//                    .animation(nil)
+//                Button(action: {
+//                    withAnimation {
+//                        self.showDetail.toggle()
+//                    }
+//                }) {
+//                    Image(systemName: "chevron.right.circle")
+//                        .imageScale(.large)
+//                        .rotationEffect(.degrees(self.showDetail ? 90 : 0))
+//                        .scaleEffect(self.showDetail ? 1.5 : 1)
+//                        .padding()
+//                }
+//            }
+//            //.padding(10)
+//
+//            if self.showDetail {
+//                HistoryDetail(history: self.history)
+//                .transition(self.transition)
+//            }
+//                
+//        }
+//    }
+//}
+//
+//
+//
+//
+//
 struct CountryHeadlineReadOnlyView: View {
     var country: FavoriteConversion
 //    var number: Float
@@ -127,10 +127,10 @@ struct CountryHeadlineReadOnlyView: View {
             
     }
 }
-struct HistoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:1).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
-        .previewDisplayName(deviceName)
-        }
-    }
-}
+//struct HistoryView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:1).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+//        .previewDisplayName(deviceName)
+//        }
+//    }
+//}
