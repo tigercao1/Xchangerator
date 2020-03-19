@@ -4,3 +4,4 @@ Team involvement
 Individual work (Backend)
 - Code clean for UML Auto generation
 - Digital Ocean migration with Songmi
+- Wiki issue management
