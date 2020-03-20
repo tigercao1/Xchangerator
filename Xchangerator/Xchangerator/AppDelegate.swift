@@ -14,7 +14,7 @@ import NotificationBannerSwift
 import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate,
+class AppDelegate: UIResponder, UIApplicationDelegate,
 UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
@@ -128,7 +128,7 @@ UNUserNotificationCenterDelegate {
 
 }
 
-extension AppDelegate  {
+extension AppDelegate: MessagingDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
     Logger.debug("Firebase device token received: \(fcmToken)")
