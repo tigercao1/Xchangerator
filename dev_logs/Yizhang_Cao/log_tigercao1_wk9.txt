@@ -1,0 +1,3 @@
+D3 written documentation architecture style used
+FavoriteView UI implementation
+
