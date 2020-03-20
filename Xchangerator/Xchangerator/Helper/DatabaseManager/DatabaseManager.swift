@@ -17,7 +17,7 @@ import FirebaseFirestoreSwift
 
 class DatabaseManager {
     static var shared = DatabaseManager()
-    var db = Firestore.firestore()
+    private var db = Firestore.firestore()
 
     func registerUser(fcmToken firebaseMsgDeviceToken:String?,fbAuthRet authDataResult:AuthDataResult) {
         // [START add_ada_lovelace]
