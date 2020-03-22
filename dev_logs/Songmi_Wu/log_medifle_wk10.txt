@@ -1,0 +1,7 @@
+Team involvement
+- setup and contribute to oral exam slides
+
+Individual work (Backend)
+- prepare AppStore submission
+    - write privacy policy for our app
+    - deploy privacy policy to AppServer (https://xchangerator.com/privacy_policy)
