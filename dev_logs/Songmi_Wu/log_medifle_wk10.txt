@@ -3,6 +3,6 @@ Team involvement
 - explain architecture styles (Event-based, Pipe and Filter) to other team members
 
 Individual work (Backend)
-- prepare AppStore submission
+- prepare App Store submission
     - write privacy policy for our app
     - deploy privacy policy to AppServer (https://xchangerator.com/privacy_policy)
