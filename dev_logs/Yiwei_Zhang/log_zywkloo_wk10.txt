@@ -1,0 +1,6 @@
+D3 slides, part2 design pattern: Atomic and Singleton.
+
+/Xchangerator-StoreListing/ screenshots
+/Xchangerator-StoreListing/ marketing image design with Photoshop: 
+  5.5-inch device images for 3
+  6.5-inch device images for 3
