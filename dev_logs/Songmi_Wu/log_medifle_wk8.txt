@@ -1,0 +1,13 @@
+Team involvement
+- d2 demo preparation
+- product discussion
+    - still have minor issues on mobile
+        - login status cannot be remembered
+        - a device should not be sent a notification if its user logs out
+            - solution
+                - before the user logout, a deviceToken delete request should be sent to firestore
+
+Individual work (Backend)
+- server logs, API usage monitoring
+- schedule a plan for digital ocean server resize as the free credits are close to end
+- prepare digital ocean server migration, snapshot backup and ip change

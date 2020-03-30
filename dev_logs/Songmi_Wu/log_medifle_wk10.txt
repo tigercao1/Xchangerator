@@ -1,0 +1,8 @@
+Team involvement
+- setup and contribute to oral exam slides
+- explain architecture styles (Event-based, Pipe and Filter) to other team members
+
+Individual work (Backend)
+- prepare App Store submission
+    - write privacy policy for our app
+    - deploy privacy policy to AppServer (https://xchangerator.com/privacy_policy)

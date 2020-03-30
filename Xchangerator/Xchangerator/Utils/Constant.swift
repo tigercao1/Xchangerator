@@ -15,5 +15,20 @@ enum Constant {
     
     //DB
     static let xDBtokenPrefix = "V1_"
+    
+    //Asset
+    static let xAvatarPlaceholder = "https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    
+    //Website link
+    static let xLinkedIn = "https://www.linkedin.com/company/xchangerator/"
+    static let xTwitter = "https://twitter.com/xchangerator"
+    
+    //description
+     static let xDesc = """
+    A free tool for conversion and notification of foreign exchange rates:
+    · Mobile notification on demand
+    · Conversion calculation on the go
+    · Ad free 
+    """
 
 }

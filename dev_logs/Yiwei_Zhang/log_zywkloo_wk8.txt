@@ -1,0 +1,12 @@
+* D3 outline
+* The client prototype of Favorites page 
+  - Favorites list
+* The client prototype of bar chart visualization:
+  - History Cell
+  - History View
+* Alert page, the client part
+  - Editable cardview, for both expanded state and small state
+  - Editable buttons, including Operators > and < , bar number 
+  - Needs country picker.
+* Notification page tweaks
+

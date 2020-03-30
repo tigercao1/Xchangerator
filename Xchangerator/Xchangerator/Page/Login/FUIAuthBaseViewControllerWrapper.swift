@@ -16,6 +16,7 @@ import SwiftyJSON
 //https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
 struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     func makeCoordinator() -> FUIAuthBaseViewControllerWrapper.Coordinator {
         Coordinator(self)
@@ -26,10 +27,10 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UIViewController {
         let authUI = FUIAuth.defaultAuthUI()
-
+        
      // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
-            FUIEmailAuth(),
+//            FUIEmailAuth(),  //Todo: freeze or disable email input, after login successfully
             FUIGoogleAuth()
         ]
         authUI?.providers = providers
@@ -42,6 +43,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 //        authUI?.privacyPolicyURL = xFirebasePrivacyPolicy
 
         let authViewController = authUI?.authViewController()
+        
 //        authUI.delegate = authViewController as? FUIAuthDelegate
         return authViewController!
     }
@@ -85,20 +87,49 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             self.parent.stateStore.curRoute = .content
             
             if let user = Auth.auth().currentUser  {
-                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:[], name:user.displayName ?? "New User")
+                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:[], name:user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile:userProfile)
-                self.parent.stateStore.user = userDoc
+                self.parent.stateStore.initStateStore(userDoc:userDoc)
+//                self.parent.stateStore.user = userDoc
             }
         }
 
         func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)
         {
-            Logger.debug("Finish\(operation)")
+            Logger.debug("Finish \(operation)")
         }
 //        // Todo: customize the login page
 //        func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
 //          return CustomAuthPickerViewController(authUI: authUI)
 //        }
+//        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//
+//        }
+//
+        func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+            
+            let loginViewController = FUIAuthPickerViewController(authUI: authUI)
+            
+  
+            let logoFrame = self.parent.stateStore.isLandscape ? CGRect(x: screenWidth*0.1, y: screenHeight*0.12, width: screenWidth*0.8, height: screenHeight*0.2): CGRect(x: screenWidth*0.1, y: screenHeight*0.2, width: screenWidth*0.8, height: screenHeight*0.3)
+            let logoImageView = UIImageView(frame: logoFrame)
+            
+//                                Image(colorScheme == .light ? "default-monochrome-black":"default-monochrome").padding(.top, screenHeight*0.3).padding(.horizontal, 10).offset(y:-screenWidth/3)//
+            logoImageView.image = UIImage(named: self.parent.colorScheme == .light ? "default-monochrome-black":"default-monochrome")
+            logoImageView.contentMode = .scaleAspectFit
+
+            
+           
+            //fix this once Firebase UI releases the dark mode support for sign-in
+            
+    //        loginViewController.view.subviews.backgroundColor = .white
+    //        loginViewController.view.subviews[0].subviews[0].backgroundColor = .white
+            
+            loginViewController.view.addSubview(logoImageView)
+            loginViewController.view.bringSubviewToFront(logoImageView)
+            return loginViewController
+        }
+        
     }
 }
 

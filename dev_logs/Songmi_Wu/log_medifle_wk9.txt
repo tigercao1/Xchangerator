@@ -1,0 +1,8 @@
+Team involvement
+- d3 deliverable
+
+Individual work (Backend)
+- Digital Ocean
+    - droplet migration to a new account
+    - droplet resize
+    - ip change

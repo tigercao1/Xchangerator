@@ -14,7 +14,7 @@ import NotificationBannerSwift
 import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate,
+class AppDelegate: UIResponder, UIApplicationDelegate,
 UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
@@ -95,6 +95,9 @@ UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
+        
+        
+               
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
@@ -125,7 +128,7 @@ UNUserNotificationCenterDelegate {
 
 }
 
-extension AppDelegate  {
+extension AppDelegate: MessagingDelegate  {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
     Logger.debug("Firebase device token received: \(fcmToken)")

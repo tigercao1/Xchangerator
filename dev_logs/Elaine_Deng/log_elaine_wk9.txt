@@ -1,0 +1,14 @@
+Work log - Elaine Deng - Week 9
+
+- D3 written documentation on Design Pattern
+
+- Discussed with backend developer on design patterns and architecture style used for backend development
+
+- Understood how backend worked
+
+- Discussed with Yizhang and finalized the design pattern used for frontend development
+
+- Preperation for oral exam
+
+
+
