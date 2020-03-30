@@ -1,0 +1,4 @@
+Removed while(1){sleep(1)} ,implemented Promise/Result Aysnc calls.
+Wiki update on cleaning derived data
+implemented NetworkError Enum
+Override dataTask in URLSession
