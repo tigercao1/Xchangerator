@@ -11,6 +11,7 @@ const logger = customLogger('appserver:cacheUtil');
 const debug = require('debug')('appserver:cacheUtil');
 
 const cacheControlConst = require('./constants/cacheControl');
+const cacheKeyConst = require('./constants/cacheKey');
 
 /**
  * Middlewares
@@ -33,7 +34,10 @@ const checkMidFactory = (key, cacheResponseDirective) => {
   };
 };
 
-const checkLatestMid = checkMidFactory('latest', cacheControlConst.LATEST);
+const checkLatestMid = checkMidFactory(
+  cacheKeyConst.LATEST,
+  cacheControlConst.LATEST,
+);
 
 /**
  * Util functions
@@ -68,12 +72,12 @@ const existsFactory = key => {
   };
 };
 
-const setexHydratedLatest = setexFactory('latest');
-const setexRawLatest = setexFactory('rawLatest');
+const setexHydratedLatest = setexFactory(cacheKeyConst.LATEST);
+const setexRawLatest = setexFactory(cacheKeyConst.RAW_LATEST);
 
-const getRawLatestCache = getFactory('rawLatest');
+const getRawLatestCache = getFactory(cacheKeyConst.RAW_LATEST);
 
-const existsRawLatestCache = existsFactory('rawLatest');
+const existsRawLatestCache = existsFactory(cacheKeyConst.RAW_LATEST);
 
 module.exports = {
   checkLatestMid,
