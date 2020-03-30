@@ -55,20 +55,3 @@ func ApiCall() -> Countries {
             return Countries()
         }
 }
-//
-//func load() {
-//      DispatchQueue.global(qos: .utility).async {
-//         let result = self.makeAPICall()
-//              .flatMap { self.anotherAPICall($0) }
-//              .flatMap { self.andAnotherAPICall($0) }
-//
-//          DispatchQueue.main.async {
-//              switch result {
-//              case let .success(data):
-//                  print(data)
-//              case let .failure(error):
-//                  print(error)
-//              }
-//          }
-//      }
-//  }

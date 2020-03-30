@@ -34,7 +34,6 @@ class APIController {
         return requestRet
     }
 }
-//apiController.makeRequest{(data) in countries = Countries(countryList:data)}
 
 //        func load() {
 //           DispatchQueue.global(qos: .utility).async {
