@@ -30,7 +30,7 @@ struct EditableCardView: View {
             
             if (show) {
                 VStack(){
-                    Text("NOTIFY ME WHEN: ")
+                    Text("Notify Me When: ")
                         .fontWeight(.bold)
                         .padding(.top,3)
                        .font(Font.title)

@@ -13,7 +13,7 @@ class Countries: ObservableObject{
     var baseCountry: Country
     
     init() {
-        countries.append(Country(flag: "👻",  name: "Test", rate: 109.1, unit: "GHO"))
+        countries.append(Country(flag: "🇺🇳",  name: "LoadingData", rate: 109.1, unit: "GHO"))
         baseCountry = countries[0]
     }
     
