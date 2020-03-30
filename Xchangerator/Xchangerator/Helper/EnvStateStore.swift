@@ -38,7 +38,6 @@ class ReduxRootStateStore: ObservableObject {
 }
 
 func ApiCall() -> Countries {
-//    Logger.debug(countries.getModel())
         let apiController = APIController()
 //Here  we  can chain consecutive API calls in the background, each time passing the result of one call to the next. We then handle the final result back on the main thread, or in the case of one of our calls failing, we handle the resulting error.
         let result = apiController.makeRequest()

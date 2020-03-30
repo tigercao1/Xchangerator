@@ -7,16 +7,10 @@
 //
 
 import Foundation
-enum NetworkError: Error {
-    case url
-    case server
-    case dataFormat
-}
 
 class APIController {
     
     func makeRequest()-> Result<Countries?, NetworkError>  {
-        let session = URLSession.shared
         guard let url = URL(string: "https://xchangerator.com/api/latest") else {return .failure(.url)}
         var requestRet: Result<Countries?, NetworkError>!
         let semaphore = DispatchSemaphore(value: 0)
@@ -78,11 +72,11 @@ extension URLSession {
     func dataTask(with url: URL, completion: @escaping (Result<(Data,URLResponse), NetworkError>) -> Void) -> URLSessionDataTask {
     return dataTask(with: url) { (data, response, error) in
         if let error = error {
+            Logger.error(error)
             completion(.failure(.server))
             return
         }
         guard let response = response, let data = data else {
-            let error = NSError(domain: "error", code: 0, userInfo: nil)
             completion(.failure(.server))
             return
         }
