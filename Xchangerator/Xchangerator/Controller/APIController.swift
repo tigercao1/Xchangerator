@@ -63,17 +63,6 @@ class APIController {
 //Building Simple Async API Request With Swift 5 Result Type
 //https://medium.com/@alfianlosari/building-simple-async-api-request-with-swift-5-result-type-alfian-losari-e92f4e9ab412
 
-//        let task = session.dataTask(with: url, completionHandler:  {data, response, error in
-//            guard let dataResponse = data,
-//                error == nil else {
-//                    Logger.error(error?.localizedDescription ?? "Response Error")
-//                    return}
-//            //here dataResponse received from a network request
-//            let decoder = JSONDecoder()
-//            let countries = try! decoder.decode(CountryList.self, from: dataResponse)
-//            completion(countries)
-//        })
-//        task.resume()
 
 
 
