@@ -1,0 +1,7 @@
+Team involvement
+- discuss asynchronous request in Swift and Apicall() issue with Yiwei
+
+Individual work (Backend)
+- PR#46: redis cache key refactor in AppServer
+- close issue#30: fix Firestore security rules
+- PR#45 review
