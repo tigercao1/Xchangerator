@@ -16,7 +16,7 @@ class APIController {
         let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: url) { result in
             switch result {
-                 case let .success(data, _):
+                 case let .success((data, _)):
                     do {
                         let decoder = JSONDecoder()
                         let countryList = try decoder.decode(CountryList.self, from: data)
