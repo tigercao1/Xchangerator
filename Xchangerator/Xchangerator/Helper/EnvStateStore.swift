@@ -34,16 +34,22 @@ class ReduxRootStateStore: ObservableObject {
         self.user = userDoc
         self.countries = ApiCall()
     }
+
 }
 
 func ApiCall() -> Countries {
     let apiController = APIController()
-    var countries = Countries()
-    apiController.makeRequest{(data) in countries = Countries(countryList:data)}
-    while countries.getModel().count <= 1 {
-        sleep(1)
+// Here it's running in the forground, later maybe change it to the background with another thread. For know-how, see comments in APIController
+    let result = apiController.makeCountriesRequest()
+    switch result {
+    case let .success(data):
+        guard let countries = data else {
+            Logger.error("Countries cast failed")
+            return Countries()
+        }
+        return countries
+    case let .failure(error):
+        Logger.error(error)
+        return Countries()
     }
-//    Logger.debug(countries.getModel())
-    return countries
 }
-

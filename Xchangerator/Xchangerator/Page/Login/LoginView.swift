@@ -41,7 +41,7 @@ struct LoginView : View {
                 }
                 .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
             }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
-            ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
+            ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height)//.animation(.spring()) //Anti-Shake, Spring() is too much
         }//.navigate(to: ContentView(), when: $willMoveToNextScreen)
 
     }

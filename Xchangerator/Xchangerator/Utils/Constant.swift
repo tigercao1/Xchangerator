@@ -9,6 +9,10 @@
 
 enum Constant {
     
+    //Xchangerator Server API
+    static let xAPIGetLatest = "https://xchangerator.com/api/latest"
+
+    
     //Logger
     static let xLogFileName = "XChangeratorLog.log"
     static let maxAlertsForFree = 5

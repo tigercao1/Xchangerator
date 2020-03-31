@@ -40,7 +40,6 @@ var body: some View {
 //                    .font(.caption)
 //                    .foregroundColor(.secondary)
             }.layoutPriority(100)
-
                 Spacer()
             }
             .padding()
