@@ -40,7 +40,7 @@ class DatabaseManager {
             var userProfile:User_Profile
             if let document = document, document.exists {
                 //handle existing user
-                let deviceTokens = document.get("deviceTokens") as? Array<String>
+                let deviceTokens = document.get("profile.deviceTokens") as? Array<String>
 //                if (deviceTokens == nil || deviceTokens == "") {deviceTokens=[]}
                 var newTokenArr = deviceTokens ?? Array<String>()
             
@@ -50,7 +50,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter{ $0 != "" }
-                Logger.debug("Document data: \(newTokenArr)")
+                Logger.debug("Old user:pre tokens\(String(describing: deviceTokens));new tokens\(newTokenArr)")
                 
                 userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
                 
