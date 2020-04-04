@@ -14,9 +14,9 @@ class ReduxRootStateStore: ObservableObject {
     @Published var secondaryRoute: Int = 0
     @Published var user: User_DBDoc = User_DBDoc ()
     @Published var isLandscape: Bool = false
-    @Published var countries: Countries = ApiCall()
+    @Published var countries: Countries = Countries()
     @Published var favoriteConversions: FavoriteConversions = FavoriteConversions()
-    @Published var alerts: MyAlerts = MyAlerts(alertList: [])
+    @Published var alerts: MyAlerts = MyAlerts()
 
     enum Key: String, CaseIterable {
         case auth, content
@@ -32,9 +32,15 @@ class ReduxRootStateStore: ObservableObject {
         self.isLandscape = false
         self.countries = Countries()
     }
-    func initStateStore(userDoc:User_DBDoc) -> Void {
+    func initStore_Doc(userDoc:User_DBDoc) -> Void {
         self.user = userDoc
         self.countries = ApiCall()
+    }
+    
+    
+    func initStore_DocAndCountries(userDoc:User_DBDoc, countries: Countries) -> Void {
+        self.user = userDoc
+        self.countries = countries
     }
 
 }

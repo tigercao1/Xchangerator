@@ -9,7 +9,7 @@
 import Foundation
 
 class MyAlerts: ObservableObject {
-    var alerts = Array<MyAlert>()
+    private var alerts = Array<MyAlert>()
     
     init() {
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇨🇦",  name: "Canadian Dollar", rate: 1.421735, unit: "CAD"), targetCurrency: Country(flag: "🇨🇳",  name: "Chinese Yuan", rate: 7.0923, unit: "CNY"), conditionOperator: "LT", rate: 5.1))
@@ -17,16 +17,18 @@ class MyAlerts: ObservableObject {
     }
     
     init(alertList: Array<MyAlert>) {
-        
-        
+        alerts = alertList
     }
     
     func add(_ alert: MyAlert) -> Void {
-        alerts.append(alert)
+        if (alerts.count < 2) { alerts.append(alert) }
     }
     
     func addToFirst(_ alert: MyAlert) -> Void {
-        alerts.insert(alert, at: 0)
+        if (alerts.count < 2) { alerts.insert(alert, at: 0) }
+    }
+    func setById (_ idx:Int, _ value: MyAlert) -> Void {
+        if (alerts.count >= 2) { alerts[idx] = value }
     }
     
     func findById(_ id: String) throws -> MyAlert {

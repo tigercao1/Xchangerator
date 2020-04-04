@@ -19,9 +19,9 @@ class DatabaseManager {
     static var shared = DatabaseManager()
     private var db = Firestore.firestore()
     
-    private func addDocsToNotifications( userRef: DocumentReference) {
-        let Doc1 = Notification_Document(condition: "USD-EUR-LT", disabled: false, target: 1.2);
-        let Doc2 = Notification_Document(condition: "CNY-CAD-LT", disabled: false, target: 5.0);
+    private func addDocsToNotifications( userRef: DocumentReference, alerts:MyAlerts) {
+        let Doc1 = Notification_Document(alerts.getModel()[0]);
+        let Doc2 = Notification_Document(alerts.getModel()[1]);
         _ = try? userRef.collection("notifications").addDocument(from: Doc1){ err in
             if let err = err {
                 Logger.error("Err adding doc1: \(err)")
@@ -41,7 +41,8 @@ class DatabaseManager {
         }
     }
 
-    func registerUser(fcmToken firebaseMsgDeviceToken:String?,fbAuthRet authDataResult:AuthDataResult) {
+    func registerUser(fcmToken firebaseMsgDeviceToken:String?,fbAuthRet authDataResult:AuthDataResult, alerts:MyAlerts, completion: @escaping ([QueryDocumentSnapshot]) ->Void) {
+        //Result<Countries?, NetworkError> 
         // [START add_ada_lovelace]
         /*
                     anonymous:BOOL
@@ -95,8 +96,10 @@ class DatabaseManager {
                             if let err = err {
                                 Logger.error("Error getting documents: \(err)")
                             } else {
-                                if (querySnapshot!.documents.count <= 2 ) {
-                                    self.addDocsToNotifications(userRef: userRef)
+                                if (querySnapshot!.documents.count < 2 ) {
+                                    self.addDocsToNotifications(userRef: userRef,alerts: alerts)
+                                } else {
+                                    completion(querySnapshot!.documents)
                                 }
                             }
                         }

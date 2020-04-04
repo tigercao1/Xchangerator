@@ -34,13 +34,14 @@ struct AlertsView: View {
                 VStack {
                     ForEach(self.stateStore.alerts.getModel(), id: \.self)
                     {
-                        alert in
+                        alert in  //MyAlert
                            // Spacer()
                             EditableCardView(
                                 country1: alert.targetCurrency,
                                 country2: alert.baseCurrency,
                                 conditionOperator: alert.conditionOperator,
-                                numBar: alert.numBar
+                                numBar: alert.numBar,
+                                disabled: alert.disabled
                            )
                         // Spacer()
                     }

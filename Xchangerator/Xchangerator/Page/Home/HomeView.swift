@@ -95,12 +95,12 @@ struct HomeView: View {
         if (!isInAlerts()) {
             stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
         }
-        print(stateStore.alerts.alerts)
+        Logger.debug(stateStore.alerts.getModel())
         return ""
     }
     
     private func checkIfMoreThanTwoAlerts() -> Bool {
-        let size = stateStore.alerts.alerts.count
+        let size = stateStore.alerts.getModel().count
         if (size >= 2){
             self.moreThanTwoAlerts = true
             return moreThanTwoAlerts
