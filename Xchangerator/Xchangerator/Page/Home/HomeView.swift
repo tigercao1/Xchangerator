@@ -21,7 +21,9 @@ struct HomeView: View {
     @State private var showLinkTarget = false
     @State private var chartClicked = false
     @State private var setAlertClicked = false
+    @State private var conditionOperator = "LT"
     @Binding var selectionFromParent : Int
+    
 
 
     private func convert(_ targetCurrencyUnit: String) -> String {
@@ -74,6 +76,28 @@ struct HomeView: View {
         }
         return ""
     }
+    
+    private func isInAlerts() -> Bool {
+        let converter = Converter(stateStore.countries)
+        let currentAlert = Alert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
+        do {
+            try self.stateStore.alerts.find(currentAlert)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    private func addToAlerts() -> String {
+        let converter = Converter(stateStore.countries)
+        if (!isInAlerts()) {
+            stateStore.alerts.add(Alert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        }
+        print("!!!!!!!!!!!AAAAAAAAAAAAAA")
+        print(stateStore.alerts.alerts)
+        return ""
+    }
+
 
     var body: some View {
         NavigationView {
@@ -221,6 +245,11 @@ struct HomeView: View {
                         }
                         if (self.chartClicked) {
                             HistoryDetail(history: historyData[0]).padding()
+                            
+                        }
+                        if (self.setAlertClicked) {
+                        
+                            Text("\(self.addToAlerts())")
                             
                         }
                         Divider().padding(.bottom,30)

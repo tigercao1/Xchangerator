@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(1)
-            Alerts()
+            AlertsView()
                 .font(.title)
                 .tabItem {
                     VStack {
