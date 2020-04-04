@@ -14,13 +14,18 @@ struct HomeView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var baseCurrencyAmt: String = "100"
     @State private var baseCountry: Country = Country()
+    @State private var targetCountry: Country = Country()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var modalPresented: Bool = false
     @State private var favourite: Bool = false
     @State private var showLinkTarget = false
     @State private var chartClicked = false
     @State private var setAlertClicked = false
+    @State private var conditionOperator = "LT"
     @Binding var selectionFromParent : Int
+    @State private var moreThanTwoAlerts = false
+    @State private var isDuplicateAlert = false
+    
 
 
     private func convert(_ targetCurrencyUnit: String) -> String {
@@ -39,6 +44,7 @@ struct HomeView: View {
     }
     
     private func switchBase(_ newBase: Country) {
+        self.favourite = false
         self.stateStore.countries.setBaseCountry(newBase)
         self.setBaseCurrency()
     }
@@ -46,6 +52,62 @@ struct HomeView: View {
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
+    
+    private func isFavorite() -> Bool {
+        let currentConversion = FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry)
+        do {
+            try self.stateStore.favoriteConversions.find(currentConversion)
+            return true
+        } catch {
+            return false
+        }
+        
+    }
+    
+    private func addToFavorite() -> String {
+        let converter = Converter(stateStore.countries)
+        if (!isFavorite()) {
+            stateStore.favoriteConversions.add(FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        }
+        return ""
+    }
+    
+    private func deleteFromFavorite() -> String {
+        if (isFavorite()) {
+            try? stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: baseCountry, targetCurrency: targetCountry))
+        }
+        return ""
+    }
+    
+    private func isInAlerts() -> Bool {
+        let converter = Converter(stateStore.countries)
+        let currentAlert = MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
+        do {
+            try self.stateStore.alerts.find(currentAlert)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    private func addToAlerts() -> String {
+        let converter = Converter(stateStore.countries)
+        if (!isInAlerts()) {
+            stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        }
+        print(stateStore.alerts.alerts)
+        return ""
+    }
+    
+    private func checkIfMoreThanTwoAlerts() -> Bool {
+        let size = stateStore.alerts.alerts.count
+        if (size >= 2){
+            self.moreThanTwoAlerts = true
+            return moreThanTwoAlerts
+        }
+        return moreThanTwoAlerts
+    }
+
 
     var body: some View {
         NavigationView {
@@ -90,7 +152,7 @@ struct HomeView: View {
                             HStack(spacing: screenWidth*0.05) {
                                 Text(country.flag)
                                     .font(.title)
-                                    .frame(width: 20, height: 15)
+                                    .frame(width: 30, height: 15)
                                     .fixedSize()
                                 Text(self.convert(country.unit))
                                     .frame(width: screenWidth*0.35, alignment: .trailing)
@@ -123,6 +185,8 @@ struct HomeView: View {
                             .gesture(
                                 TapGesture()
                                     .onEnded { _ in
+                                        self.targetCountry = country
+                                        self.favourite = self.isFavorite()
                                         self.modalPresented = true
                                     }
                             )
@@ -146,6 +210,11 @@ struct HomeView: View {
                 VStack {
                     Group {
                         Toggle(isOn: self.$favourite) {
+                            if (self.favourite) {
+                                Text("\(self.addToFavorite())")
+                            } else {
+                                Text("\(self.deleteFromFavorite())")
+                            }
                             HStack{
                                 Image(systemName: "heart")
                                     .font(.title)
@@ -171,8 +240,14 @@ struct HomeView: View {
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
-                                            self.selectionFromParent = 2
-                                              self.setAlertClicked = true
+                                            if (!self.checkIfMoreThanTwoAlerts() && !self.isInAlerts()){
+                                            
+                                                self.selectionFromParent = 2
+                                                self.setAlertClicked = true
+                                                self.addToAlerts()
+                                            }
+                        
+//                                            self.setAlertClicked = true
                                           }
                                       }) {
                                           VStack {
@@ -181,18 +256,26 @@ struct HomeView: View {
                                               Text("Set Alert")
                                                   .fontWeight(.semibold)
                                                   .font(.headline)
-                                          }
+                                          }.alert(isPresented: self.$moreThanTwoAlerts) {
+                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two alerts."), dismissButton: .default(Text("OK")))
+                                        }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
                         if (self.chartClicked) {
                             HistoryDetail(history: historyData[0]).padding()
                             
                         }
+                       
+                        
                         Divider().padding(.bottom,30)
                     }
                 }
 
             }.frame(height: (self.chartClicked ? screenHeight*0.45: screenHeight*0.3) )
+                .onAppear(perform: {
+                self.modalPresented = false
+                    self.isDuplicateAlert = false
+            })
         }
     }
 }
