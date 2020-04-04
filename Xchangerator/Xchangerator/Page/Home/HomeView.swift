@@ -23,6 +23,8 @@ struct HomeView: View {
     @State private var setAlertClicked = false
     @State private var conditionOperator = "LT"
     @Binding var selectionFromParent : Int
+    @State private var moreThanTwoAlerts = false
+    @State private var isDuplicateAlert = false
     
 
 
@@ -79,7 +81,7 @@ struct HomeView: View {
     
     private func isInAlerts() -> Bool {
         let converter = Converter(stateStore.countries)
-        let currentAlert = Alert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
+        let currentAlert = MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
         do {
             try self.stateStore.alerts.find(currentAlert)
             return true
@@ -91,11 +93,19 @@ struct HomeView: View {
     private func addToAlerts() -> String {
         let converter = Converter(stateStore.countries)
         if (!isInAlerts()) {
-            stateStore.alerts.add(Alert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+            stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
         }
-        print("!!!!!!!!!!!AAAAAAAAAAAAAA")
         print(stateStore.alerts.alerts)
         return ""
+    }
+    
+    private func checkIfMoreThanTwoAlerts() -> Bool {
+        let size = stateStore.alerts.alerts.count
+        if (size >= 2){
+            self.moreThanTwoAlerts = true
+            return moreThanTwoAlerts
+        }
+        return moreThanTwoAlerts
     }
 
 
@@ -230,8 +240,14 @@ struct HomeView: View {
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
-                                            self.selectionFromParent = 2
-                                              self.setAlertClicked = true
+                                            if (!self.checkIfMoreThanTwoAlerts() && !self.isInAlerts()){
+                                            
+                                                self.selectionFromParent = 2
+                                                self.setAlertClicked = true
+                                                self.addToAlerts()
+                                            }
+                        
+//                                            self.setAlertClicked = true
                                           }
                                       }) {
                                           VStack {
@@ -240,23 +256,26 @@ struct HomeView: View {
                                               Text("Set Alert")
                                                   .fontWeight(.semibold)
                                                   .font(.headline)
-                                          }
+                                          }.alert(isPresented: self.$moreThanTwoAlerts) {
+                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two alerts. Please delete one alert first."), dismissButton: .default(Text("OK")))
+                                        }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
                         if (self.chartClicked) {
                             HistoryDetail(history: historyData[0]).padding()
                             
                         }
-                        if (self.setAlertClicked) {
+                       
                         
-                            Text("\(self.addToAlerts())")
-                            
-                        }
                         Divider().padding(.bottom,30)
                     }
                 }
 
             }.frame(height: (self.chartClicked ? screenHeight*0.45: screenHeight*0.3) )
+                .onAppear(perform: {
+                self.modalPresented = false
+                    self.isDuplicateAlert = false
+            })
         }
     }
 }

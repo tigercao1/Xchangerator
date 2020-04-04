@@ -14,38 +14,47 @@ import SwiftUI
 
 //get current location
 //https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
-struct Alerts: View {
+struct AlertsView: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
+    @State var items: Array<MyAlert> = []
+
     
     private func endEditing() {
         UIApplication.shared.endEditing()
+    }
+    
+    private func reload() {
+        self.items = self.stateStore.alerts.getModel()
     }
 
     var body: some View {
         NavigationView{
             ScrollView() {
                 VStack {
-                    ForEach(stateStore.countries.getModel()[..<10], id: \.self)
+                    ForEach(items, id: \.self)
                     {
-                        country in
+                        alert in
                            // Spacer()
                             EditableCardView(
-                                country1: country,
-                                country2: self.stateStore.countries.baseCountry,
-                                conditionOperator: "LT",
-                                numBar: String(format:"%.2f",Float.random(in: 1..<1000))
+                                country1: alert.targetCurrency,
+                                country2: alert.baseCurrency,
+                                conditionOperator: alert.conditionOperator,
+                                numBar: alert.numBar
                            )
                         // Spacer()
                     }
                 }.scaledToFill()
-            }.onTapGesture {
+            }
+                .onTapGesture {
                 self.endEditing()
                 
             }
             .navigationBarTitle(Text("Alerts"))//
             
-        }
+        }.onAppear(perform: {
+            self.reload()
+        })
         
     }
 }

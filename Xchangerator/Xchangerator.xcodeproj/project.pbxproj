@@ -38,7 +38,7 @@
 		C59F468823E13BC600F631C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C59F468723E13BC500F631C3 /* GoogleService-Info.plist */; };
 		C5AADDD72406EB5F0077D669 /* EnvStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDD62406EB5F0077D669 /* EnvStateStore.swift */; };
 		C5AADDDA2406F7400077D669 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDD92406F7400077D669 /* Settings.swift */; };
-		C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDDC2406F7730077D669 /* Alerts.swift */; };
+		C5AADDDD2406F7730077D669 /* AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDDC2406F7730077D669 /* AlertsView.swift */; };
 		C5AADDDF240700B30077D669 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDDE240700B30077D669 /* Landmark.swift */; };
 		C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE1240702EC0077D669 /* CircleImage.swift */; };
 		C5AADDE4240704950077D669 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDE3240704950077D669 /* MapView.swift */; };
@@ -51,6 +51,8 @@
 		C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F45240E13B600C402E6 /* CardView.swift */; };
 		C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */; };
 		C5FF8F4A240EE1FC00C402E6 /* EditableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */; };
+		CA3B2A39242D90BF00CCDD3A /* MyAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3B2A38242D90BF00CCDD3A /* MyAlerts.swift */; };
+		CA3B2A3B242D90D600CCDD3A /* MyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3B2A3A242D90D600CCDD3A /* MyAlert.swift */; };
 		CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */; };
 		CAB49F6A240DC34A008ED8C6 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CAB49F69240DC34A008ED8C6 /* URLImage */; };
 		CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */; };
@@ -99,7 +101,7 @@
 		C59F468723E13BC500F631C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C5AADDD62406EB5F0077D669 /* EnvStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvStateStore.swift; sourceTree = "<group>"; };
 		C5AADDD92406F7400077D669 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		C5AADDDC2406F7730077D669 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		C5AADDDC2406F7730077D669 /* AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsView.swift; sourceTree = "<group>"; };
 		C5AADDDE240700B30077D669 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		C5AADDE1240702EC0077D669 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		C5AADDE3240704950077D669 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,8 @@
 		C5FF8F45240E13B600C402E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCardView.swift; sourceTree = "<group>"; };
 		C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCardView.swift; sourceTree = "<group>"; };
+		CA3B2A38242D90BF00CCDD3A /* MyAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlerts.swift; sourceTree = "<group>"; };
+		CA3B2A3A242D90D600CCDD3A /* MyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlert.swift; sourceTree = "<group>"; };
 		CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMain.swift; sourceTree = "<group>"; };
 		CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				B4240F112404D3D60001EE6D /* CountryList.swift */,
 				C50B13FB2410D0EA000FD607 /* History.swift */,
 				B4E40BD42418880800593366 /* FavoriteConversion.swift */,
+				CA3B2A3A242D90D600CCDD3A /* MyAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 			children = (
 				B4C4723623E138C1004834CF /* Countries.swift */,
 				B4E40BD624188A8C00593366 /* FavoriteConversions.swift */,
+				CA3B2A38242D90BF00CCDD3A /* MyAlerts.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -355,7 +361,7 @@
 		C5AADDDB2406F75C0077D669 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				C5AADDDC2406F7730077D669 /* Alerts.swift */,
+				C5AADDDC2406F7730077D669 /* AlertsView.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -523,12 +529,14 @@
 				C5AADDE2240702EC0077D669 /* CircleImage.swift in Sources */,
 				CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */,
 				C58A36AE23D6C2E900DB155A /* AppDelegate.swift in Sources */,
+				CA3B2A3B242D90D600CCDD3A /* MyAlert.swift in Sources */,
 				C50B13FE2410D2BA000FD607 /* FileLoader.swift in Sources */,
 				C5AADDDA2406F7400077D669 /* Settings.swift in Sources */,
 				C5AADDEC240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift in Sources */,
 				C58A36B023D6C2E900DB155A /* SceneDelegate.swift in Sources */,
 				C53C7C4523F0E8A900E0EA4F /* DatabaseManager.swift in Sources */,
 				C50B13FA2410D0A4000FD607 /* HistoryGraph.swift in Sources */,
+				CA3B2A39242D90BF00CCDD3A /* MyAlerts.swift in Sources */,
 				C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */,
 				B4E40BD724188A8C00593366 /* FavoriteConversions.swift in Sources */,
 				C59F468123DEAB6E00F631C3 /* FavoriteView.swift in Sources */,
@@ -551,7 +559,7 @@
 				C519754F2404DB9F00B88635 /* Logger.swift in Sources */,
 				C5AADDE624071B650077D669 /* UserProfile.swift in Sources */,
 				C50B14052410DE83000FD607 /* HistoryView.swift in Sources */,
-				C5AADDDD2406F7730077D669 /* Alerts.swift in Sources */,
+				C5AADDDD2406F7730077D669 /* AlertsView.swift in Sources */,
 				C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */,
 				C51975522404DD3C00B88635 /* TextManager.swift in Sources */,
 				C5AADDDF240700B30077D669 /* Landmark.swift in Sources */,
