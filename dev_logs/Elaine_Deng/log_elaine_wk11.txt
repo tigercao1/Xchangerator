@@ -1,0 +1,19 @@
+Work log - Elaine Deng - Week 10
+
+- Added pop up alert when adding "MyAlert" in HomeView
+
+- Updated HomeView to limit the number of MyAlert
+
+- Linked HomeView with AlertView with chosen currency and rate
+
+- Avoid adding duplicate alerts
+
+
+
+
+
+
+
+
+
+
