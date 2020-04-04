@@ -18,6 +18,28 @@ import FirebaseFirestoreSwift
 class DatabaseManager {
     static var shared = DatabaseManager()
     private var db = Firestore.firestore()
+    
+    private func addDocsToNotifications( userRef: DocumentReference) {
+        let Doc1 = Notification_Document(condition: "USD-EUR-LT", disabled: false, target: 1.2);
+        let Doc2 = Notification_Document(condition: "CNY-CAD-LT", disabled: false, target: 5.0);
+        _ = try? userRef.collection("notifications").addDocument(from: Doc1){ err in
+            if let err = err {
+                Logger.error("Err adding doc1: \(err)")
+            } else {
+                Logger.debug(" adding doc1 ")
+                _ = try? userRef.collection("notifications").addDocument(from: Doc2){ err in
+                    if let err = err {
+                        Logger.error("Err adding doc2: \(err)")
+                        
+                    } else {
+                        Logger.debug(" adding doc2")
+                        
+                    }
+                }
+            }
+
+        }
+    }
 
     func registerUser(fcmToken firebaseMsgDeviceToken:String?,fbAuthRet authDataResult:AuthDataResult) {
         // [START add_ada_lovelace]
@@ -33,9 +55,8 @@ class DatabaseManager {
           // Do NOT use this value to authenticate with your backend server,
           // if you have one. Use getTokenWithCompletion:completion: instead.
         let uid = user.uid
-        let userCollectionRef = db.collection("users")
+        let userCollectionRef = self.db.collection("users")
         let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(uid)")
-
         userRef.getDocument { (document, error) in
             var userProfile:User_Profile
             if let document = document, document.exists {
@@ -50,7 +71,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter{ $0 != "" }
-                Logger.debug("Old user:pre tokens\(String(describing: deviceTokens));new tokens\(newTokenArr)")
+                Logger.debug("Old user:pre tokens\(String(describing: deviceTokens)); \n new tokens\(newTokenArr)")
                 
                 userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
                 
@@ -61,14 +82,25 @@ class DatabaseManager {
                         newTokenArr.append(wrappedFcmToken)
                 }
                 userProfile = User_Profile(email:user.email ?? "New_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "New User")
-                //Todo:add subcollection and 5 sub doc
+                //Todo:add subcollection and 2 sub doc
+                
             }
             let userDoc = User_DBDoc(profile:userProfile)
             try? userRef.setData( from:userDoc ) { err in
                 if let err = err {
                     Logger.error("Error adding document: \(err), and token \(String(describing: firebaseMsgDeviceToken))")
                 } else {
-                    Logger.debug("User Doc set with ID: \(String(describing: userRef.documentID)), token:\(String(describing: firebaseMsgDeviceToken))")
+                    //Logger.debug("User Doc set with ID: \(String(describing: userRef.documentID)), token:\(String(describing: firebaseMsgDeviceToken))")
+                    userRef.collection("notifications").getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                Logger.error("Error getting documents: \(err)")
+                            } else {
+                                if (querySnapshot!.documents.count <= 2 ) {
+                                    self.addDocsToNotifications(userRef: userRef)
+                                }
+                            }
+                        }
+                    
                 }
             }
         }

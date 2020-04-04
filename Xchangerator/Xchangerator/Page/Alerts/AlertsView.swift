@@ -14,7 +14,7 @@ import SwiftUI
 
 //get current location
 //https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
-struct Alerts: View {
+struct AlertsView: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
     
