@@ -257,7 +257,7 @@ struct HomeView: View {
                                                   .fontWeight(.semibold)
                                                   .font(.headline)
                                           }.alert(isPresented: self.$moreThanTwoAlerts) {
-                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two alerts. Please delete one alert first."), dismissButton: .default(Text("OK")))
+                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two alerts."), dismissButton: .default(Text("OK")))
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }

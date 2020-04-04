@@ -14,7 +14,12 @@ class MyAlerts: ObservableObject {
     init() {
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇨🇦",  name: "Canadian Dollar", rate: 1.421735, unit: "CAD"), targetCurrency: Country(flag: "🇨🇳",  name: "Chinese Yuan", rate: 7.0923, unit: "CNY"), conditionOperator: "LT", rate: 5.1))
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇺🇸",  name: "United States Dollar", rate: 1, unit: "USD"), targetCurrency: Country(flag: "🇪🇺",  name: "Euro", rate: 0.925498, unit: "EUR"), conditionOperator: "LT", rate: 0.93))
-       }
+    }
+    
+    init(alertList: Array<MyAlert>) {
+        
+        
+    }
     
     func add(_ alert: MyAlert) -> Void {
         alerts.append(alert)
