@@ -2,8 +2,18 @@ Work log - Elaine Deng - Week 10
 
 - D3 deliverable
 
-- Created Alert, Alerts(DAO) for AlertView
+- Created MyAlert Model
 
-- Edited HomeView for AlertView
+- Created MyAlerts DAO
+
+- Added functions in HomeView for AlertView
+
+
+
+
+
+
+
+
 
 
