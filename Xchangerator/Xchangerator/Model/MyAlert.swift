@@ -33,3 +33,31 @@ struct MyAlert: Equatable, Hashable {
         return lhs.baseCurrency == rhs.baseCurrency && lhs.targetCurrency == rhs.targetCurrency && lhs.conditionOperator == rhs.conditionOperator && lhs.numBar == rhs.numBar
     }
 }
+
+//Data struct of documents in subcollection "notifictions", for DB CRUD
+struct Notification_Document:Codable {
+    let condition: String
+    let disabled: Bool
+    let target: Double
+
+     enum CodingKeys: String, CodingKey {
+         case condition
+         case disabled = "disabled"
+         case target = "target"
+     }
+    init(_ alert:MyAlert){
+        self.target = alert.rate
+        self.disabled = true
+        self.condition = "\(alert.baseCurrency.unit)-\(alert.targetCurrency.unit)-\(alert.conditionOperator)"
+    }
+    init(condition: String,disabled: Bool, target: Double){
+        self.disabled = disabled
+        self.condition = condition
+        self.target = target
+    }
+    init(){
+        self.disabled = false
+        self.condition = "CAD-USD-LT"
+        self.target = 1.2
+    }
+}

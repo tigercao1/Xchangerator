@@ -71,7 +71,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter{ $0 != "" }
-                Logger.debug("Old user:pre tokens count\(String(describing: deviceTokens?.count))); \n new tokens coount\(newTokenArr.count)")
+                Logger.debug("Old user:pre tokens count \(String(describing: deviceTokens?.count)));new tokens coount\(newTokenArr.count)")
                 
                 userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
                 

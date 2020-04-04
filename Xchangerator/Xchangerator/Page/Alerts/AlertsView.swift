@@ -32,7 +32,7 @@ struct AlertsView: View {
         NavigationView{
             ScrollView() {
                 VStack {
-                    ForEach(items, id: \.self)
+                    ForEach(self.stateStore.alerts.getModel(), id: \.self)
                     {
                         alert in
                            // Spacer()
