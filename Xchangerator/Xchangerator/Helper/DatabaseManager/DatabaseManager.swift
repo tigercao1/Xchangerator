@@ -26,13 +26,13 @@ class DatabaseManager {
             if let err = err {
                 Logger.error("Err adding doc1: \(err)")
             } else {
-                Logger.debug(" adding doc1 ")
+                Logger.debug("adding doc1 ")
                 _ = try? userRef.collection("notifications").addDocument(from: Doc2){ err in
                     if let err = err {
                         Logger.error("Err adding doc2: \(err)")
                         
                     } else {
-                        Logger.debug(" adding doc2")
+                        Logger.debug("adding doc2")
                         
                     }
                 }

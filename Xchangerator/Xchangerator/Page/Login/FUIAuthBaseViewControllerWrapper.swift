@@ -87,7 +87,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             //Set Device token and notification Docs in DB
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
             DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj, alerts:self.parent.stateStore.alerts ) { docSnapShots in
-                //let alerts: Array<MyAlert>
                 for i in 0..<2 {
 //                        init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled:Bool) {
                     do {
@@ -105,8 +104,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                     } catch {
                         Logger.error(error)
                     }
-
-
                 }
             }
             self.parent.stateStore.curRoute = .content
@@ -116,7 +113,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 let userDoc = User_DBDoc(profile:userProfile)
                 
                 // todo: refetch state store settings from DB
-                self.parent.stateStore.initStore_DocAndCountries(userDoc: userDoc, countries: countriesStarter)
+                self.parent.stateStore.setDoc(userDoc: userDoc)
+                self.parent.stateStore.setCountries(countries:countriesStarter)
             }
         }
 

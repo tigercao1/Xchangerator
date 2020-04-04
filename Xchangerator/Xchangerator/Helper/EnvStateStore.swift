@@ -32,14 +32,12 @@ class ReduxRootStateStore: ObservableObject {
         self.isLandscape = false
         self.countries = Countries()
     }
-    func initStore_Doc(userDoc:User_DBDoc) -> Void {
+    func setDoc(userDoc:User_DBDoc) -> Void {
         self.user = userDoc
         self.countries = ApiCall()
     }
     
-    
-    func initStore_DocAndCountries(userDoc:User_DBDoc, countries: Countries) -> Void {
-        self.user = userDoc
+    func setCountries(countries: Countries) -> Void {
         self.countries = countries
     }
 
