@@ -32,9 +32,9 @@ struct CountryPickerView : View {
                          HStack {
                             Button(action: {
 
-                                var newAlert = self.changeTo(currency, self.index, self.isCountry1)
+//                                var newAlert = self.changeTo(currency, self.index, self.isCountry1)
                                 self.toCurrency = currency
-                                self.newNumBar = newAlert.numBar
+                                self.newNumBar = self.changeNumTo(currency, self.index, self.isCountry1)
                                 self.presentationMode.wrappedValue.dismiss()
                                 Logger.debug(self.stateStore.alerts.getModel())
                                 
@@ -48,7 +48,9 @@ struct CountryPickerView : View {
                     }
                 }
             }
-        .navigationBarTitle("Change Currency", displayMode: .inline)
+//        .navigationBarTitle("Change Currency", displayMode: .inline)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
         }
     }
     
@@ -59,11 +61,27 @@ struct CountryPickerView : View {
     }
     
     private func changeTo(_ toCurrency: Country, _ index: Int, _ isCountry1: Bool) -> MyAlert{
-        
+
         let converter = Converter(stateStore.countries)
 
         return self.stateStore.alerts.change(toCurrency, index, isCountry1, converter)
-           
+
+    }
+    
+    private func changeNumTo(_ toCurrency: Country, _ index: Int, _ isCountry1: Bool) -> String{
+
+        let converter = Converter(stateStore.countries)
+        var rate = Double(0)
+        if (isCountry1){
+            rate = converter.getRate(toCurrency.unit, self.stateStore.alerts.getModel()[index].targetCurrency.unit, Double(100) )
+            return String(rate * 100)
+            
+       } else {
+            rate = converter.getRate(self.stateStore.alerts.getModel()[index].baseCurrency.unit, toCurrency.unit, Double(100) )
+            return String(rate * 100)
+       }
+
+
     }
     
     

@@ -18,7 +18,7 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-    @EnvironmentObject var stateStore: ReduxRootStateStore
+//    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
@@ -105,8 +105,8 @@ struct EditableCardView: View {
                 Spacer()
                 Button(action: {
                     self.disabled.toggle()
-                    self.stateStore.alerts.enableAlert(self.index, self.disabled)
-                    Logger.debug(self.stateStore.alerts.getModel())
+//                    self.stateStore.alerts.enableAlert(self.index, self.disabled)
+//                    Logger.debug(self.stateStore.alerts.getModel())
 
                 }) {
                     HStack {
@@ -124,8 +124,8 @@ struct EditableCardView: View {
                 Spacer()
                 Button(action: {
                     self.show.toggle()
-                    self.stateStore.alerts.update(self.index, self.conditionOperator, self.numBar)
-                    Logger.debug(self.stateStore.alerts.getModel())
+//                    self.stateStore.alerts.update(self.index, self.conditionOperator, self.numBar)
+//                    Logger.debug(self.stateStore.alerts.getModel())
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")

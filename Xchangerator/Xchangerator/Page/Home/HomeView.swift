@@ -23,7 +23,7 @@ struct HomeView: View {
     @State private var setAlertClicked = false
     @State private var conditionOperator = "LT"
     @Binding var selectionFromParent : Int
-    @State private var moreThanTwoAlerts = false
+    @State private var moreThanTwoActiveAlerts = false
     @State private var isDuplicateAlert = false
     
 
@@ -90,23 +90,40 @@ struct HomeView: View {
         }
     }
     
-    private func addToAlerts() -> String {
+//    private func addToAlerts() -> String {
+//        let converter = Converter(stateStore.countries)
+//        if (!isInAlerts()) {
+//            stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+//        }
+//        Logger.debug(stateStore.alerts.getModel())
+//        return ""
+//    }
+    
+    private func changeFirstDisabledAlert(){
+//        stateStore.alerts.test()
         let converter = Converter(stateStore.countries)
-        if (!isInAlerts()) {
-            stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        
+        for index in 0...stateStore.alerts.getModel().count-1 {
+            if (stateStore.alerts.getModel()[index].disabled){
+                stateStore.alerts.changeAlert(index, MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+                break
+            }
         }
-        Logger.debug(stateStore.alerts.getModel())
-        return ""
     }
     
-    private func checkIfMoreThanTwoAlerts() -> Bool {
-        let size = stateStore.alerts.getModel().count
-        if (size >= 2){
-            self.moreThanTwoAlerts = true
-            return moreThanTwoAlerts
-        }
-        return moreThanTwoAlerts
-    }
+//    private func checkIfMoreThanTwoActiveAlerts() -> Bool {
+//        var count = 0
+//
+//        for i in 0...stateStore.alerts.getModel().count-1 {
+//            if (!stateStore.alerts.getModel()[i].disabled){
+//                count += 1
+//            }
+//        }
+//        if (count >= 2){
+//            self.moreThanTwoActiveAlerts = true
+//        }
+//        return self.moreThanTwoActiveAlerts
+//    }
 
 
     var body: some View {
@@ -240,11 +257,11 @@ struct HomeView: View {
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
-                                            if (!self.checkIfMoreThanTwoAlerts() && !self.isInAlerts()){
-                                            
+                                            self.moreThanTwoActiveAlerts = self.stateStore.alerts.checkIfMoreThanTwoActiveAlerts()
+                                            if (!self.moreThanTwoActiveAlerts && !self.isInAlerts()){
+                                                self.changeFirstDisabledAlert()
                                                 self.selectionFromParent = 2
                                                 self.setAlertClicked = true
-                                                self.addToAlerts()
                                             }
                         
 //                                            self.setAlertClicked = true
@@ -256,8 +273,8 @@ struct HomeView: View {
                                               Text("Set Alert")
                                                   .fontWeight(.semibold)
                                                   .font(.headline)
-                                          }.alert(isPresented: self.$moreThanTwoAlerts) {
-                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two alerts."), dismissButton: .default(Text("OK")))
+                                          }.alert(isPresented: self.$moreThanTwoActiveAlerts) {
+                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two active alerts. Please disable one alert first"), dismissButton: .default(Text("OK")))
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }

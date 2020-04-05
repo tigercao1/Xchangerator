@@ -98,7 +98,30 @@ class MyAlerts: ObservableObject {
         alerts[index].disabled = ifDisable
     }
     
+    func changeAlert(_ index: Int, _ newAlert: MyAlert){
+        alerts[index] = newAlert
+    }
+    
+    func checkIfMoreThanTwoActiveAlerts() -> Bool {
+//        test()
+        var count = 0
+        var moreThanTwoActiveAlerts = false
+        for i in 0...alerts.count-1 {
+            if (!alerts[i].disabled){
+                count += 1
+            }
+        }
+        if (count >= 2){
+            moreThanTwoActiveAlerts = true
+        }
+        return moreThanTwoActiveAlerts
+    }
    
+    func test(){
+        alerts[0].disabled = false
+        alerts[1].disabled = false
+
+    }
     
     func getModel() -> Array<MyAlert> {
         return alerts

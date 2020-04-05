@@ -59,7 +59,8 @@ struct AlertsView: View {
             }
             .navigationBarTitle(Text("Alerts"))//
             
-        }.onAppear(perform: {
+        }
+        .onAppear(perform: {
             self.reload()
         })
         

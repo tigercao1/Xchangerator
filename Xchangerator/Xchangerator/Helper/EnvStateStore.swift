@@ -16,7 +16,7 @@ class ReduxRootStateStore: ObservableObject {
     @Published var isLandscape: Bool = false
     @Published var countries: Countries = Countries()
     @Published var favoriteConversions: FavoriteConversions = FavoriteConversions()
-    @Published var alerts: MyAlerts = MyAlerts(alertList: [])
+    @Published var alerts: MyAlerts = MyAlerts()
 
     enum Key: String, CaseIterable {
         case auth, content
