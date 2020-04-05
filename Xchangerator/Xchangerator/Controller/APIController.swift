@@ -69,17 +69,35 @@ class APIController {
 
 extension URLSession {
     func dataTask(with url: URL, completion: @escaping (Result<(Data,URLResponse), NetworkError>) -> Void) -> URLSessionDataTask {
-    return dataTask(with: url) { (data, response, error) in
-        if let error = error {
-            Logger.error(error)
-            completion(.failure(.server))
-            return
+        return dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                Logger.error(error)
+                completion(.failure(.server))
+                return
+            }
+            guard let response = response, let data = data else {
+                completion(.failure(.server))
+                return
+            }
+            completion(.success((data, response)))
         }
-        guard let response = response, let data = data else {
-            completion(.failure(.server))
-            return
-        }
-        completion(.success((data, response)))
     }
 }
+
+
+func ApiCall() -> Countries {
+    let apiController = APIController()
+// Here it's running in the forground, later maybe change it to the background with another thread. For know-how, see comments in APIController
+    let result = apiController.makeCountriesRequest()
+    switch result {
+    case let .success(data):
+        guard let countries = data else {
+            Logger.error("Countries cast failed")
+            return Countries()
+        }
+        return countries
+    case let .failure(error):
+        Logger.error(error)
+        return Countries()
+    }
 }

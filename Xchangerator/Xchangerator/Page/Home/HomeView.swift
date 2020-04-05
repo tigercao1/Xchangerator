@@ -223,7 +223,8 @@ struct HomeView: View {
                                     .font(.headline)
                             }.foregroundColor(.black)
                         }.padding(.top,30)
-                        .padding(.horizontal,30)                     .padding(.bottom,5)
+                        .padding(.horizontal,30)
+                        .padding(.bottom,5)
                         HStack{
                             Button(action: {
                                           do {
@@ -261,17 +262,17 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        if (self.chartClicked) {
-                            HistoryDetail(history: historyData[0]).padding()
-                            
-                        }
+//                        if (self.chartClicked) {
+//                            HistoryDetail(history: historyData[0]).padding()
+//
+//                        }
                        
                         
                         Divider().padding(.bottom,30)
                     }
                 }
 
-            }.frame(height: (self.chartClicked ? screenHeight*0.45: screenHeight*0.3) )
+            }.frame(height: screenHeight*0.2) 
                 .onAppear(perform: {
                 self.modalPresented = false
                     self.isDuplicateAlert = false
