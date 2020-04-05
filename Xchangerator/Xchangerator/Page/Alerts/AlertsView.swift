@@ -18,7 +18,7 @@ struct AlertsView: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @State var items: Array<MyAlert> = []
-
+//    @State var currentAlert: MyAlert
     
     private func endEditing() {
         UIApplication.shared.endEditing()
@@ -26,22 +26,28 @@ struct AlertsView: View {
     
     private func reload() {
         self.items = self.stateStore.alerts.getModel()
+        // do not delete
+        Logger.debug(self.items)
     }
 
     var body: some View {
-        NavigationView{
+        self.reload()
+        var alertArray = self.stateStore.alerts.getModel()
+        return NavigationView{
             ScrollView() {
                 VStack {
-                    ForEach(self.stateStore.alerts.getModel(), id: \.self)
+                    ForEach(alertArray.indices, id: \.self)
                     {
-                        alert in  //MyAlert
+                        index in  //MyAlert
                            // Spacer()
                             EditableCardView(
-                                country1: alert.targetCurrency,
-                                country2: alert.baseCurrency,
-                                conditionOperator: alert.conditionOperator,
-                                numBar: alert.numBar,
-                                disabled: alert.disabled
+//                                currentAlert: self.$currentAlert,
+                                country1: alertArray[index].baseCurrency,
+                                country2: alertArray[index].targetCurrency,
+                                conditionOperator: alertArray[index].conditionOperator,
+                                numBar: alertArray[index].numBar,
+                                disabled: alertArray[index].disabled,
+                                index: index
                            )
                         // Spacer()
                     }

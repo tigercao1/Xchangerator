@@ -16,6 +16,7 @@ class MyAlerts: ObservableObject {
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇺🇸",  name: "United States Dollar", rate: 1, unit: "USD"), targetCurrency: Country(flag: "🇪🇺",  name: "Euro", rate: 0.925498, unit: "EUR"), conditionOperator: "LT", rate: 0.93))
     }
     
+    
     init(alertList: Array<MyAlert>) {
         alerts = alertList
     }
@@ -76,6 +77,25 @@ class MyAlerts: ObservableObject {
         print("MyAlert with id " + id + " deleted")
         return temp
     }
+    
+    func change(_ changeToCountry: Country,_ index: Int,_ isBaseCurrency: Bool,_ converter: Converter)-> MyAlert{
+        if (isBaseCurrency){
+            alerts[index].baseCurrency = changeToCountry
+        } else {
+            alerts[index].targetCurrency = changeToCountry
+        }
+        alerts[index].rate = converter.getRate(alerts[index].baseCurrency.unit, alerts[index].targetCurrency.unit, Double(100) ?? 0)
+        alerts[index].numBar = String(alerts[index].rate * 100)
+        return alerts[index]
+    }
+    
+    func update(_ index: Int, _ toConditionOp: String, _ newNumBar: String)-> MyAlert{
+        alerts[index].conditionOperator = toConditionOp
+        alerts[index].numBar = newNumBar
+        return alerts[index]
+    }
+    
+   
     
     func getModel() -> Array<MyAlert> {
         return alerts

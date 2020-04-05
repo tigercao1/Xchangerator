@@ -11,11 +11,14 @@ import SwiftUI
 
 struct EditableCardView: View {
     @State private var  show = false
-    var country1: Country
-    var country2: Country
+//    @Binding var currentAlert: MyAlert
+    @State var country1: Country
+    @State var country2: Country
     @State var conditionOperator: String
     @State var numBar: String
     @State var disabled: Bool
+    @State var index: Int
+    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
@@ -41,13 +44,18 @@ struct EditableCardView: View {
                        .lineLimit(.none)
                         
                     CountryHeadlineCardView(
-                        country:country1 ,
+//                        currentAlert: $currentAlert,
+                        country: $country1 ,
                         isEditable: false,
                         showFromParent: $show ,
-                        barNumFromParent: $numBar
+                        barNumFromParent: $numBar,
+                        isCountry1: true,
+                        index: self.index
                     )
                     Button(action: {
                         self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
+//                        self.stateStore.alerts.changeConditionOp(self.index, self.conditionOperator)
+                        Logger.debug(self.stateStore.alerts.getModel())
                              }){
                             Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill": "greaterthan.circle.fill")
 
@@ -55,10 +63,13 @@ struct EditableCardView: View {
                     }.animation(.spring())
 
                     CountryHeadlineCardView(
-                        country:country2 ,
+//                        currentAlert: $currentAlert,
+                        country: $country2 ,
                         isEditable: true,
                         showFromParent: $show,
-                        barNumFromParent: $numBar
+                        barNumFromParent: $numBar,
+                        isCountry1: false,
+                        index: self.index
                     )
                 }
                 .foregroundColor(Color.white)
@@ -67,17 +78,23 @@ struct EditableCardView: View {
                 ZStack{
                     HStack{
                         CountryHeadlineCardView(
-                            country:country1 ,
+//                            currentAlert: $currentAlert,
+                            country: $country1 ,
                             isEditable: false,
                             showFromParent: $show ,
-                            barNumFromParent: $numBar
+                            barNumFromParent: $numBar,
+                            isCountry1: true,
+                            index: self.index
                         )
 
                         CountryHeadlineCardView(
-                            country:country2 ,
+//                            currentAlert: $currentAlert,
+                            country: $country2 ,
                             isEditable: true,
                             showFromParent: $show,
-                            barNumFromParent: $numBar
+                            barNumFromParent: $numBar,
+                            isCountry1: false,
+                            index: self.index
                         )
                     }
                     Image(systemName: conditionOperator == "LT" ? "lessthan" : "greaterthan")
@@ -109,6 +126,8 @@ struct EditableCardView: View {
                 Spacer()
                 Button(action: {
                     self.show.toggle()
+                    self.stateStore.alerts.update(self.index, self.conditionOperator, self.numBar)
+                    Logger.debug(self.stateStore.alerts.getModel())
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")
@@ -120,6 +139,7 @@ struct EditableCardView: View {
                         .fontWeight(.bold)
                         .font(show ? Font.title : Font.headline)
                         .cornerRadius(5)
+
                     }
                 }
                 .padding(.bottom, show ? 20 : 15)
@@ -139,19 +159,37 @@ struct EditableCardView: View {
 
 
 struct CountryHeadlineCardView: View {
-    var country: Country
+//    @Binding var currentAlert: MyAlert
+    @Binding var country: Country
 //    var number: Float
     var isEditable : Bool
     @Binding var showFromParent:Bool
-    @Binding var barNumFromParent:String 
+    @Binding var barNumFromParent:String
+    var isCountry1: Bool
+    var index: Int
+//    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     var body: some View {
+      
             HStack(){
-                Text(country.flag)
+                if ( showFromParent ){
+                    NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent))
+                        {
+                        Text(country.flag)
+                            .font( showFromParent ? Font.largeTitle : Font.subheadline)
+                            .multilineTextAlignment(.center)
+                            .frame(width: !showFromParent ? 20 : 40, height: 15)
+                            .padding()
+                        }
+//
+                } else{
+                    Text(country.flag)
                     .font( showFromParent ? Font.largeTitle : Font.subheadline)
                     .multilineTextAlignment(.center)
                     .frame(width: !showFromParent ? 20 : 40, height: 15)
                     .padding()
+                }
+               
       
                 if ( isEditable ){
                     TextField("Amount", text: $barNumFromParent)
@@ -162,6 +200,7 @@ struct CountryHeadlineCardView: View {
                         .foregroundColor(showFromParent ? Color.lightBlue : Color.white )
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.leading)
+//                    Logger.debug(self.stateStore.alerts.getModel())
                 } else {
                     Text(String(100))
                         .font( showFromParent ? Font.title: Font.headline)
@@ -177,6 +216,16 @@ struct CountryHeadlineCardView: View {
                 .layoutPriority(100)
     }
 }
+
+//struct CountryPicker: View {
+//    var country: Country
+//    var index: Int
+//    var isCountry1: Bool
+//    var body: some View {
+//        CountryPickerView(fromCurrency: country, index: index, isCountry1: isCountry1)
+//    }
+//}
+
 
 extension Color {
     static let lightBlue =  Color(hue: 0.498, saturation: 0.609, brightness: 1.0)
