@@ -49,7 +49,6 @@
 		C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */; };
 		C5FF8F4A240EE1FC00C402E6 /* EditableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */; };
 		CA2AEEC7243960650083A368 /* CountryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2AEEC6243960650083A368 /* CountryPickerView.swift */; };
-		CA2AEEC924399A6E0083A368 /* HelloworldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2AEEC824399A6E0083A368 /* HelloworldView.swift */; };
 		CA3B2A39242D90BF00CCDD3A /* MyAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3B2A38242D90BF00CCDD3A /* MyAlerts.swift */; };
 		CA3B2A3B242D90D600CCDD3A /* MyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3B2A3A242D90D600CCDD3A /* MyAlert.swift */; };
 		CAB49F67240DACD4008ED8C6 /* SettingsMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */; };
@@ -109,7 +108,6 @@
 		C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCardView.swift; sourceTree = "<group>"; };
 		C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCardView.swift; sourceTree = "<group>"; };
 		CA2AEEC6243960650083A368 /* CountryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPickerView.swift; sourceTree = "<group>"; };
-		CA2AEEC824399A6E0083A368 /* HelloworldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloworldView.swift; sourceTree = "<group>"; };
 		CA3B2A38242D90BF00CCDD3A /* MyAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlerts.swift; sourceTree = "<group>"; };
 		CA3B2A3A242D90D600CCDD3A /* MyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlert.swift; sourceTree = "<group>"; };
 		CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMain.swift; sourceTree = "<group>"; };
@@ -360,7 +358,6 @@
 			children = (
 				C5AADDDC2406F7730077D669 /* AlertsView.swift */,
 				CA2AEEC6243960650083A368 /* CountryPickerView.swift */,
-				CA2AEEC824399A6E0083A368 /* HelloworldView.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -552,7 +549,6 @@
 				C51975542404DF5B00B88635 /* Constant.swift in Sources */,
 				C5AADDD72406EB5F0077D669 /* EnvStateStore.swift in Sources */,
 				C5AADDEB240747530077D669 /* LoginView.swift in Sources */,
-				CA2AEEC924399A6E0083A368 /* HelloworldView.swift in Sources */,
 				C519754F2404DB9F00B88635 /* Logger.swift in Sources */,
 				C5AADDE624071B650077D669 /* UserProfile.swift in Sources */,
 				C50B14052410DE83000FD607 /* HistoryView.swift in Sources */,

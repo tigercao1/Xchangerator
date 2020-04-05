@@ -9,8 +9,13 @@
 import Foundation
 import SwiftUI
 
-struct helloworld: View {
+struct HelloworldView: View {
     var body: some View {
-        Text("Hello World")
+        NavigationView{
+            VStack{
+                Text("Hello World")
+            }
+            .navigationBarTitle("Exchange Rates ")
+        }
     }
 }
