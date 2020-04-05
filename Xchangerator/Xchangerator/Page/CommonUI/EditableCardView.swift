@@ -54,7 +54,6 @@ struct EditableCardView: View {
                     )
                     Button(action: {
                         self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
-                        Logger.debug(self.stateStore.alerts.getModel())
                              }){
                             Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill": "greaterthan.circle.fill")
 
@@ -216,14 +215,7 @@ struct CountryHeadlineCardView: View {
     }
 }
 
-//struct CountryPicker: View {
-//    var country: Country
-//    var index: Int
-//    var isCountry1: Bool
-//    var body: some View {
-//        CountryPickerView(fromCurrency: country, index: index, isCountry1: isCountry1)
-//    }
-//}
+
 
 
 extension Color {

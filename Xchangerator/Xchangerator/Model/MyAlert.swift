@@ -13,8 +13,7 @@ struct MyAlert: Equatable, Hashable {
     var targetCurrency: Country
     var conditionOperator: String
     var rate: Double
-    var numBar: String
-//    { return String(self.rate * 100) }
+    var numBar: String{ return String(self.rate * 100) }
     var disabled: Bool = true
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String) {
@@ -22,7 +21,6 @@ struct MyAlert: Equatable, Hashable {
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
         self.rate = 0
-        self.numBar = String(self.rate * 100)
     }
     
 
@@ -31,7 +29,6 @@ struct MyAlert: Equatable, Hashable {
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
         self.rate = rate
-        self.numBar = String(self.rate * 100)
    }
     
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled:Bool) {
@@ -39,7 +36,6 @@ struct MyAlert: Equatable, Hashable {
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
         self.rate = rate
-        self.numBar = String(self.rate * 100)
         self.disabled = disabled
     }
 

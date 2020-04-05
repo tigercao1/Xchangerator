@@ -85,13 +85,12 @@ class MyAlerts: ObservableObject {
             alerts[index].targetCurrency = changeToCountry
         }
         alerts[index].rate = converter.getRate(alerts[index].baseCurrency.unit, alerts[index].targetCurrency.unit, Double(100) ?? 0)
-        alerts[index].numBar = String(alerts[index].rate * 100)
         return alerts[index]
     }
     
     func update(_ index: Int, _ toConditionOp: String, _ newNumBar: String)-> MyAlert{
         alerts[index].conditionOperator = toConditionOp
-        alerts[index].numBar = newNumBar
+        alerts[index].rate = ((newNumBar as NSString).doubleValue)/Double(100)
         return alerts[index]
     }
     
