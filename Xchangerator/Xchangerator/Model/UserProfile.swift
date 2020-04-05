@@ -10,7 +10,7 @@ import Foundation
 public struct User_Profile: Codable {
 
     let email: String
-    let photoURL: URL
+    let photoURL: URL?
     let deviceTokens: Array<String>
     let name:String
 
@@ -25,11 +25,11 @@ public struct User_Profile: Codable {
     
     init(){
         email = ""
-        photoURL = NSURL(string:"https://concordia.ab.ca/wp-content/themes/concordia_2016/images/placeholder-avatar.png")! as URL; //""
+        photoURL = URL(string:Constant.xAvatarLogo)
         deviceTokens = []
         name = ""
     }
-    init(email:String ,photoURL:URL,deviceTokens:Array<String>, name:String){
+    init(email:String ,photoURL:URL?,deviceTokens:Array<String>, name:String){
         self.email = email
         self.photoURL =  photoURL
         self.deviceTokens = deviceTokens

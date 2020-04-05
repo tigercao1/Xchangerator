@@ -30,7 +30,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
         
      // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
-//            FUIEmailAuth(),  //Todo: freeze or disable email input, after login successfully
+            FUIEmailAuth(),  //Todo: freeze or disable email input, after login successfully
             FUIGoogleAuth()
         ]
         authUI?.providers = providers
@@ -63,6 +63,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
         // MARK: FUIAuthDelegate
         func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?)
         {
+            UIApplication.shared.endEditing()
+
 //            parent.dismiss(authDataResult, error)
             guard error == nil else {
                 Logger.error("Err: Failed to sign in with user. User:\(String(describing: authDataResult));Error:\(String(describing: error)) " )
@@ -107,9 +109,9 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 }
             }
             self.parent.stateStore.curRoute = .content
-            
+//            let urlLogo = URL(string:Constant.xAvatarLogo)!
             if let user = Auth.auth().currentUser  {
-                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:[], name:user.displayName ?? "New User")
+                let userProfile = User_Profile(email:user.email ?? "New_\(user.uid)@Xchangerator.com" ,photoURL:user.photoURL ,deviceTokens:[], name:user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile:userProfile)
                 
                 // todo: refetch state store settings from DB
