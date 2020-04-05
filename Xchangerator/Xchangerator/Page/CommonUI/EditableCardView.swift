@@ -54,7 +54,6 @@ struct EditableCardView: View {
                     )
                     Button(action: {
                         self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
-//                        self.stateStore.alerts.changeConditionOp(self.index, self.conditionOperator)
                         Logger.debug(self.stateStore.alerts.getModel())
                              }){
                             Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill": "greaterthan.circle.fill")
@@ -63,7 +62,6 @@ struct EditableCardView: View {
                     }.animation(.spring())
 
                     CountryHeadlineCardView(
-//                        currentAlert: $currentAlert,
                         country: $country2 ,
                         isEditable: true,
                         showFromParent: $show,
@@ -78,7 +76,6 @@ struct EditableCardView: View {
                 ZStack{
                     HStack{
                         CountryHeadlineCardView(
-//                            currentAlert: $currentAlert,
                             country: $country1 ,
                             isEditable: false,
                             showFromParent: $show ,
@@ -88,7 +85,6 @@ struct EditableCardView: View {
                         )
 
                         CountryHeadlineCardView(
-//                            currentAlert: $currentAlert,
                             country: $country2 ,
                             isEditable: true,
                             showFromParent: $show,
@@ -110,6 +106,9 @@ struct EditableCardView: View {
                 Spacer()
                 Button(action: {
                     self.disabled.toggle()
+                    self.stateStore.alerts.enableAlert(self.index, self.disabled)
+                    Logger.debug(self.stateStore.alerts.getModel())
+
                 }) {
                     HStack {
                         Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white: Color.lightBlue)
@@ -159,7 +158,7 @@ struct EditableCardView: View {
 
 
 struct CountryHeadlineCardView: View {
-//    @Binding var currentAlert: MyAlert
+    
     @Binding var country: Country
 //    var number: Float
     var isEditable : Bool
@@ -167,13 +166,14 @@ struct CountryHeadlineCardView: View {
     @Binding var barNumFromParent:String
     var isCountry1: Bool
     var index: Int
-//    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     var body: some View {
       
             HStack(){
                 if ( showFromParent ){
+                    
                     NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent))
+                        
                         {
                         Text(country.flag)
                             .font( showFromParent ? Font.largeTitle : Font.subheadline)
@@ -181,7 +181,7 @@ struct CountryHeadlineCardView: View {
                             .frame(width: !showFromParent ? 20 : 40, height: 15)
                             .padding()
                         }
-//
+
                 } else{
                     Text(country.flag)
                     .font( showFromParent ? Font.largeTitle : Font.subheadline)
@@ -200,7 +200,6 @@ struct CountryHeadlineCardView: View {
                         .foregroundColor(showFromParent ? Color.lightBlue : Color.white )
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.leading)
-//                    Logger.debug(self.stateStore.alerts.getModel())
                 } else {
                     Text(String(100))
                         .font( showFromParent ? Font.title: Font.headline)

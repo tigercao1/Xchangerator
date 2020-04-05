@@ -95,6 +95,10 @@ class MyAlerts: ObservableObject {
         return alerts[index]
     }
     
+    func enableAlert(_ index: Int, _ ifDisable: Bool){
+        alerts[index].disabled = ifDisable
+    }
+    
    
     
     func getModel() -> Array<MyAlert> {
