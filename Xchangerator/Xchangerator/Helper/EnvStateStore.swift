@@ -29,7 +29,6 @@ class ReduxRootStateStore: ObservableObject {
     
     func resetStateStore() -> Void {
         self.user = User_DBDoc ()
-        self.isLandscape = false
         self.countries = Countries()
     }
     func setDoc(userDoc:User_DBDoc) -> Void {
