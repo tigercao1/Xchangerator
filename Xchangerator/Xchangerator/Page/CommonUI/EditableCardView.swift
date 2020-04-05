@@ -11,11 +11,12 @@ import SwiftUI
 
 struct EditableCardView: View {
     @State private var  show = false
-    @State private var  disabled = true
     var country1: Country
     var country2: Country
     @State var conditionOperator: String
     @State var numBar: String
+    @State var disabled: Bool
+
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
 //        let amount = 1.0

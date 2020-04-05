@@ -23,4 +23,10 @@ class Converter {
         return amt * conversionRate
     }
     
+    func getRate(_ targetCurrency: String, _ amt: Double) -> Double {
+        let tempBaseCountry = countries.baseCountry
+        let tempTargetCountry = try? countries.findByUnit(targetCurrency)
+        return (tempTargetCountry!.rate / tempBaseCountry.rate)
+    }
+    
 }

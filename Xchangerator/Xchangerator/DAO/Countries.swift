@@ -55,6 +55,7 @@ class Countries: ObservableObject{
     }
         
     func findByName(_ name: String) throws -> Country {
+        if (self.baseCountry.name == name) { return self.baseCountry  }
         for temp in countries {
             if temp.name == name {
                 return temp
@@ -64,6 +65,7 @@ class Countries: ObservableObject{
     }
     
     func findByUnit(_ unit: String) throws -> Country {
+        if (self.baseCountry.unit == unit) { return self.baseCountry  }
         for temp in countries {
             if temp.unit == unit {
                 return temp
@@ -82,7 +84,7 @@ class Countries: ObservableObject{
         } catch is EntityExceptions {
             throw EntityExceptions.EntityNotFoundException("Currency " + unit +  " not deleted")
         }
-        print("Currency " + unit + " deleted")
+        Logger.debug("Currency " + unit + " deleted")
         return temp
     }
     

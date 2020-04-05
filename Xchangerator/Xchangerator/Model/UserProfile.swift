@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MapKit
 public struct User_Profile: Codable {
 
     let email: String
@@ -51,51 +50,5 @@ public struct User_DBDoc: Codable {
     }
     init (profile:User_Profile) {
         self.profile = profile
-    }
-}
-
-// make your own annotation image For Mapkit
-//https://developer.apple.com/documentation/mapkit/mapkit_annotations/annotating_a_map_with_custom_data
-struct CustomAnnotationPoint: Hashable {
-    
-    let id = UUID()
-    let title: String
-    let subtitle: String
-    let coordinates: CLLocationCoordinate2D
-    
-    init(title: String, subtitle: String, lat: CLLocationDegrees, long: CLLocationDegrees) {
-        
-        self.title = title
-        self.subtitle = subtitle
-        
-        self.coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
-    }
-    
-    init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
-        
-        self.init(title: title, subtitle: subtitle,
-                  lat: coordinate.latitude, long: coordinate.longitude)
-    }
-    
-    var annotationPt: MKPointAnnotation {
-        
-        let newAnnoPoint = MKPointAnnotation()
-        
-        newAnnoPoint.title = self.title
-        newAnnoPoint.subtitle = self.subtitle
-        newAnnoPoint.coordinate = self.coordinates
-        
-        return newAnnoPoint
-        
-    }
-    
-    // MARK: Hashable
-    static func == (lhs: CustomAnnotationPoint, rhs: CustomAnnotationPoint) -> Bool {
-        return (lhs.coordinates.latitude == rhs.coordinates.latitude) ||
-            (lhs.coordinates.longitude == rhs.coordinates.longitude)
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
 }

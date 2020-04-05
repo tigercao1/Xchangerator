@@ -82,8 +82,30 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              */
             let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID:"current")
             
+            let countriesStarter = ApiCall()
+            
+            //Set Device token and notification Docs in DB
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
-            DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj)
+            DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj, alerts:self.parent.stateStore.alerts ) { docSnapShots in
+                for i in 0..<2 {
+//                        init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled:Bool) {
+                    do {
+                        let data = docSnapShots[i].data()
+                        let str = data["condition"] as? String ?? "CAD-USD-LT"
+                        let tar = data["target"] as! Double
+                        let disabled = data["disabled"] as! Bool
+                        let strArr = str.split(separator: "-")
+                        let c1 = try countriesStarter.findByUnit(String(strArr[0]))
+                        let c2 = try countriesStarter.findByUnit(String(strArr[1]))
+                        
+                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2,  conditionOperator:String(strArr.last ?? "LT"),rate:tar,disabled:disabled)
+                        self.parent.stateStore.alerts.setById(i, newAlert)
+
+                    } catch {
+                        Logger.error(error)
+                    }
+                }
+            }
             self.parent.stateStore.curRoute = .content
             
             if let user = Auth.auth().currentUser  {
@@ -91,8 +113,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 let userDoc = User_DBDoc(profile:userProfile)
                 
                 // todo: refetch state store settings from DB
-                self.parent.stateStore.initStateStore(userDoc:userDoc)
-//                self.parent.stateStore.user = userDoc
+                self.parent.stateStore.setDoc(userDoc: userDoc)
+                self.parent.stateStore.setCountries(countries:countriesStarter)
             }
         }
 
