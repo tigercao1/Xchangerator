@@ -381,7 +381,6 @@
 			buildConfigurationList = C58A36C923D6C2F100DB155A /* Build configuration list for PBXNativeTarget "Xchangerator" */;
 			buildPhases = (
 				3294E30E8E96E3E3A1570667 /* [CP] Check Pods Manifest.lock */,
-				EB1CE704243B16A6004869EA /* ShellScript */,
 				C58A36A623D6C2E900DB155A /* Sources */,
 				C58A36A723D6C2E900DB155A /* Frameworks */,
 				C58A36A823D6C2E900DB155A /* Resources */,
@@ -510,23 +509,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Xchangerator/Pods-Xchangerator-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		EB1CE704243B16A6004869EA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd BuildTools\nSDKROOT=macosx\n#swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswift run -c release swiftformat \"$SRCROOT\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -712,8 +694,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
@@ -725,7 +707,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -737,8 +719,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
@@ -750,7 +732,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

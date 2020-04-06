@@ -20,17 +20,18 @@ struct MyAlert: Equatable, Hashable {
         self.baseCurrency = baseCurrency
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
-        rate = 0
+        self.rate = 0
     }
+    
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double) {
         self.baseCurrency = baseCurrency
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
         self.rate = rate
-    }
-
-    init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled: Bool) {
+   }
+    
+    init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled:Bool) {
         self.baseCurrency = baseCurrency
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
@@ -43,33 +44,30 @@ struct MyAlert: Equatable, Hashable {
     }
 }
 
-// Data struct of documents in subcollection "notifictions", for DB CRUD
-struct Notification_Document: Codable {
+//Data struct of documents in subcollection "notifictions", for DB CRUD
+struct Notification_Document:Codable {
     let condition: String
     let disabled: Bool
     let target: Double
 
-    enum CodingKeys: String, CodingKey {
-        case condition
-        case disabled
-        case target
+     enum CodingKeys: String, CodingKey {
+         case condition
+         case disabled = "disabled"
+         case target = "target"
+     }
+    init(_ alert:MyAlert){
+        self.target = alert.rate
+        self.disabled = true
+        self.condition = "\(alert.baseCurrency.unit)-\(alert.targetCurrency.unit)-\(alert.conditionOperator)"
     }
-
-    init(_ alert: MyAlert) {
-        target = alert.rate
-        disabled = true
-        condition = "\(alert.baseCurrency.unit)-\(alert.targetCurrency.unit)-\(alert.conditionOperator)"
-    }
-
-    init(condition: String, disabled: Bool, target: Double) {
+    init(condition: String,disabled: Bool, target: Double){
         self.disabled = disabled
         self.condition = condition
         self.target = target
     }
-
-    init() {
-        disabled = false
-        condition = "CAD-USD-LT"
-        target = 1.2
+    init(){
+        self.disabled = false
+        self.condition = "CAD-USD-LT"
+        self.target = 1.2
     }
 }

@@ -8,47 +8,47 @@
 
 import Foundation
 public struct User_Profile: Codable {
+
     let email: String
     let photoURL: URL?
-    let deviceTokens: [String]
-    let name: String
+    let deviceTokens: Array<String>
+    let name:String
 
     enum CodingKeys: String, CodingKey {
         case email
         case photoURL
-        case deviceTokens // deviceTokens
+        case deviceTokens  //deviceTokens
         case name
     }
-
-    // Default image"https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
-
-    init() {
+    
+    //Default image"https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    
+    init(){
         email = ""
-        photoURL = URL(string: Constant.xAvatarLogo)
+        photoURL = URL(string:Constant.xAvatarLogo)
         deviceTokens = []
         name = ""
     }
-
-    init(email: String, photoURL: URL?, deviceTokens: [String], name: String) {
+    init(email:String ,photoURL:URL?,deviceTokens:Array<String>, name:String){
         self.email = email
-        self.photoURL = photoURL
+        self.photoURL =  photoURL
         self.deviceTokens = deviceTokens
         self.name = name
     }
-}
 
+}
 public struct User_DBDoc: Codable {
+
     let profile: User_Profile
 
     enum CodingKeys: String, CodingKey {
         case profile
     }
-
-    init() {
+    
+    init(){
         profile = User_Profile()
     }
-
-    init(profile: User_Profile) {
+    init (profile:User_Profile) {
         self.profile = profile
     }
 }

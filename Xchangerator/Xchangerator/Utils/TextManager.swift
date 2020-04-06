@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class TextFileManager {
+internal class TextFileManager{
     internal class func writeToFile(message: String) {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(Constant.xLogFileName)
@@ -16,7 +16,7 @@ internal class TextFileManager {
             try? newContent.write(to: fileURL, atomically: false, encoding: .utf8)
         }
     }
-
+    
     internal class func readFile() -> String {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(Constant.xLogFileName)
@@ -26,7 +26,7 @@ internal class TextFileManager {
         }
         return ""
     }
-
+    
     internal class func cleanFile() {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(Constant.xLogFileName)
@@ -34,3 +34,5 @@ internal class TextFileManager {
         }
     }
 }
+
+

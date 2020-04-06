@@ -16,7 +16,6 @@ enum HTTPRequestExceptions: Error {
     case DataRetrievalException(String)
     case JSONParsingException(String)
 }
-
 enum NetworkError: Error {
     case url
     case server

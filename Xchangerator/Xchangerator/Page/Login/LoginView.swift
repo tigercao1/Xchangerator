@@ -1,8 +1,4 @@
 //
-// import FirebaseCore
-// import FirebaseFirestore
-// import FirebaseFirestoreSwift
-import FirebaseUI
 //  LoginViewController.swift
 //  Xchangerator
 //
@@ -11,6 +7,10 @@ import FirebaseUI
 //
 import Foundation
 import SwiftUI
+//import FirebaseCore
+//import FirebaseFirestore
+//import FirebaseFirestoreSwift
+import FirebaseUI
 public var screenWidth: CGFloat {
     return UIScreen.main.bounds.width
 }
@@ -18,35 +18,36 @@ public var screenWidth: CGFloat {
 public var screenHeight: CGFloat {
     return UIScreen.main.bounds.height
 }
-
-struct LoginView: View {
+struct LoginView : View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
-
+    
     @State private var bottomViewState = CGSize(width: 0, height: screenHeight)
     @State private var mainViewState = CGSize.zero
 
-    var body: some View {
-        ZStack {
-            // #1 login
+    var body : some View {
+        ZStack{
+            
+            //#1 login
             ZStack {
-                // Bridge SwiftUI and UIkit
-                // https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
+// Bridge SwiftUI and UIkit
+//https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
                 FUIAuthBaseViewControllerWrapper()
-                VStack(alignment: .trailing, spacing: screenHeight * 0.2) {
-                    HStack(alignment: .center) {
+                VStack(alignment: .trailing, spacing: screenHeight*0.2){
+                    HStack(alignment: .center){
                         Text("Build by YYES. with")
                             .fontWeight(.regular)
                             .foregroundColor(Color.blue)
-                        Image(systemName: "heart.circle").foregroundColor(Color.blue)
-                    }.padding(20).frame(width: screenWidth, height: screenHeight * 0.85,
-                                        alignment: .bottom)
+                    Image(systemName:"heart.circle").foregroundColor(Color.blue)
+                    }.padding(20).frame(width: screenWidth, height: screenHeight*0.85,
+                        alignment: .bottom)
                 }
-                .animation(/*@START_MENU_TOKEN@*/ .easeInOut/*@END_MENU_TOKEN@*/)
-            }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height : self.bottomViewState.height).animation(.spring())
+                .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
+            }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
+            
+            //#2 home fav alerts setting
+            ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height)//.animation(.spring()) //Anti-Shake, Spring() is too much
+        }//.navigate(to: ContentView(), when: $willMoveToNextScreen)
 
-            // #2 home fav alerts setting
-            ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height : self.bottomViewState.height) // .animation(.spring()) //Anti-Shake, Spring() is too much
-        } // .navigate(to: ContentView(), when: $willMoveToNextScreen)
     }
 }
 

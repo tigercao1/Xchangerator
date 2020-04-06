@@ -8,7 +8,7 @@
 
 import Foundation
 
-private func initFormatter() -> DateFormatter {
+fileprivate func initFormatter() -> DateFormatter{
     let f = DateFormatter()
     f.dateStyle = .medium
     f.timeStyle = .none
@@ -25,15 +25,15 @@ struct HistoryCell: Codable, Hashable, Identifiable {
     var observations: [Observation]
 
     static var formatter = initFormatter()
-
+    
     var distanceText: String {
         return HistoryCell.formatter
-            .string(from: Date(timeIntervalSinceReferenceDate: distance * 3600 * 24 * 7))
+            .string(from: Date(timeIntervalSinceReferenceDate: distance*3600*24*7))
     }
 
     struct Observation: Codable, Hashable {
         var distanceFromStart: Double
-
+        
         var week: Range<Double>
         var month: Range<Double>
         var year: Range<Double>
