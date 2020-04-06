@@ -23,7 +23,7 @@ struct CountryPickerView: View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(self.stateStore.countries.getFullCountries(), id: \.self)
+                    ForEach(self.stateStore.countries.getFullCountries().getModel(), id: \.self)
                     {
                         currency in
                         HStack {
