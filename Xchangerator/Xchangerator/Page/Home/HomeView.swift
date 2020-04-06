@@ -24,8 +24,7 @@ struct HomeView: View {
     @Binding var selectionFromParent : Int
     @State private var moreThanTwoAlerts = false
     @State private var isDuplicateAlert = false
-    
-
+    @State private var shouldRefesh = false
 
     private func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
@@ -42,11 +41,11 @@ struct HomeView: View {
 //        self.stateStore.countries.baseCountry = newBase
 //    }
     
-    private func switchBase(_ newBase: Country) {
-        self.favourite = false
-        self.stateStore.countries.setBaseCountry(newBase)
-//        self.setBaseCurrency(newBase)
-    }
+//    private func switchBase(_ newBase: Country) {
+//        self.favourite = false
+//        self.stateStore.setBaseCountry(newBase)
+//        Logger.debug(self.stateStore.countries.baseCountry)
+//    }
 
     private func endEditing() {
         UIApplication.shared.endEditing()
@@ -144,11 +143,6 @@ struct HomeView: View {
                 
                 List(stateStore.countries.getModel(), id: \.self) { country in
                     HStack(spacing: screenWidth*0.06) {
-                    
-                        Button(action: {
-                                Alert(title: Text("Warning"), message: Text("Button"), dismissButton: .default(Text("OK")))
-                            self.switchBase(country)
-                                    }) {
                             VStack(alignment: .leading) {
                                 HStack(spacing: screenWidth*0.05) {
                                     Text(country.flag)
@@ -176,11 +170,11 @@ struct HomeView: View {
                                 .gesture(
                                     TapGesture()
                                         .onEnded { _ in
-                                             Alert(title: Text("Warning"), message: Text("tapped"), dismissButton: .default(Text("OK")))
-                                            self.switchBase(country)
+                                            self.stateStore.countries.setBaseCountry(country)
+                                            self.stateStore.countries = self.stateStore.countries.copy() as! Countries
                                         }
                                 )
-                        }
+                        //}
                         Divider()
                         Image(systemName: "ellipsis")
                             .aspectRatio(contentMode:.fill)
@@ -265,19 +259,13 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-//                        if (self.chartClicked) {
-//                            HistoryDetail(history: historyData[0]).padding()
-//
-//                        }
-                       
-                        
                         Divider().padding(.bottom,30)
                     }
                 }
 
             }.frame(height: screenHeight*0.2)
                 .onAppear(perform: {
-                self.modalPresented = false
+                    self.modalPresented = false
                     self.isDuplicateAlert = false
             })
         }
