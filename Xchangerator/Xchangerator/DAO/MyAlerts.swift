@@ -8,9 +8,14 @@
 
 import Foundation
 
-class MyAlerts: ObservableObject {
+class MyAlerts: ObservableObject, NSCopying {
     private var alerts = Array<MyAlert>()
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = MyAlerts(alertList: self.alerts)
+        return copy
+    }
+
     init() {
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇨🇦",  name: "Canadian Dollar", rate: 1.421735, unit: "CAD"), targetCurrency: Country(flag: "🇨🇳",  name: "Chinese Yuan", rate: 7.0923, unit: "CNY"), conditionOperator: "LT", rate: 5.1))
         alerts.append(MyAlert(baseCurrency: Country(flag: "🇺🇸",  name: "United States Dollar", rate: 1, unit: "USD"), targetCurrency: Country(flag: "🇪🇺",  name: "Euro", rate: 0.925498, unit: "EUR"), conditionOperator: "LT", rate: 0.93))
@@ -18,7 +23,7 @@ class MyAlerts: ObservableObject {
     
     
     init(alertList: Array<MyAlert>) {
-        alerts = alertList
+        self.alerts = alertList
     }
     
     func add(_ alert: MyAlert) -> Void {

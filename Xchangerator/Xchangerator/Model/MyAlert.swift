@@ -13,7 +13,7 @@ struct MyAlert: Equatable, Hashable {
     var targetCurrency: Country
     var conditionOperator: String
     var rate: Double
-    var numBar: String{ return String(self.rate * 100) }
+    var numBar: String { return String(self.rate) }
     var disabled: Bool = true
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String) {

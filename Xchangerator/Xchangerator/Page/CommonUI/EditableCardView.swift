@@ -18,8 +18,33 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-//    @EnvironmentObject var stateStore: ReduxRootStateStore
+    @EnvironmentObject var stateStore: ReduxRootStateStore
+    @State private var setSuccess:Bool = false
 
+    private func toggleDisable () {
+        guard let dbValue = Double(numBar) else {
+            Logger.error("number convert err")
+            return
+        }
+        var newAlerts = self.stateStore.alerts.getModel()
+        newAlerts[index] = MyAlert(baseCurrency: country1, targetCurrency: country2, conditionOperator: conditionOperator, rate: dbValue, disabled: !self.disabled)
+            
+            DatabaseManager.shared.updateUserAlert(index: index, myAlerts: MyAlerts(alertList:newAlerts)){ result in
+                switch result {
+                    case let .success(myAlerts):
+                        guard let alertsCopy = myAlerts else {
+                            Logger.error("alertsCopy build failed")
+                            return
+                        }
+                        Logger.debug("🍎alertsCopy will set")
+                        self.stateStore.alerts = alertsCopy.copy()as! MyAlerts
+                        self.setSuccess = true
+//                        self.disabled.toggle()
+                    case let .failure(error):
+                        Logger.error(error)
+                }
+            }
+    }
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
 //        let amount = 1.0
@@ -104,7 +129,7 @@ struct EditableCardView: View {
             HStack{
                 Spacer()
                 Button(action: {
-                    self.disabled.toggle()
+                    self.toggleDisable()
 //                    self.stateStore.alerts.enableAlert(self.index, self.disabled)
 //                    Logger.debug(self.stateStore.alerts.getModel())
 
@@ -120,9 +145,21 @@ struct EditableCardView: View {
                             .cornerRadius(5)
                     }
                 }
+                .alert(isPresented: self.$setSuccess) {
+                    Alert(title: Text("Notification Updated"),
+                          message: Text("""
+                            Xchangerate will notify you when:
+                            \(country1.flag) 100 \(country1.unit)
+                                \(conditionOperator == "LT" ? "Less than":"Great than")
+                            \(country2.flag) \(self.numBar) \(country2.unit)
+                            """),
+                          dismissButton: .default(Text("OK")))
+                }
                 .padding(.bottom, show ? 20 : 15)
+                
                 Spacer()
                 Button(action: {
+                    
                     self.show.toggle()
 //                    self.stateStore.alerts.update(self.index, self.conditionOperator, self.numBar)
 //                    Logger.debug(self.stateStore.alerts.getModel())
@@ -165,15 +202,15 @@ struct CountryHeadlineCardView: View {
     @Binding var barNumFromParent:String
     var isCountry1: Bool
     var index: Int
+   // var formattedNumBar: String {return String(format:"%.2f",barNumFromParent)}
+
 
     var body: some View {
       
             HStack(){
                 if ( showFromParent ){
                     
-                    NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent))
-                        
-                        {
+                    NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent)){
                         Text(country.flag)
                             .font( showFromParent ? Font.largeTitle : Font.subheadline)
                             .multilineTextAlignment(.center)

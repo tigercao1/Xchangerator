@@ -19,28 +19,62 @@ class DatabaseManager {
     static var shared = DatabaseManager()
     private var db = Firestore.firestore()
     
-    private func addDocsToNotifications( userRef: DocumentReference, alerts:MyAlerts) {
+    private func addDocsToNotifications( userRef: DocumentReference, alerts:MyAlerts, user: User) {
         let Doc1 = Notification_Document(alerts.getModel()[0]);
         let Doc2 = Notification_Document(alerts.getModel()[1]);
-        _ = try? userRef.collection("notifications").addDocument(from: Doc1){ err in
-            if let err = err {
-                Logger.error("Err adding doc1: \(err)")
-            } else {
-                Logger.debug("adding doc1 ")
-                _ = try? userRef.collection("notifications").addDocument(from: Doc2){ err in
-                    if let err = err {
-                        Logger.error("Err adding doc2: \(err)")
-                        
-                    } else {
-                        Logger.debug("adding doc2")
-                        
+        _ = try? userRef.collection("notifications")
+            .document("\(user.uid)\(Constant.xDBnotiSuffix)0")
+            .setData(from: Doc1){ err in
+                if let err = err {
+                    Logger.error("Err adding notif1: \(err)")
+                } else {
+                    Logger.debug("added: \(user.uid)\(Constant.xDBnotiSuffix)0")
+                    _ = try? userRef.collection("notifications")
+                        .document("\(user.uid)\(Constant.xDBnotiSuffix)1")
+                        .setData(from: Doc2){ err in
+                        if let err = err {
+                            Logger.error("Err adding notif2: \(err)")
+                        } else {
+                            Logger.debug("added: \(user.uid)\(Constant.xDBnotiSuffix)1")
+                        }
                     }
                 }
-            }
-
         }
     }
+    //    func dataTask(with url: URL, completion: @escaping (Result<(Data,URLResponse), NetworkError>) -> Void) -> URLSessionDataTask {
 
+    func updateUserAlert (index:Int, myAlerts:MyAlerts, completion: @escaping (Result<MyAlerts?, NetworkError>)-> Void)  {
+        let doc = Notification_Document(myAlerts.getModel()[index]);
+        if let user = Auth.auth().currentUser  {
+             // User is signed in.
+            let userCollectionRef = self.db.collection("users")
+            try? userCollectionRef
+                .document("\(Constant.xDBtokenPrefix)\(user.uid)")
+                .collection("notifications")
+                .document("\(user.uid)\(Constant.xDBnotiSuffix)\(index)")
+                .setData(from:doc){ err in
+                    if let err = err {
+                        Logger.error("Error set notif: \(err), \(user.uid)\(Constant.xDBnotiSuffix)\(index)")
+                        completion(.failure(.auth("DB set Notif err")))
+                        return
+                    } else {
+                        let myNewAlerts = myAlerts.copy() as! MyAlerts
+                        completion(.success(myNewAlerts))
+                        return
+                    }
+                }
+            
+        } else {
+             // No user is signed in.
+             // ...
+            Logger.error("Not signed in when setting notifications")
+            completion(.failure(.auth("DBuserAuth failure")))
+            return
+        }
+
+    }
+    
+    
     func registerUser(fcmToken firebaseMsgDeviceToken:String?,fbAuthRet authDataResult:AuthDataResult, alerts:MyAlerts, completion: @escaping ([QueryDocumentSnapshot]) ->Void) {
         //Result<Countries?, NetworkError> 
         // [START add_ada_lovelace]
@@ -76,7 +110,6 @@ class DatabaseManager {
                 newTokenArr = newTokenArr.filter{ $0 != "" }
                 Logger.debug("Old user:pre tokens count \(String(describing: deviceTokens?.count)));new tokens coount\(newTokenArr.count)")
                 
-               
                 
             } else {
                 //create all the fields for the new user
@@ -98,7 +131,7 @@ class DatabaseManager {
                                 Logger.error("Error getting documents: \(err)")
                             } else {
                                 if (querySnapshot!.documents.count < 2 ) {
-                                    self.addDocsToNotifications(userRef: userRef,alerts: alerts)
+                                    self.addDocsToNotifications(userRef: userRef,alerts: alerts, user: user)
                                 } else {
                                     completion(querySnapshot!.documents)
                                 }

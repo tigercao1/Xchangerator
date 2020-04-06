@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let rootView = LoginView()
         let stateStore = ReduxRootStateStore() //state store init
+        //https://firebase.google.com/docs/auth/ios/manage-users
         if Auth.auth().currentUser != nil {
           // User is signed in.
           // ...

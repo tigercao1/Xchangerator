@@ -20,5 +20,6 @@ enum NetworkError: Error {
     case url
     case server
     case dataFormat
+    case auth(String)
     case other(String)
 }

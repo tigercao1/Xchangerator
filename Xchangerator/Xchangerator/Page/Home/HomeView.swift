@@ -265,7 +265,6 @@ struct HomeView: View {
                                                 self.selectionFromParent = 2
                                                 self.setAlertClicked = true
                                             }
-                        
 //                                            self.setAlertClicked = true
                                           }
                                       }) {
@@ -280,7 +279,7 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        Divider().padding(.bottom,30)
+                        Divider().padding(.bottom,screenHeight*0.25)
                     }
                 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Countries: ObservableObject,NSCopying{
+class Countries: ObservableObject, NSCopying{
 
     var countries = Array<Country>()
     var baseCountry: Country

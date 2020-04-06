@@ -27,26 +27,25 @@ struct AlertsView: View {
     private func reload() {
         self.items = self.stateStore.alerts.getModel()
         // do not delete
-        Logger.debug(self.items)
+        //Logger.debug(self.items)
     }
 
     var body: some View {
         self.reload()
-        var alertArray = self.stateStore.alerts.getModel()
         return NavigationView{
             ScrollView() {
                 VStack {
-                    ForEach(alertArray.indices, id: \.self)
+                    ForEach(self.stateStore.alerts.getModel().indices, id: \.self)
                     {
                         index in  //MyAlert
                            // Spacer()
                             EditableCardView(
 //                                currentAlert: self.$currentAlert,
-                                country1: alertArray[index].baseCurrency,
-                                country2: alertArray[index].targetCurrency,
-                                conditionOperator: alertArray[index].conditionOperator,
-                                numBar: alertArray[index].numBar,
-                                disabled: alertArray[index].disabled,
+                                country1: self.stateStore.alerts.getModel()[index].baseCurrency,
+                                country2: self.stateStore.alerts.getModel()[index].targetCurrency,
+                                conditionOperator: self.stateStore.alerts.getModel()[index].conditionOperator,
+                                numBar: self.stateStore.alerts.getModel()[index].numBar,
+                                disabled: self.stateStore.alerts.getModel()[index].disabled,
                                 index: index
                            )
                         // Spacer()

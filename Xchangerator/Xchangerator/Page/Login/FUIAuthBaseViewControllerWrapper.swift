@@ -88,7 +88,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
             DatabaseManager.shared.registerUser(fcmToken: fcmTokenString,fbAuthRet:retObj, alerts:self.parent.stateStore.alerts ) { docSnapShots in
                 for i in 0..<2 {
-//                        init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled:Bool) {
                     do {
                         let data = docSnapShots[i].data()
                         let str = data["condition"] as? String ?? "CAD-USD-LT"
