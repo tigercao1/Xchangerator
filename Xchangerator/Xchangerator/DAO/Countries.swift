@@ -99,6 +99,14 @@ class Countries: ObservableObject,NSCopying{
         return temp
     }
     
+    func getFullCountries() -> Array<Country> {
+           var sortedCountries: Array<Country>
+           countries.append(self.baseCountry)
+           sortedCountries = countries.sorted(by: { $0.name < $1.name })
+           return sortedCountries
+           
+       }
+    
     func getModel() -> Array<Country> {
         return countries
     }
