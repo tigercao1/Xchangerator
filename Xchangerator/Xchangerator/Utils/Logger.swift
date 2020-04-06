@@ -24,57 +24,55 @@ class Logger {
         formatter.timeZone = TimeZone.current
         return formatter
     }
-    
+
     private class func sourceFileName(filePath: String) -> String {
         let components = filePath.components(separatedBy: "/")
         return components.isEmpty ? "" : components.last!
     }
-    
-    class func info( _ object: Any,// 1
-        fileName: String = #file, // 2
-        line: Int = #line, // 3
-        column: Int = #column, // 4
-        funcName: String = #function) {
+
+    class func info(_ object: Any, // 1
+                    fileName: String = #file, // 2
+                    line: Int = #line, // 3
+                    column: Int = #column, // 4
+                    funcName: String = #function) {
         logMessage("\(Date().toString()) \(LogEvent.info.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(column) \(funcName) -> \(object)")
-        
     }
-    
-    class func debug( _ object: Any,// 1
-        fileName: String = #file, // 2
-        line: Int = #line, // 3
-        column: Int = #column, // 4
-        funcName: String = #function) {
+
+    class func debug(_ object: Any, // 1
+                     fileName: String = #file, // 2
+                     line: Int = #line, // 3
+                     column: Int = #column, // 4
+                     funcName: String = #function) {
         #if DEBUG
-        logMessage("\(Date().toString()) \(LogEvent.debug.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(column) \(funcName) -> \(object)")
+            logMessage("\(Date().toString()) \(LogEvent.debug.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(column) \(funcName) -> \(object)")
         #endif
     }
-    
-    class func warning( _ object: Any,// 1
-        fileName: String = #file, // 2
-        line: Int = #line, // 3
-        column: Int = #column, // 4
-        funcName: String = #function) {
+
+    class func warning(_ object: Any, // 1
+                       fileName: String = #file, // 2
+                       line: Int = #line, // 3
+                       column: Int = #column, // 4
+                       funcName: String = #function) {
         logMessage("\(Date().toString()) \(LogEvent.warning.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(column) \(funcName) -> \(object)")
     }
-    
-    class func error( _ object: Any,// 1
-        fileName: String = #file, // 2
-        line: Int = #line, // 3
-        column: Int = #column, // 4
-        funcName: String = #function) {
+
+    class func error(_ object: Any, // 1
+                     fileName: String = #file, // 2
+                     line: Int = #line, // 3
+                     column: Int = #column, // 4
+                     funcName: String = #function) {
         logMessage("\(Date().toString()) \(LogEvent.error.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(column) \(funcName) -> \(object)")
     }
-    
-    fileprivate class func logMessage(_ log:String, shouldStoreInFile:Bool = true) {
+
+    fileprivate class func logMessage(_ log: String, shouldStoreInFile: Bool = true) {
         #if DEBUG
-        if shouldStoreInFile {
-            TextFileManager.writeToFile(message: log)
-        }
+            if shouldStoreInFile {
+                TextFileManager.writeToFile(message: log)
+            }
         #endif
         print(log)
     }
 }
-
 
 extension Date {
     func toString() -> String {

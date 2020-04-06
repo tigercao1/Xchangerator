@@ -1,7 +1,6 @@
 import SwiftUI
 
 extension View {
-
     /// Navigate to a new view.
     /// - Parameters:
     ///   - view: View to navigate to.
@@ -11,16 +10,16 @@ extension View {
     }
 }
 
-
 // MARK: - NavigateModifier
-fileprivate struct NavigateModifier<SomeView: View>: ViewModifier {
 
+private struct NavigateModifier<SomeView: View>: ViewModifier {
     // MARK: Private properties
+
     fileprivate let destination: SomeView
     @Binding fileprivate var binding: Bool
 
-
     // MARK: - View body
+
     fileprivate func body(content: Content) -> some View {
         NavigationView {
             ZStack {

@@ -9,12 +9,12 @@
 import Foundation
 
 class FavoriteConversions: ObservableObject {
-    var conversions = Array<FavoriteConversion>()
-    
-    func add(_ favConversion: FavoriteConversion) -> Void {
+    var conversions = [FavoriteConversion]()
+
+    func add(_ favConversion: FavoriteConversion) {
         conversions.append(favConversion)
     }
-    
+
     func findById(_ id: String) throws -> FavoriteConversion {
         for conversion in conversions {
             if conversion.id == UUID(uuidString: id) {
@@ -23,7 +23,7 @@ class FavoriteConversions: ObservableObject {
         }
         throw EntityExceptions.EntityNotFoundException("Conversion with id " + id + " not found!")
     }
-    
+
     func find(_ conversion: FavoriteConversion) throws -> FavoriteConversion {
         for c in conversions {
             if c == conversion {
@@ -32,7 +32,7 @@ class FavoriteConversions: ObservableObject {
         }
         throw EntityExceptions.EntityNotFoundException("Conversion between " + conversion.baseCurrency.name + " and " + conversion.targetCurrency.name + " not found!")
     }
-    
+
     func delete(_ conversion: FavoriteConversion) throws -> FavoriteConversion {
         var temp: FavoriteConversion
         do {
@@ -41,12 +41,12 @@ class FavoriteConversions: ObservableObject {
                 conversions.remove(at: index)
             }
         } catch is EntityExceptions {
-            throw EntityExceptions.EntityNotFoundException("Conversion " + conversion.baseCurrency.name + " and " + conversion.targetCurrency.name +  " not deleted")
+            throw EntityExceptions.EntityNotFoundException("Conversion " + conversion.baseCurrency.name + " and " + conversion.targetCurrency.name + " not deleted")
         }
-        print("Conversion " + conversion.baseCurrency.name + " and " + conversion.targetCurrency.name +  " deleted")
+        print("Conversion " + conversion.baseCurrency.name + " and " + conversion.targetCurrency.name + " deleted")
         return temp
     }
-    
+
     func deleteById(_ id: String) throws -> FavoriteConversion {
         var temp: FavoriteConversion
         do {
@@ -55,13 +55,13 @@ class FavoriteConversions: ObservableObject {
                 conversions.remove(at: index)
             }
         } catch is EntityExceptions {
-            throw EntityExceptions.EntityNotFoundException("Conversion with id " + id +  " not deleted")
+            throw EntityExceptions.EntityNotFoundException("Conversion with id " + id + " not deleted")
         }
         print("Conversion with id " + id + " deleted")
         return temp
     }
-    
-    func getModel() -> Array<FavoriteConversion> {
+
+    func getModel() -> [FavoriteConversion] {
         return conversions
     }
 }

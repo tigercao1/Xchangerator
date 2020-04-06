@@ -9,13 +9,12 @@ import SwiftUI
 
 let historyData: [HistoryCell] = JSONLoader("historyData.json")
 
-
 func rangeOfRanges<C: Collection>(_ ranges: C) -> Range<Double>
     where C.Element == Range<Double> {
-    guard !ranges.isEmpty else { return 0..<0 }
+    guard !ranges.isEmpty else { return 0 ..< 0 }
     let low = ranges.lazy.map { $0.lowerBound }.min()!
     let high = ranges.lazy.map { $0.upperBound }.max()!
-    return low..<high
+    return low ..< high
 }
 
 func magnitude(of range: Range<Double>) -> Double {
@@ -33,7 +32,7 @@ extension Animation {
 struct HistoryGraph: View {
     var history: HistoryCell
     var path: KeyPath<HistoryCell.Observation, Range<Double>>
-    
+
     var color: Color {
         switch path {
         case \.month:
@@ -46,7 +45,7 @@ struct HistoryGraph: View {
             return .black
         }
     }
-    
+
     var body: some View {
         let data = history.observations
         let overallRange = rangeOfRanges(data.lazy.map { $0[keyPath: self.path] })
@@ -60,7 +59,8 @@ struct HistoryGraph: View {
                         index: index,
                         height: proxy.size.height,
                         range: data[index][keyPath: self.path],
-                        overallRange: overallRange)
+                        overallRange: overallRange
+                    )
                     .colorMultiply(self.color)
                     .transition(.slide)
                     .animation(.ripple(index: index))
@@ -83,4 +83,3 @@ struct HistoryGraph_Previews: PreviewProvider {
         }
     }
 }
-
