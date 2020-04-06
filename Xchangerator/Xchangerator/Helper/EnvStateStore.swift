@@ -22,19 +22,6 @@ class ReduxRootStateStore: ObservableObject {
         case auth, content
     }
     
-    func setBaseCountry(_ newBase:Country) -> Void{
-        self.countries.addToFirst(newBase)
-        self.countries.baseCountry = newBase
-            do {
-                try self.countries.delete(newBase.unit)
-            } catch {
-                print("Ran into issues while setting base country")
-            }
-        let newCountries = self.countries.copy()
-
-    }
-
-    
     func resetRoute() -> Void{
         self.secondaryRoute = 0
         self.curRoute = .auth
