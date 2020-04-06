@@ -17,21 +17,12 @@ import SwiftUI
 struct AlertsView: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    @State var items: Array<MyAlert> = []
-//    @State var currentAlert: MyAlert
     
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
-    
-    private func reload() {
-        self.items = self.stateStore.alerts.getModel()
-        // do not delete
-        //Logger.debug(self.items)
-    }
 
     var body: some View {
-        self.reload()
         return NavigationView{
             ScrollView() {
                 VStack {
@@ -40,7 +31,6 @@ struct AlertsView: View {
                         index in  //MyAlert
                            // Spacer()
                             EditableCardView(
-//                                currentAlert: self.$currentAlert,
                                 country1: self.stateStore.alerts.getModel()[index].baseCurrency,
                                 country2: self.stateStore.alerts.getModel()[index].targetCurrency,
                                 conditionOperator: self.stateStore.alerts.getModel()[index].conditionOperator,
@@ -59,9 +49,6 @@ struct AlertsView: View {
             .navigationBarTitle(Text("Alerts"))//
             
         }
-        .onAppear(perform: {
-            self.reload()
-        })
         
     }
 }

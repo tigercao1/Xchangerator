@@ -91,13 +91,14 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                     do {
                         let data = docSnapShots[i].data()
                         let str = data["condition"] as? String ?? "CAD-USD-LT"
-                        let tar = data["target"] as! Double
+                        let tar = data["target"] as! Double //this is the numstring stored in DB. It's 100 times
                         let disabled = data["disabled"] as! Bool
                         let strArr = str.split(separator: "-")
                         let c1 = try countriesStarter.findByUnit(String(strArr[0]))
                         let c2 = try countriesStarter.findByUnit(String(strArr[1]))
                         
-                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2,  conditionOperator:String(strArr.last ?? "LT"),rate:tar,disabled:disabled)
+                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2,  conditionOperator:String(strArr.last ?? "LT"),rate:tar/100,disabled:disabled)
+                        //set alerts in the local stateStore
                         self.parent.stateStore.alerts.setById(i, newAlert)
 
                     } catch {

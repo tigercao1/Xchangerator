@@ -18,32 +18,64 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
+//    @Binding var stateStore: ReduxRootStateStore
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    @State private var setSuccess:Bool = false
-
-    private func toggleDisable () {
-        guard let dbValue = Double(numBar) else {
-            Logger.error("number convert err")
-            return
-        }
-        var newAlerts = self.stateStore.alerts.getModel()
-        newAlerts[index] = MyAlert(baseCurrency: country1, targetCurrency: country2, conditionOperator: conditionOperator, rate: dbValue, disabled: !self.disabled)
-            
-            DatabaseManager.shared.updateUserAlert(index: index, myAlerts: MyAlerts(alertList:newAlerts)){ result in
-                switch result {
-                    case let .success(myAlerts):
-                        guard let alertsCopy = myAlerts else {
-                            Logger.error("alertsCopy build failed")
-                            return
-                        }
-                        Logger.debug("🍎alertsCopy will set")
-                        self.stateStore.alerts = alertsCopy.copy()as! MyAlerts
-                        self.setSuccess = true
-//                        self.disabled.toggle()
-                    case let .failure(error):
-                        Logger.error(error)
+    @State var setSuccess:Bool = false
+    
+    private func toggleEdit () {
+        if (show){
+            if (self.disabled) {
+                guard let newMyAlerts = makeLocalAlertModel(self.disabled) else {
+                    Logger.error("number convert err")
+                    return
                 }
+                Logger.info("#1 disabled: \(self.disabled)")
+                self.stateStore.alerts = newMyAlerts
+                      
+            } else {
+                toggleDisabled (self.disabled)
             }
+        }
+        self.show.toggle()
+    }
+    
+    private func makeLocalAlertModel(_ newDisabled:Bool) -> MyAlerts? {
+        guard let dbValue = Double(numBar) else {
+             Logger.error("number convert err")
+             return nil
+         }
+         let newMyAlerts = self.stateStore.alerts.copy() as! MyAlerts
+         newMyAlerts.setById(self.index,MyAlert(baseCurrency: country1, targetCurrency: country2, conditionOperator: conditionOperator, rate: dbValue/100, disabled: newDisabled))
+        //rate in the stateStore is x string/100. in the DB the target is x string
+        return newMyAlerts
+    }
+
+    private func toggleDisabled (_ newDisabled:Bool) {
+        guard let newMyAlerts = makeLocalAlertModel(newDisabled) else {
+                    Logger.error("number convert err")
+                    return
+        }
+        Logger.info("#1 disabled: \(self.disabled)")
+        Logger.info("#2 new disabled: \(newDisabled)")
+            
+        DatabaseManager.shared.updateUserAlert(index: self.index, myAlerts: newMyAlerts){ result in
+            switch result {
+                case let .success(myAlerts):
+                    guard let alertsCopy = myAlerts else {
+                        Logger.error("alertsCopy build failed")
+                        return
+                    }
+                    Logger.debug("🍎 alertsCopy will set")
+                    self.stateStore.alerts = alertsCopy//copy()as! MyAlerts
+                    Logger.info("#3 self.disabled after res: \(self.disabled)")
+                    Logger.info("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
+                    self.setLocalState(alertsCopy.getModel()[self.index],index:self.index)
+                    self.setSuccess = true
+                    Logger.info("#5 self.disabled afterSetLocal: \(self.disabled)")
+                case let .failure(error):
+                    Logger.error(error)
+            }
+        }
     }
     
 //    private func convert(_ targetCurrencyUnit: String) -> String {
@@ -53,7 +85,13 @@ struct EditableCardView: View {
 //        return String(format:"%.2f",convertedAmount)
 //    }
 //
-    
+    private func setLocalState(_ myAlert:MyAlert, index:Int) {
+        self.numBar = myAlert.numBar
+        self.country1 = myAlert.baseCurrency
+        self.country2 = myAlert.targetCurrency
+        self.conditionOperator = myAlert.conditionOperator
+        self.disabled = myAlert.disabled
+    }
     var body: some View {
         VStack() {
             
@@ -129,10 +167,7 @@ struct EditableCardView: View {
             HStack{
                 Spacer()
                 Button(action: {
-                    self.toggleDisable()
-//                    self.stateStore.alerts.enableAlert(self.index, self.disabled)
-//                    Logger.debug(self.stateStore.alerts.getModel())
-
+                    self.toggleDisabled(!self.disabled)
                 }) {
                     HStack {
                         Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white: Color.lightBlue)
@@ -146,23 +181,26 @@ struct EditableCardView: View {
                     }
                 }
                 .alert(isPresented: self.$setSuccess) {
-                    Alert(title: Text("Notification Updated"),
-                          message: Text("""
+                    let thisAlert = self.stateStore.alerts.getModel()[self.index]
+                    return thisAlert.disabled == true ?
+                        Alert(title: Text("Notification Disabled"),
+                               message: Text("You can activate it later."),
+                               dismissButton: .default(Text("OK")))
+                        :
+                        Alert(title: Text("Notification Updated"),
+                              message: Text("""
                             Xchangerate will notify you when:
-                            \(country1.flag) 100 \(country1.unit)
-                                \(conditionOperator == "LT" ? "Less than":"Great than")
-                            \(country2.flag) \(self.numBar) \(country2.unit)
+                                \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
+                                \(thisAlert.conditionOperator == "LT" ? "Less than":"Great than")
+                                \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
                             """),
-                          dismissButton: .default(Text("OK")))
+                              dismissButton: .default(Text("OK")))
                 }
                 .padding(.bottom, show ? 20 : 15)
                 
                 Spacer()
                 Button(action: {
-                    
-                    self.show.toggle()
-//                    self.stateStore.alerts.update(self.index, self.conditionOperator, self.numBar)
-//                    Logger.debug(self.stateStore.alerts.getModel())
+                    self.toggleEdit()
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")
@@ -177,6 +215,18 @@ struct EditableCardView: View {
 
                     }
                 }
+                .alert(isPresented: self.$setSuccess) {
+                     let thisAlert = self.stateStore.alerts.getModel()[self.index]
+                     return
+                         Alert(title: Text("Notification Updated"),
+                               message: Text("""
+                             Xchangerate will notify you when:
+                                 \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
+                                 \(thisAlert.conditionOperator == "LT" ? "Less than":"Great than")
+                                 \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
+                             """),
+                               dismissButton: .default(Text("OK")))
+                 }
                 .padding(.bottom, show ? 20 : 15)
                 Spacer()
             }
@@ -229,7 +279,6 @@ struct CountryHeadlineCardView: View {
       
                 if ( isEditable ){
                     TextField("Amount", text: $barNumFromParent)
-//                            .underline(showFromParent)
                         .disabled(!showFromParent)
                         .font( showFromParent ? Font.title: Font.headline)
                         .frame(width: showFromParent ?   screenWidth*0.3 : 60)
