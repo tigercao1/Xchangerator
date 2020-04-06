@@ -6,25 +6,24 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-
 import SwiftUI
 
 struct HistoryDetail: View {
     let history: HistoryCell
-    
+
     @State var dataToShow = \HistoryCell.Observation.week
-    
+
     var buttons = [
         ("Weekly", \HistoryCell.Observation.week),
         ("Monthly", \HistoryCell.Observation.month),
         ("Annual", \HistoryCell.Observation.year),
     ]
-    
+
     var body: some View {
         return VStack {
             HistoryGraph(history: history, path: dataToShow)
-                .frame(height: screenHeight*0.11)
-            
+                .frame(height: screenHeight * 0.11)
+
             HStack(spacing: 25) {
                 ForEach(buttons, id: \.0) { value in
                     Button(action: {
@@ -48,4 +47,3 @@ struct HistoryDetail_Previews: PreviewProvider {
         HistoryDetail(history: historyData[0])
     }
 }
-

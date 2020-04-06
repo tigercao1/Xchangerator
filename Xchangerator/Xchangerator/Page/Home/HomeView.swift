@@ -21,7 +21,7 @@ struct HomeView: View {
     @State private var chartClicked = false
     @State private var setAlertClicked = false
     @State private var conditionOperator = "LT"
-    @Binding var selectionFromParent : Int
+    @Binding var selectionFromParent: Int
     @State private var moreThanTwoActiveAlerts = false
     @State private var isDuplicateAlert = false
 
@@ -29,17 +29,17 @@ struct HomeView: View {
         let amount = Double(baseCurrencyAmt) ?? 0
         let converter = Converter(stateStore.countries)
         let convertedAmount = converter.convert(targetCurrencyUnit, amount)
-        return String(format:"%.2f",convertedAmount)
+        return String(format: "%.2f", convertedAmount)
     }
-    
+
     private func isBaseCurrency(_ name: String) -> Bool {
-        return name == self.stateStore.countries.baseCountry.name
+        return name == stateStore.countries.baseCountry.name
     }
-    
+
 //    private func setBaseCurrency(_ newBase: Country) {
 //        self.stateStore.countries.baseCountry = newBase
 //    }
-    
+
 //    private func switchBase(_ newBase: Country) {
 //        self.favourite = false
 //        self.stateStore.setBaseCountry(newBase)
@@ -49,44 +49,43 @@ struct HomeView: View {
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
-    
+
     private func isFavorite() -> Bool {
-        let currentConversion = FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry)
+        let currentConversion = FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry)
         do {
-            try self.stateStore.favoriteConversions.find(currentConversion)
+            try stateStore.favoriteConversions.find(currentConversion)
             return true
         } catch {
             return false
         }
-        
     }
-    
+
     private func addToFavorite() -> String {
         let converter = Converter(stateStore.countries)
-        if (!isFavorite()) {
-            stateStore.favoriteConversions.add(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+        if !isFavorite() {
+            stateStore.favoriteConversions.add(FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
         }
         return ""
     }
-    
+
     private func deleteFromFavorite() -> String {
-        if (isFavorite()) {
-            try? stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry))
+        if isFavorite() {
+            try? stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry))
         }
         return ""
     }
-    
+
     private func isInAlerts() -> Bool {
         let converter = Converter(stateStore.countries)
-        let currentAlert = MyAlert(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
+        let currentAlert = MyAlert(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0))
         do {
-            try self.stateStore.alerts.find(currentAlert)
+            try stateStore.alerts.find(currentAlert)
             return true
         } catch {
             return false
         }
     }
-    
+
 //    private func addToAlerts() -> String {
 //        let converter = Converter(stateStore.countries)
 //        if (!isInAlerts()) {
@@ -95,15 +94,15 @@ struct HomeView: View {
 //        Logger.debug(stateStore.alerts.getModel())
 //        return ""
 //    }
-    
-    private func changeFirstDisabledAlert(){
+
+    private func changeFirstDisabledAlert() {
 //        stateStore.alerts.test()
         let converter = Converter(stateStore.countries)
-        
-        for index in 0...stateStore.alerts.getModel().count-1 {
-            if (stateStore.alerts.getModel()[index].disabled){
+
+        for index in 0 ... stateStore.alerts.getModel().count - 1 {
+            if stateStore.alerts.getModel()[index].disabled {
                 stateStore.alerts.changeAlert(index,
-                                              MyAlert(baseCurrency: self.stateStore.countries.baseCountry,
+                                              MyAlert(baseCurrency: stateStore.countries.baseCountry,
                                                       targetCurrency: targetCountry,
                                                       conditionOperator: conditionOperator,
                                                       rate: converter.getRate(targetCountry.unit,
@@ -112,7 +111,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
 //    private func checkIfMoreThanTwoActiveAlerts() -> Bool {
 //        var count = 0
 //
@@ -127,19 +126,18 @@ struct HomeView: View {
 //        return self.moreThanTwoActiveAlerts
 //    }
 
-
     var body: some View {
         NavigationView {
             VStack {
-                HStack(spacing: screenWidth*0.05){
-                    VStack(alignment: .leading){
-                        HStack(spacing: screenWidth*0.05) {
+                HStack(spacing: screenWidth * 0.05) {
+                    VStack(alignment: .leading) {
+                        HStack(spacing: screenWidth * 0.05) {
                             Text(self.stateStore.countries.baseCountry.flag)
                                 .font(.title)
                                 .frame(width: 30, height: 15)
                             TextField("Amount", text: $baseCurrencyAmt)
                                 .keyboardType(.numberPad)
-                                .frame(width: screenWidth*0.3)
+                                .frame(width: screenWidth * 0.3)
                                 .multilineTextAlignment(.trailing)
                             Text(self.stateStore.countries.baseCountry.unit)
                                 .frame(width: 50)
@@ -149,56 +147,56 @@ struct HomeView: View {
                             Text(self.stateStore.countries.baseCountry.name)
                                 .font(.system(size: 15))
                                 .foregroundColor(.gray)
-                                .frame(maxWidth: screenWidth*0.7, alignment: .leading)
+                                .frame(maxWidth: screenWidth * 0.7, alignment: .leading)
                                 .fixedSize()
                         }
-                    }.padding(.leading, screenWidth*0.07)
+                    }.padding(.leading, screenWidth * 0.07)
                 }
                 .padding(.bottom, 5)
-                .frame(width: screenWidth*0.8, alignment: .leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(self.colorScheme == .light ? Color.black : Color.white, lineWidth: 0.5)
-                    )
+                .frame(width: screenWidth * 0.8, alignment: .leading)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(self.colorScheme == .light ? Color.black : Color.white, lineWidth: 0.5)
+                )
                 .fixedSize()
-                
+
                 List(stateStore.countries.getModel(), id: \.self) { country in
-                    HStack(spacing: screenWidth*0.06) {
-                            VStack(alignment: .leading) {
-                                HStack(spacing: screenWidth*0.05) {
-                                    Text(country.flag)
-                                        .font(.title)
-                                        .frame(width: 30, height: 15)
-                                        .fixedSize()
-                                    Text(self.convert(country.unit))
-                                        .frame(width: screenWidth*0.35, alignment: .trailing)
-                                        .fixedSize()
-                                    Text(country.unit)
-                                        .frame(width: 50, alignment: .leading)
-                                        .font(.headline)
-                                        .fixedSize()
-                                }
-                                HStack(){
-                                    Text(country.name)
-                                        .font(.system(size: 15))
-                                        .foregroundColor(.gray)
-                                        .frame(maxWidth: screenWidth*0.6, alignment: .leading)
-                                        .padding([.bottom, .top], 5)
-                                        .fixedSize()
-                                }.frame(alignment: .leading)
-                            }.padding(.leading, screenWidth*0.06)
-                                .contentShape(Rectangle())
-                                .gesture(
-                                    TapGesture()
-                                        .onEnded { _ in
-                                            self.stateStore.countries.setBaseCountry(country)
-                                            self.stateStore.countries = self.stateStore.countries.copy() as! Countries
-                                        }
-                                )
-                        //}
+                    HStack(spacing: screenWidth * 0.06) {
+                        VStack(alignment: .leading) {
+                            HStack(spacing: screenWidth * 0.05) {
+                                Text(country.flag)
+                                    .font(.title)
+                                    .frame(width: 30, height: 15)
+                                    .fixedSize()
+                                Text(self.convert(country.unit))
+                                    .frame(width: screenWidth * 0.35, alignment: .trailing)
+                                    .fixedSize()
+                                Text(country.unit)
+                                    .frame(width: 50, alignment: .leading)
+                                    .font(.headline)
+                                    .fixedSize()
+                            }
+                            HStack {
+                                Text(country.name)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.gray)
+                                    .frame(maxWidth: screenWidth * 0.6, alignment: .leading)
+                                    .padding([.bottom, .top], 5)
+                                    .fixedSize()
+                            }.frame(alignment: .leading)
+                        }.padding(.leading, screenWidth * 0.06)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                TapGesture()
+                                    .onEnded { _ in
+                                        self.stateStore.countries.setBaseCountry(country)
+                                        self.stateStore.countries = self.stateStore.countries.copy() as! Countries
+                                    }
+                            )
+                        // }
                         Divider()
                         Image(systemName: "ellipsis")
-                            .aspectRatio(contentMode:.fill)
+                            .aspectRatio(contentMode: .fill)
                             .frame(height: 30)
                             .gesture(
                                 TapGesture()
@@ -212,14 +210,14 @@ struct HomeView: View {
                     .padding(.top, 10)
                 }
             }.navigationBarTitle("Exchange Rates ")
-            
+
         }.onTapGesture {
             self.endEditing()
-            
+
         }.partialSheet(
             presented: $modalPresented
         ) {
-            //Package: https://github.com/AndreaMiotto/PartialSheet
+            // Package: https://github.com/AndreaMiotto/PartialSheet
             ZStack {
                 Color.partialSheetBg
 //                    .cornerRadius(30)
@@ -228,34 +226,34 @@ struct HomeView: View {
                 VStack {
                     Group {
                         Toggle(isOn: self.$favourite) {
-                            if (self.favourite) {
+                            if self.favourite {
                                 Text("\(self.addToFavorite())")
                             } else {
                                 Text("\(self.deleteFromFavorite())")
                             }
-                            HStack{
+                            HStack {
                                 Image(systemName: "heart")
                                     .font(.title)
                                 Text("Add to Favorites")
                                     .padding()
                                     .font(.headline)
                             }.foregroundColor(.black)
-                        }.padding(.top,30)
-                        .padding(.horizontal,30)
-                        .padding(.bottom,5)
-                        HStack{
+                        }.padding(.top, 30)
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 5)
+                        HStack {
                             Button(action: {
-                                          do {
-                                            self.chartClicked.toggle()
-                                          }
+                                do {
+                                    self.chartClicked.toggle()
+                                }
                                       }) {
-                                          VStack {
-                                              Image(systemName: "chart.bar")
-                                                  .font(.title)
-                                              Text("Chart")
-                                                  .fontWeight(.semibold)
-                                                  .font(.headline)
-                                          }
+                                VStack {
+                                    Image(systemName: "chart.bar")
+                                        .font(.title)
+                                    Text("Chart")
+                                        .fontWeight(.semibold)
+                                        .font(.headline)
+                                }
                             }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
@@ -266,24 +264,24 @@ struct HomeView: View {
                                                 self.setAlertClicked = true
                                             }
 //                                            self.setAlertClicked = true
-                                          }
+                                }
                                       }) {
-                                          VStack {
-                                              Image(systemName: "bell")
-                                                  .font(.title)
-                                              Text("Set Alert")
-                                                  .fontWeight(.semibold)
-                                                  .font(.headline)
-                                          }.alert(isPresented: self.$moreThanTwoActiveAlerts) {
-                                            Alert(title: Text("Warning"), message: Text("You cannot add more than two active alerts. Please disable one alert first"), dismissButton: .default(Text("OK")))
-                                        }
+                                VStack {
+                                    Image(systemName: "bell")
+                                        .font(.title)
+                                    Text("Set Alert")
+                                        .fontWeight(.semibold)
+                                        .font(.headline)
+                                }.alert(isPresented: self.$moreThanTwoActiveAlerts) {
+                                    Alert(title: Text("Warning"), message: Text("You cannot add more than two active alerts. Please disable one alert first"), dismissButton: .default(Text("OK")))
+                                }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
                         Divider().padding(.bottom,screenHeight*0.25)
                     }
                 }
 
-            }.frame(height: screenHeight*0.2)
+            }.frame(height: screenHeight * 0.2)
                 .onAppear(perform: {
                     self.modalPresented = false
                     self.isDuplicateAlert = false
@@ -294,39 +292,35 @@ struct HomeView: View {
 
 extension UIApplication {
     func endEditing() {
-    sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
-
 extension Color {
-    static let themeBlueGreenMixedBold =  LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .topLeading, endPoint: .trailing)
-    static let partialSheetBg =  LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray]), startPoint: .top, endPoint: .bottom)
+    static let themeBlueGreenMixedBold = LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .topLeading, endPoint: .trailing)
+    static let partialSheetBg = LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray]), startPoint: .top, endPoint: .bottom)
 }
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:0).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
-                 .previewDisplayName(deviceName)
-               }
+        ForEach(["iPhone SE", "iPhone 11 Pro Max"], id: \.self) { deviceName in ContentView(selection: 0).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }
 
-
 struct GradientBackgroundStyle: ButtonStyle {
- 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: .infinity)
-            .padding(.vertical,10)
+            .padding(.vertical, 10)
             .foregroundColor(.white)
 //            .background(Color.themeBlueGreenMixedBold)
             .cornerRadius(20)
             .overlay(
-                RoundedRectangle(cornerRadius:  CGFloat(10)).stroke(Color.partialSheetBg))
+                RoundedRectangle(cornerRadius: CGFloat(10)).stroke(Color.partialSheetBg))
             .padding(20)
 //            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            .opacity(configuration.isPressed  ? 0.2 : 1.0)
-
+            .opacity(configuration.isPressed ? 0.2 : 1.0)
     }
 }

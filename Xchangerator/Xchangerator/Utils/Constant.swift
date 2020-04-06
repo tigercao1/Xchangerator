@@ -6,35 +6,31 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-
 enum Constant {
-    
-    //Xchangerator Server API
+    // Xchangerator Server API
     static let xAPIGetLatest = "https://xchangerator.com/api/latest"
 
-    
-    //Logger
+    // Logger
     static let xLogFileName = "XChangeratorLog.log"
     static let maxAlertsForFree = 5
-    
-    //DB
+
+    // DB
     static let xDBtokenPrefix = "V1_"
     static let xDBnotiSuffix = "_notif_"
     
     //Asset
     static let xAvatarPlaceholder = "https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
     static let xAvatarLogo = "https://media-exp1.licdn.com/dms/image/C560BAQF61rdZs2O6iA/company-logo_200_200/0?e=1594252800&v=beta&t=l4ie7PKFqkKDByG06arn1wNloOdLF8jvQINvtHs452A"
-    
-    //Website link
+
+    // Website link
     static let xLinkedIn = "https://www.linkedin.com/company/xchangerator/"
     static let xTwitter = "https://twitter.com/xchangerator"
-    
-    //description
-     static let xDesc = """
+
+    // description
+    static let xDesc = """
     A free tool for conversion and notification of foreign exchange rates:
     · Mobile notification on demand
     · Conversion calculation on the go
     · Ad free 
     """
-
 }

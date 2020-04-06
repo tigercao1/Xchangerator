@@ -11,11 +11,11 @@ import SwiftUI
 struct ContentView: View {
     @State var selection = 0
     var body: some View {
-        TabView(selection: $selection){
+        TabView(selection: $selection) {
             HomeView(selectionFromParent: $selection)
                 .tabItem {
                     VStack {
-                        Image(systemName:"house")
+                        Image(systemName: "house")
                         Text("Home")
                             .font(.title)
                     }
@@ -24,9 +24,9 @@ struct ContentView: View {
             FavoriteView()
                 .tabItem {
                     VStack {
-                        Image(systemName:"heart.circle")
+                        Image(systemName: "heart.circle")
                         Text("Favorite")
-                        .font(.title)
+                            .font(.title)
                     }
                 }
                 .tag(1)
@@ -34,7 +34,7 @@ struct ContentView: View {
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image(systemName:"exclamationmark.bubble")
+                        Image(systemName: "exclamationmark.bubble")
                         Text("Alerts")
                     }
                 }
@@ -42,7 +42,7 @@ struct ContentView: View {
             SettingsMain(selectionFromParent: $selection)
                 .tabItem {
                     VStack {
-                        Image(systemName:"gear")
+                        Image(systemName: "gear")
                         Text("Settings")
                     }
                 }

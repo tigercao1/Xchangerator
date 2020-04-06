@@ -11,8 +11,8 @@ import SwiftUI
 
 struct HelloworldView: View {
     var body: some View {
-        NavigationView{
-            VStack{
+        NavigationView {
+            VStack {
                 Text("Hello World")
             }
             .navigationBarTitle("Exchange Rates ")

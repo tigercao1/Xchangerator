@@ -6,13 +6,11 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-import UIKit
-import SwiftUI
 import FirebaseUI
+import SwiftUI
+import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -24,11 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let stateStore = ReduxRootStateStore() //state store init
         //https://firebase.google.com/docs/auth/ios/manage-users
         if Auth.auth().currentUser != nil {
-          // User is signed in.
-          // ...
+            // User is signed in.
+            // ...
         } else {
-          // No user is signed in.
-          // ...
+            // No user is signed in.
+            // ...
         }
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -67,13 +65,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-    
+
     // added this function to register when the device is rotated
     func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
 //        stateStore.isLandscape.toggle()
 //        Logger.debug("stateStore.isLandscape:\(stateStore.isLandscape)")
     }
-
-
 }
-
