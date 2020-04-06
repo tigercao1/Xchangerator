@@ -7,4 +7,5 @@ Xchangerator/Xchangerator.xcworkspace/xcuserdata
 Xchangerator/Xchangerator.xcodeproj/xcuserdata
 Xchangerator.xcworkspace/xcshareddata
 AppServer/xchangerator-firebase-adminsdk*.json
-
+BuildTools/.build
+BuildTools/.swiftpm
