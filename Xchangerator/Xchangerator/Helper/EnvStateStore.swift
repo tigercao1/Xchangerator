@@ -29,7 +29,6 @@ class ReduxRootStateStore: ObservableObject {
     
     func resetStateStore() -> Void {
         self.user = User_DBDoc ()
-        self.isLandscape = false
         self.countries = Countries()
     }
     func setDoc(userDoc:User_DBDoc) -> Void {
@@ -43,19 +42,3 @@ class ReduxRootStateStore: ObservableObject {
 
 }
 
-func ApiCall() -> Countries {
-    let apiController = APIController()
-// Here it's running in the forground, later maybe change it to the background with another thread. For know-how, see comments in APIController
-    let result = apiController.makeCountriesRequest()
-    switch result {
-    case let .success(data):
-        guard let countries = data else {
-            Logger.error("Countries cast failed")
-            return Countries()
-        }
-        return countries
-    case let .failure(error):
-        Logger.error(error)
-        return Countries()
-    }
-}
