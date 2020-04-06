@@ -15,6 +15,7 @@ class ReduxRootStateStore: ObservableObject {
     @Published var user: User_DBDoc = User_DBDoc ()
     @Published var isLandscape: Bool = false
     @Published var countries: Countries = Countries()
+    @Published var fullCountries: Countries = Countries()
     @Published var favoriteConversions: FavoriteConversions = FavoriteConversions()
     @Published var alerts: MyAlerts = MyAlerts()
 
@@ -33,7 +34,9 @@ class ReduxRootStateStore: ObservableObject {
     }
     func setDoc(userDoc:User_DBDoc) -> Void {
         self.user = userDoc
-        self.countries = ApiCall()
+        let arrayOfCountries: Array<Countries> = ApiCall()
+        self.countries = arrayOfCountries[0]
+        self.fullCountries = arrayOfCountries[1]
     }
     
     func setCountries(countries: Countries) -> Void {

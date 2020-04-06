@@ -82,7 +82,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              */
             let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID:"current")
             
-            let countriesStarter = ApiCall()
+            let countriesStarter = ApiCall()[0]
             
             //Set Device token and notification Docs in DB
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")

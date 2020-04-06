@@ -46,6 +46,17 @@ class Countries: ObservableObject,NSCopying{
             Logger.error("Base country is set to the first element in list.")
         }
     }
+    
+    init(countryList: CountryList, ifFull: Bool) {
+        for country in countryList.countries {
+            if country.flag == "" {
+                countries.append(Country(flag: "🇺🇳", name: country.name, rate: country.rate, unit: country.unit))
+            } else {
+                countries.append(Country(flag: country.flag, name: country.name, rate: country.rate, unit: country.unit))
+            }
+        }
+        baseCountry = countries[0]
+    }
 
     func setBaseCountry(_ country: Country) {
         self.addToFirst(baseCountry)

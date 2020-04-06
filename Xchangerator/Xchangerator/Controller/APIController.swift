@@ -10,9 +10,9 @@ import Foundation
 
 class APIController {
     
-    func makeCountriesRequest()-> Result<Countries?, NetworkError>  {
+    func makeCountriesRequest()-> Result<Array<Countries>?, NetworkError>  {
         guard let url = URL(string: Constant.xAPIGetLatest) else {return .failure(.url)}
-        var requestRet: Result<Countries?, NetworkError>!
+        var requestRet: Result<Array<Countries>?, NetworkError>!
         let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: url) { result in
             switch result {
@@ -21,7 +21,8 @@ class APIController {
                         let decoder = JSONDecoder()
                         let countryList = try decoder.decode(CountryList.self, from: data)
                         let countries = Countries(countryList: countryList)
-                        requestRet = .success(countries)
+                        let fullCountries = Countries(countryList: countryList, ifFull: true)
+                        requestRet = .success([countries, fullCountries])
                     } catch {
                         requestRet  =  .failure(.dataFormat)
                     }
@@ -85,19 +86,19 @@ extension URLSession {
 }
 
 
-func ApiCall() -> Countries {
+func ApiCall() -> Array<Countries> {
     let apiController = APIController()
 // Here it's running in the forground, later maybe change it to the background with another thread. For know-how, see comments in APIController
     let result = apiController.makeCountriesRequest()
     switch result {
     case let .success(data):
-        guard let countries = data else {
+        guard let arrayOfCountries = data else {
             Logger.error("Countries cast failed")
-            return Countries()
+            return [Countries(), Countries()]
         }
-        return countries
+        return arrayOfCountries
     case let .failure(error):
         Logger.error(error)
-        return Countries()
+        return [Countries(), Countries()]
     }
 }
