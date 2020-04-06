@@ -8,15 +8,26 @@
 
 import Foundation
 
-class Countries: ObservableObject{
+class Countries: ObservableObject,NSCopying{
+
     var countries = Array<Country>()
     var baseCountry: Country
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Countries(countries: self.countries,baseCountry: self.baseCountry)
+        return copy
+    }
+
     init() {
         countries.append(Country(flag: "🇺🇳",  name: "LoadingData", rate: 109.1, unit: "GHO"))
         baseCountry = countries[0]
     }
     
+    init(countries: Array<Country>,baseCountry : Country ){
+        self.countries = countries
+        self.baseCountry = baseCountry
+    }
+
     init(countryList: CountryList) {
         for country in countryList.countries {
             if country.flag == "" {
@@ -35,7 +46,7 @@ class Countries: ObservableObject{
             Logger.error("Base country is set to the first element in list.")
         }
     }
-    
+
     func setBaseCountry(_ country: Country) {
         self.addToFirst(baseCountry)
         self.baseCountry = country

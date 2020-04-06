@@ -60,11 +60,13 @@ class DatabaseManager {
         let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(uid)")
         userRef.getDocument { (document, error) in
             var userProfile:User_Profile
+            var newTokenArr = Array<String>()
+
             if let document = document, document.exists {
                 //handle existing user
                 let deviceTokens = document.get("profile.deviceTokens") as? Array<String>
 //                if (deviceTokens == nil || deviceTokens == "") {deviceTokens=[]}
-                var newTokenArr = deviceTokens ?? Array<String>()
+                newTokenArr = deviceTokens ?? Array<String>()
             
                 if let wrappedFcmToken = firebaseMsgDeviceToken  {
                     if (!newTokenArr.contains(wrappedFcmToken)) {
@@ -74,18 +76,17 @@ class DatabaseManager {
                 newTokenArr = newTokenArr.filter{ $0 != "" }
                 Logger.debug("Old user:pre tokens count \(String(describing: deviceTokens?.count)));new tokens coount\(newTokenArr.count)")
                 
-                userProfile = User_Profile(email:user.email ?? "Loyal_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal customer")
+               
                 
             } else {
                 //create all the fields for the new user
-                var newTokenArr = Array<String>()
                 if let wrappedFcmToken = firebaseMsgDeviceToken  {
                         newTokenArr.append(wrappedFcmToken)
                 }
-                userProfile = User_Profile(email:user.email ?? "New_\(uid)@Xchangerator.com" ,photoURL:user.photoURL!,deviceTokens:newTokenArr, name:user.displayName ?? "New User")
-                //Todo:add subcollection and 2 sub doc
                 
             }
+             userProfile = User_Profile(email:user.email ?? "\(uid)@Xchangerator.com" ,photoURL:user.photoURL,deviceTokens:newTokenArr, name:user.displayName ?? "Loyal Customer")
+            
             let userDoc = User_DBDoc(profile:userProfile)
             try? userRef.setData( from:userDoc ) { err in
                 if let err = err {

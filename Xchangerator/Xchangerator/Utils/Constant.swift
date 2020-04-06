@@ -22,6 +22,7 @@ enum Constant {
     
     //Asset
     static let xAvatarPlaceholder = "https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
+    static let xAvatarLogo = "https://media-exp1.licdn.com/dms/image/C560BAQF61rdZs2O6iA/company-logo_200_200/0?e=1594252800&v=beta&t=l4ie7PKFqkKDByG06arn1wNloOdLF8jvQINvtHs452A"
     
     //Website link
     static let xLinkedIn = "https://www.linkedin.com/company/xchangerator/"
