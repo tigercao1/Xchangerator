@@ -102,7 +102,12 @@ struct HomeView: View {
         
         for index in 0...stateStore.alerts.getModel().count-1 {
             if (stateStore.alerts.getModel()[index].disabled){
-                stateStore.alerts.changeAlert(index, MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+                stateStore.alerts.changeAlert(index,
+                                              MyAlert(baseCurrency: self.stateStore.countries.baseCountry,
+                                                      targetCurrency: targetCountry,
+                                                      conditionOperator: conditionOperator,
+                                                      rate: converter.getRate(targetCountry.unit,
+                                                                              Double(baseCurrencyAmt) ?? 0)))
                 break
             }
         }
