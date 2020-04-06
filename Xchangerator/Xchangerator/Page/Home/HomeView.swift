@@ -24,7 +24,6 @@ struct HomeView: View {
     @Binding var selectionFromParent : Int
     @State private var moreThanTwoAlerts = false
     @State private var isDuplicateAlert = false
-    @State private var shouldRefesh = false
 
     private func convert(_ targetCurrencyUnit: String) -> String {
         let amount = Double(baseCurrencyAmt) ?? 0
