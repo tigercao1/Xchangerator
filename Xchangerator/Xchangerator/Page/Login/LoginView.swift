@@ -26,6 +26,8 @@ struct LoginView : View {
 
     var body : some View {
         ZStack{
+            
+            //#1 login
             ZStack {
 // Bridge SwiftUI and UIkit
 //https://stackoverflow.com/questions/58353243/firebaseui-and-swiftui-loging
@@ -41,6 +43,8 @@ struct LoginView : View {
                 }
                 .animation(/*@START_MENU_TOKEN@*/.easeInOut/*@END_MENU_TOKEN@*/)
             }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height:self.bottomViewState.height).animation(.spring())
+            
+            //#2 home fav alerts setting
             ContentView().offset(y: self.stateStore.curRoute != .auth ? self.mainViewState.height:self.bottomViewState.height)//.animation(.spring()) //Anti-Shake, Spring() is too much
         }//.navigate(to: ContentView(), when: $willMoveToNextScreen)
 

@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-
+import FirebaseUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -21,12 +21,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let rootView = LoginView()
-        let stateStore = ReduxRootStateStore()
-
+        let stateStore = ReduxRootStateStore() //state store init
+        if Auth.auth().currentUser != nil {
+          // User is signed in.
+          // ...
+        } else {
+          // No user is signed in.
+          // ...
+        }
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             stateStore.isLandscape = (windowScene.interfaceOrientation.isLandscape == true)
-            
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: rootView.environmentObject(stateStore))
             self.window = window

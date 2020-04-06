@@ -17,13 +17,11 @@ import SwiftyJSON
 struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+//    var delegate: FUIAuthDelegate?
 
     func makeCoordinator() -> FUIAuthBaseViewControllerWrapper.Coordinator {
         Coordinator(self)
     }
-
-//    typealias UIViewControllerType = UIViewController
-    
 
     func makeUIViewController(context: Context) -> UIViewController {
         let authUI = FUIAuth.defaultAuthUI()
@@ -43,8 +41,10 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 //        authUI?.privacyPolicyURL = xFirebasePrivacyPolicy
 
         let authViewController = authUI?.authViewController()
+//        present(authViewController, animated: true, completion: nil)
         
-//        authUI.delegate = authViewController as? FUIAuthDelegate
+//        authUI?.delegate = authViewController as? FUIAuthDelegate
+//        authViewController?.popToRootViewController(animated: false)
         return authViewController!
     }
     
@@ -64,8 +64,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
         func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?)
         {
             UIApplication.shared.endEditing()
-
-//            parent.dismiss(authDataResult, error)
             guard error == nil else {
                 Logger.error("Err: Failed to sign in with user. User:\(String(describing: authDataResult));Error:\(String(describing: error)) " )
                 return
@@ -118,12 +116,23 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 self.parent.stateStore.setDoc(userDoc: userDoc)
                 self.parent.stateStore.setCountries(countries:countriesStarter)
             }
+            //parent.dismiss(authDataResult, error)
+//            authUI.authViewController().dismiss(animated: false, completion:nil)
+//            authUI.authViewController().popToRootViewController(animated: false)
+            
+            let authViewController = self.authPickerViewController(forAuthUI: authUI)
+            authViewController.onBack()
+            
+//            authViewController.popToRootViewController(animated: false)
+//            present(authViewController, animated: true)
+//            self.present(FUIAuthPickerViewController(authUI: authUI), animated: true, completion: nil)
+
         }
 
-        func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)
-        {
-            Logger.debug("Finish \(operation)")
-        }
+//        func authUI(_ authUI: FUIAuth, didFinish operation: FUIAccountSettingsOperationType, error: Error?)
+//        {
+//            Logger.debug("Finish \(operation)")
+//        }
 //        // Todo: customize the login page
 //        func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
 //          return CustomAuthPickerViewController(authUI: authUI)
@@ -136,21 +145,19 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
             
             let loginViewController = FUIAuthPickerViewController(authUI: authUI)
             
-  
             let logoFrame = self.parent.stateStore.isLandscape ? CGRect(x: screenWidth*0.1, y: screenHeight*0.12, width: screenWidth*0.8, height: screenHeight*0.2): CGRect(x: screenWidth*0.1, y: screenHeight*0.2, width: screenWidth*0.8, height: screenHeight*0.3)
             let logoImageView = UIImageView(frame: logoFrame)
             
 //                                Image(colorScheme == .light ? "default-monochrome-black":"default-monochrome").padding(.top, screenHeight*0.3).padding(.horizontal, 10).offset(y:-screenWidth/3)//
             logoImageView.image = UIImage(named: self.parent.colorScheme == .light ? "default-monochrome-black":"default-monochrome")
             logoImageView.contentMode = .scaleAspectFit
-
-            
            
             //fix this once Firebase UI releases the dark mode support for sign-in
             
     //        loginViewController.view.subviews.backgroundColor = .white
     //        loginViewController.view.subviews[0].subviews[0].backgroundColor = .white
-            
+//            loginViewController.cancelAuthorization()
+
             loginViewController.view.addSubview(logoImageView)
             loginViewController.view.bringSubviewToFront(logoImageView)
             return loginViewController
