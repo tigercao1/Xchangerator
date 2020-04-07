@@ -25,9 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //https://firebase.google.com/docs/auth/ios/manage-users
         if Auth.auth().currentUser != nil {
           // User is signed in.
+            Logger.info("currentUser fetched ")
           // ...
         } else {
           // No user is signed in.
+            Logger.info("currentUser none ")
           // ...
         }
         // Use a UIHostingController as window root view controller.

@@ -38,5 +38,10 @@ enum Constant {
     · Conversion calculation on the go
     · Ad free 
     """
+    static let xDescFav = """
+    · Add your favorite currencies from Home page.
+    · Exchange rates update for every one hour
+    · Or click the star to remove.
+    """
 
 }
