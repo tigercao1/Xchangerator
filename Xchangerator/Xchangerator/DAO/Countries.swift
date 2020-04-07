@@ -8,22 +8,21 @@
 
 import Foundation
 
-class Countries: ObservableObject, NSCopying{
-
-    var countries = Array<Country>()
+class Countries: ObservableObject, NSCopying {
+    var countries = [Country]()
     var baseCountry: Country
-    
+
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Countries(countries: self.countries,baseCountry: self.baseCountry)
+        let copy = Countries(countries: countries, baseCountry: baseCountry)
         return copy
     }
 
     init() {
-        countries.append(Country(flag: "🇺🇳",  name: "LoadingData", rate: 109.1, unit: "GHO"))
+        countries.append(Country(flag: "🇺🇳", name: "LoadingData", rate: 109.1, unit: "GHO"))
         baseCountry = countries[0]
     }
-    
-    init(countries: Array<Country>,baseCountry : Country ){
+
+    init(countries: [Country], baseCountry: Country) {
         self.countries = countries
         self.baseCountry = baseCountry
     }
@@ -39,7 +38,7 @@ class Countries: ObservableObject, NSCopying{
         baseCountry = countries[0]
         do {
             try baseCountry = findByUnit("CAD")
-            try self.delete("CAD")
+            try delete("CAD")
             // TODO:
             // Can be replaced by location based info
         } catch {
@@ -48,35 +47,35 @@ class Countries: ObservableObject, NSCopying{
     }
 
     func setBaseCountry(_ country: Country) {
-        self.addToFirst(baseCountry)
-        self.baseCountry = country
+        addToFirst(baseCountry)
+        baseCountry = country
         do {
-            try self.delete(country.unit)
+            try delete(country.unit)
         } catch {
             print("Ran into issues while setting base country")
         }
     }
-    
+
     func add(_ country: Country) {
         countries.append(country)
     }
-    
+
     func addToFirst(_ country: Country) {
         countries.insert(country, at: 0)
     }
-        
+
     func findByName(_ name: String) throws -> Country {
-        if (self.baseCountry.name == name) { return self.baseCountry  }
+        if baseCountry.name == name { return baseCountry }
         for temp in countries {
             if temp.name == name {
                 return temp
             }
         }
-        throw EntityExceptions.EntityNotFoundException("Country " + name +  " not found")
+        throw EntityExceptions.EntityNotFoundException("Country " + name + " not found")
     }
-    
+
     func findByUnit(_ unit: String) throws -> Country {
-        if (self.baseCountry.unit == unit) { return self.baseCountry  }
+        if baseCountry.unit == unit { return baseCountry }
         for temp in countries {
             if temp.unit == unit {
                 return temp
@@ -84,7 +83,7 @@ class Countries: ObservableObject, NSCopying{
         }
         throw EntityExceptions.EntityNotFoundException("Currency " + unit + " not found")
     }
-    
+
     func delete(_ unit: String) throws -> Country {
         var temp: Country
         do {
@@ -93,13 +92,13 @@ class Countries: ObservableObject, NSCopying{
                 countries.remove(at: index)
             }
         } catch is EntityExceptions {
-            throw EntityExceptions.EntityNotFoundException("Currency " + unit +  " not deleted")
+            throw EntityExceptions.EntityNotFoundException("Currency " + unit + " not deleted")
         }
         Logger.debug("Currency " + unit + " deleted")
         return temp
     }
-    
-    func getModel() -> Array<Country> {
+
+    func getModel() -> [Country] {
         return countries
     }
 }

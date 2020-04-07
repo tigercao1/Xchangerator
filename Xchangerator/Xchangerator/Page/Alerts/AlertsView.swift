@@ -6,60 +6,56 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-import Foundation
 import FirebaseUI
+import Foundation
 import SwiftUI
-//import CoreLocation
-//import MapKit
+// import CoreLocation
+// import MapKit
 
-//get current location
-//https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
+// get current location
+// https://www.raywenderlich.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
 struct AlertsView: View {
     @State var show = false
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    
+
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
 
     var body: some View {
-        return NavigationView{
-            ScrollView() {
+        return NavigationView {
+            ScrollView {
                 VStack {
                     ForEach(self.stateStore.alerts.getModel().indices, id: \.self)
                     {
-                        index in  //MyAlert
-                           // Spacer()
-                            EditableCardView(
-                                country1: self.stateStore.alerts.getModel()[index].baseCurrency,
-                                country2: self.stateStore.alerts.getModel()[index].targetCurrency,
-                                conditionOperator: self.stateStore.alerts.getModel()[index].conditionOperator,
-                                numBar: self.stateStore.alerts.getModel()[index].numBar,
-                                disabled: self.stateStore.alerts.getModel()[index].disabled,
-                                index: index
-                           )
+                        index in // MyAlert
+                        // Spacer()
+                        EditableCardView(
+                            country1: self.stateStore.alerts.getModel()[index].baseCurrency,
+                            country2: self.stateStore.alerts.getModel()[index].targetCurrency,
+                            conditionOperator: self.stateStore.alerts.getModel()[index].conditionOperator,
+                            numBar: self.stateStore.alerts.getModel()[index].numBar,
+                            disabled: self.stateStore.alerts.getModel()[index].disabled,
+                            index: index
+                        )
                         // Spacer()
                     }
                 }.scaledToFill()
             }
-                .onTapGesture {
+            .onTapGesture {
                 self.endEditing()
-                
             }
-            .navigationBarTitle(Text("Alerts"))//
-            
+            .navigationBarTitle(Text("Alerts")) //
         }
-        
     }
 }
-
 
 #if DEBUG
-struct Alerts_Previews : PreviewProvider {
-    static var previews: some View {
-          ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
-          .previewDisplayName(deviceName)
+    struct Alerts_Previews: PreviewProvider {
+        static var previews: some View {
+            ForEach(["iPhone SE", "iPhone 11 Pro Max"], id: \.self) { deviceName in ContentView(selection: 2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+                .previewDisplayName(deviceName)
+            }
         }
     }
-}
 #endif

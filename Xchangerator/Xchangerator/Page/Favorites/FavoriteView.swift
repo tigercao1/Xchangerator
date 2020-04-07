@@ -6,49 +6,48 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SwiftUI
 
 struct FavoriteView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    
+
     private func deleteFav(_ country: FavoriteConversion) {
-        let copy = self.stateStore.favoriteConversions.copy() as! FavoriteConversions
-        let _ = try? copy.deleteById(country.id.uuidString)
+        let copy = stateStore.favoriteConversions.copy() as! FavoriteConversions
+        _ = try? copy.deleteById(country.id.uuidString)
         stateStore.favoriteConversions = copy
     }
 
     var body: some View {
         NavigationView {
-            Group{
+            Group {
                 stateStore.favoriteConversions.getModel().count <= 0 ?
                     AnyView(
                         CardView(image: "cover", category: Constant.xDescFav, heading: "No item available", author: "Xchangerator"))
                     :
                     AnyView(List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
-                        HStack{
+                        HStack {
                             Button(action: {
                                 self.deleteFav(country)
-                            }){
+                            }) {
                                 Image(systemName: "star.fill").foregroundColor(Color.yellow)
                                     .transition(.slide)
-                                .imageScale(.large)
-        //                            .rotationEffect(.degrees(90))
+                                    .imageScale(.large)
+                                    //                            .rotationEffect(.degrees(90))
                                     .scaleEffect(1.5)
                             }
                             .padding()
                             CountryHeadlineReadOnlyView(
-                            country: country,
-                                    isEditable: false,
-                                    showFromParent: false,
-                                    barNumFromParent: "100"
-                                )
+                                country: country,
+                                isEditable: false,
+                                showFromParent: false,
+                                barNumFromParent: "100"
+                            )
                         }
-                        
                     }
-                )
+                    )
             }.animation(.easeInOut)
                 .navigationBarTitle("Favorites")
 //                VStack {
@@ -61,15 +60,14 @@ struct FavoriteView: View {
 //                            Spacer()
 //                            }
 //                    }
-          }
+        }
     }
-
 }
 
 struct FavoriteView_Previews: PreviewProvider {
     static var previews: some View {
-          ForEach(["iPhone SE", "iPhone 11 Pro Max"],id: \.self) { deviceName in ContentView(selection:1).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
-          .previewDisplayName(deviceName)
+        ForEach(["iPhone SE", "iPhone 11 Pro Max"], id: \.self) { deviceName in ContentView(selection: 1).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
         }
     }
 }
