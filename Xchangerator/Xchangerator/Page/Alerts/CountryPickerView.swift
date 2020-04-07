@@ -20,32 +20,28 @@ struct CountryPickerView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    ForEach(self.stateStore.countries.getModel(), id: \.self)
-                    {
-                        currency in
-                        HStack {
-                            Button(action: {
+        VStack {
+            List {
+                ForEach(self.stateStore.countries.getModel(), id: \.self)
+                {
+                    currency in
+                    HStack {
+                        Button(action: {
 //                                var newAlert = self.changeTo(currency, self.index, self.isCountry1)
-                                self.toCurrency = currency
-                                self.newNumBar = self.changeNumTo(currency, self.index, self.isCountry1)
-                                self.presentationMode.wrappedValue.dismiss()
-                                Logger.debug(self.stateStore.alerts.getModel())
+                            self.toCurrency = currency
+                            self.newNumBar = self.changeNumTo(currency, self.index, self.isCountry1)
+                            self.presentationMode.wrappedValue.dismiss()
+                            Logger.debug(self.stateStore.alerts.getModel())
 
                             }) {
-                                Text("\(currency.flag) - \(currency.name) - \(currency.unit)").font(.headline)
-                                Spacer()
-                            }
+                            Text("\(currency.flag) - \(currency.name) - \(currency.unit)").font(.headline)
+                            Spacer()
                         }
                     }
                 }
             }
-//        .navigationBarTitle("Change Currency", displayMode: .inline)
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
         }
+        .navigationBarTitle("Change Currency", displayMode: .automatic)
     }
 
     private func reload() {

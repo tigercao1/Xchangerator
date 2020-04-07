@@ -13,7 +13,7 @@ struct MyAlert: Equatable, Hashable {
     var targetCurrency: Country
     var conditionOperator: String
     var rate: Double
-    var numBar: String { return String(rate * 100) }
+    var numBar: String { return String(100 * rate) }
     var disabled: Bool = true
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String) {
@@ -57,7 +57,7 @@ struct Notification_Document: Codable {
 
     init(_ alert: MyAlert) {
         target = alert.rate
-        disabled = true
+        disabled = alert.disabled
         condition = "\(alert.baseCurrency.unit)-\(alert.targetCurrency.unit)-\(alert.conditionOperator)"
     }
 
@@ -70,6 +70,6 @@ struct Notification_Document: Codable {
     init() {
         disabled = false
         condition = "CAD-USD-LT"
-        target = 1.2
+        target = 0.88
     }
 }
