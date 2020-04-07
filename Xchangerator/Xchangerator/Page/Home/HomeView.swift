@@ -285,11 +285,11 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        Divider().padding(.bottom,40)
+                        Divider().padding(.bottom,50)
                     }
                 }
 
-            }.frame(height: screenHeight/6)
+            }.frame(height: 200)
                 .onAppear(perform: {
                     self.modalPresented = false
                     self.isDuplicateAlert = false
