@@ -6,9 +6,9 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 //
-//import Foundation
-//import SwiftUI
-//struct TextFieldTyped: UIViewRepresentable {
+// import Foundation
+// import SwiftUI
+// struct TextFieldTyped: UIViewRepresentable {
 //
 //
 //    let placeholder: String
@@ -64,4 +64,4 @@
 //        }
 //
 //    }
-//}
+// }
