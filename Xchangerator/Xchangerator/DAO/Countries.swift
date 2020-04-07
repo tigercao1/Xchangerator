@@ -57,7 +57,9 @@ class Countries: ObservableObject, NSCopying {
     }
 
     func add(_ country: Country) {
-        countries.append(country)
+        if !countries.contains(country) {
+            countries.append(country)
+        }
     }
 
     func addToFirst(_ country: Country) {
@@ -96,6 +98,12 @@ class Countries: ObservableObject, NSCopying {
         }
         Logger.debug("Currency " + unit + " deleted")
         return temp
+    }
+
+    func getFullCountries() -> Countries {
+        let copyCountries = Countries(countries: countries, baseCountry: baseCountry)
+        copyCountries.add(baseCountry)
+        return copyCountries
     }
 
     func getModel() -> [Country] {
