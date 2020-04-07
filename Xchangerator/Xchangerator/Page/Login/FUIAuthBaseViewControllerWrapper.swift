@@ -29,6 +29,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
         let providers: [FUIAuthProvider] = [
             FUIEmailAuth(), // TODO: freeze or disable email input, after login successfully
             FUIGoogleAuth(),
+            FUIOAuth.appleAuthProvider(),
         ]
         authUI?.providers = providers
         authUI?.delegate = context.coordinator

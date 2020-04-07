@@ -253,6 +253,8 @@ PODS:
   - FirebaseUI/Google (8.4.1):
     - FirebaseUI/Auth
     - GoogleSignIn (~> 5.0)
+  - FirebaseUI/OAuth (8.4.1):
+    - FirebaseUI/Auth
   - GoogleAppMeasurement (6.2.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -332,6 +334,7 @@ DEPENDENCIES:
   - FirebaseUI/Auth
   - FirebaseUI/Email
   - FirebaseUI/Google
+  - FirebaseUI/OAuth
   - GoogleSignIn
   - NotificationBannerSwift (~> 3.0.0)
   - SwiftyJSON (~> 4.0)
@@ -409,6 +412,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 7045387781efe41e504a79871c0a7a77a56c26dc
+PODFILE CHECKSUM: e1c21386b2d9c4f5e01c16067ac51f3eaaa4460c
 
 COCOAPODS: 1.8.4
