@@ -22,7 +22,7 @@ struct SettingsMain: View {
 
     var settingItems: [SettingItem] = [
         SettingItem(image: "person", text: "Profile"),
-        SettingItem(image: "envelope", text: "Notification"),
+//    SettingItem(image: "envelope", text: "Notification"), //todo: recover it later
         SettingItem(image: "exclamationmark.circle", text: "About"),
     ]
     @EnvironmentObject var stateStore: ReduxRootStateStore

@@ -13,43 +13,42 @@ import SwiftUI
 
 struct FavoriteView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
-    @State var items: [FavoriteConversion] = []
-
-    private func reload() {
-        items = stateStore.favoriteConversions.getModel()
-    }
 
     private func deleteFav(_ country: FavoriteConversion) {
-        try? stateStore.favoriteConversions.deleteById(country.id.uuidString)
-        reload()
+        let copy = stateStore.favoriteConversions.copy() as! FavoriteConversions
+        _ = try? copy.deleteById(country.id.uuidString)
+        stateStore.favoriteConversions = copy
     }
 
     var body: some View {
         NavigationView {
-            List(items, id: \.self) { country in
-                HStack {
-                    Button(action: {
-                        self.deleteFav(country)
-                    }) {
-                        Image(systemName: "star.fill").foregroundColor(Color.yellow)
-                            .transition(.slide)
-                            .imageScale(.large)
-                            .rotationEffect(.degrees(90))
-                            .scaleEffect(1.5)
+            Group {
+                stateStore.favoriteConversions.getModel().count <= 0 ?
+                    AnyView(
+                        CardView(image: "cover", category: Constant.xDescFav, heading: "No item available", author: "Xchangerator"))
+                    :
+                    AnyView(List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
+                        HStack {
+                            Button(action: {
+                                self.deleteFav(country)
+                            }) {
+                                Image(systemName: "star.fill").foregroundColor(Color.yellow)
+                                    .transition(.slide)
+                                    .imageScale(.large)
+                                    //                            .rotationEffect(.degrees(90))
+                                    .scaleEffect(1.5)
+                            }
+                            .padding()
+                            CountryHeadlineReadOnlyView(
+                                country: country,
+                                isEditable: false,
+                                showFromParent: false,
+                                barNumFromParent: "100"
+                            )
+                        }
                     }
-                    .padding()
-                    CountryHeadlineReadOnlyView(
-                        country: country,
-                        isEditable: false,
-                        showFromParent: false,
-                        barNumFromParent: "100"
                     )
-                }
-
-            }.onAppear(perform: {
-                self.reload()
-            })
-
+            }.animation(.easeInOut)
                 .navigationBarTitle("Favorites")
 //                VStack {
 //                    ForEach(historyData, id: \.self){

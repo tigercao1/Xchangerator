@@ -8,8 +8,21 @@
 
 import Foundation
 
-class FavoriteConversions: ObservableObject {
-    var conversions = [FavoriteConversion]()
+class FavoriteConversions: ObservableObject, NSCopying {
+    var conversions: [FavoriteConversion]
+
+    init() {
+        conversions = [FavoriteConversion]()
+    }
+
+    init(favConvs conversions: [FavoriteConversion]) {
+        self.conversions = conversions
+    }
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = FavoriteConversions(favConvs: conversions)
+        return copy
+    }
 
     func add(_ favConversion: FavoriteConversion) {
         conversions.append(favConversion)
@@ -57,7 +70,7 @@ class FavoriteConversions: ObservableObject {
         } catch is EntityExceptions {
             throw EntityExceptions.EntityNotFoundException("Conversion with id " + id + " not deleted")
         }
-        print("Conversion with id " + id + " deleted")
+        Logger.debug("Conversion with id " + id + " deleted")
         return temp
     }
 

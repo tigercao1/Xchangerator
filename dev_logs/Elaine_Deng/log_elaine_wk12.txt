@@ -1,0 +1,19 @@
+Work log - Elaine Deng - Week 12
+
+- Added Country Picker to AlertView 
+
+- Changed "Add Alert" functionality, instead of add an alert, 
+changed it to modify the first disabled alert
+
+- Limited the number of active alert in alert page
+
+- fix bugs
+
+- D4
+
+
+
+
+
+
+
