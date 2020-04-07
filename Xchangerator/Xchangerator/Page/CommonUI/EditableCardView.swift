@@ -283,7 +283,7 @@ struct CountryHeadlineCardView: View {
                         .font( showFromParent ? Font.title: Font.headline)
                         .frame(width: showFromParent ?   screenWidth*0.3 : 60)
                         .foregroundColor(showFromParent ? Color.lightBlue : Color.white )
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                         .multilineTextAlignment(.leading)
                 } else {
                     Text(String(100))

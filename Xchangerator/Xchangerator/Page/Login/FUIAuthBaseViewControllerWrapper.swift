@@ -97,7 +97,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                         let c1 = try countriesStarter.findByUnit(String(strArr[0]))
                         let c2 = try countriesStarter.findByUnit(String(strArr[1]))
                         
-                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2,  conditionOperator:String(strArr.last ?? "LT"),rate:tar/100,disabled:disabled)
+                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2,  conditionOperator:String(strArr.last ?? "LT"),rate:tar,disabled:disabled)
                         //set alerts in the local stateStore
                         self.parent.stateStore.alerts.setById(i, newAlert)
 

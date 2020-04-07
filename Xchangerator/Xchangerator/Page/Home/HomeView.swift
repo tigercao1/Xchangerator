@@ -138,7 +138,7 @@ struct HomeView: View {
                                 .font(.title)
                                 .frame(width: 30, height: 15)
                             TextField("Amount", text: $baseCurrencyAmt)
-                                .keyboardType(.numberPad)
+                                .keyboardType(.decimalPad)
                                 .frame(width: screenWidth*0.3)
                                 .multilineTextAlignment(.trailing)
                             Text(self.stateStore.countries.baseCountry.unit)
@@ -244,19 +244,19 @@ struct HomeView: View {
                         .padding(.horizontal,30)
                         .padding(.bottom,5)
                         HStack{
-                            Button(action: {
-                                          do {
-                                            self.chartClicked.toggle()
-                                          }
-                                      }) {
-                                          VStack {
-                                              Image(systemName: "chart.bar")
-                                                  .font(.title)
-                                              Text("Chart")
-                                                  .fontWeight(.semibold)
-                                                  .font(.headline)
-                                          }
-                            }.buttonStyle(GradientBackgroundStyle())
+//                            Button(action: {
+//                                          do {
+//                                            self.chartClicked.toggle()
+//                                          }
+//                                      }) {
+//                                          VStack {
+//                                              Image(systemName: "chart.bar")
+//                                                  .font(.title)
+//                                              Text("Chart")
+//                                                  .fontWeight(.semibold)
+//                                                  .font(.headline)
+//                                          }
+//                            }.buttonStyle(GradientBackgroundStyle())
                             Button(action: {
                                           do {
                                             self.moreThanTwoActiveAlerts = self.stateStore.alerts.checkIfMoreThanTwoActiveAlerts()
@@ -265,7 +265,6 @@ struct HomeView: View {
                                                 self.selectionFromParent = 2
                                                 self.setAlertClicked = true
                                             }
-//                                            self.setAlertClicked = true
                                           }
                                       }) {
                                           VStack {
@@ -279,11 +278,11 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        Divider().padding(.bottom,screenHeight*0.25)
+                        Divider().padding(.bottom,10)
                     }
                 }
 
-            }.frame(height: screenHeight*0.2)
+            }.frame(height: 40)
                 .onAppear(perform: {
                     self.modalPresented = false
                     self.isDuplicateAlert = false
