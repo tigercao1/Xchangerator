@@ -11,7 +11,9 @@ enum Constant {
     
     //Xchangerator Server API
     static let xAPIGetLatest = "https://xchangerator.com/api/latest"
-
+    
+    //DB alert ratio for computation
+    static let xScaleNum = 100.00  //don't set it to 0
     
     //Logger
     static let xLogFileName = "XChangeratorLog.log"

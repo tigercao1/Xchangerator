@@ -56,7 +56,7 @@ struct Notification_Document:Codable {
          case target = "target"
      }
     init(_ alert:MyAlert){
-        self.target = alert.rate * 100
+        self.target = alert.rate
         self.disabled = alert.disabled
         self.condition = "\(alert.baseCurrency.unit)-\(alert.targetCurrency.unit)-\(alert.conditionOperator)"
     }
@@ -68,6 +68,6 @@ struct Notification_Document:Codable {
     init(){
         self.disabled = false
         self.condition = "CAD-USD-LT"
-        self.target = 120
+        self.target = 0.88
     }
 }
