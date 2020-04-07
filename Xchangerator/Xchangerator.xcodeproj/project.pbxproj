@@ -86,6 +86,7 @@
 		C51975532404DF5B00B88635 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		C51975562404E3E500B88635 /* UserRepoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepoManager.swift; sourceTree = "<group>"; };
 		C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		C557B0BD243CE8B7002AE7B0 /* XchangeratorRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XchangeratorRelease.entitlements; sourceTree = "<group>"; };
 		C58A36AA23D6C2E900DB155A /* Xchangerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xchangerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58A36AD23D6C2E900DB155A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C58A36AF23D6C2E900DB155A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -293,6 +294,7 @@
 		C58A36AC23D6C2E900DB155A /* Xchangerator */ = {
 			isa = PBXGroup;
 			children = (
+				C557B0BD243CE8B7002AE7B0 /* XchangeratorRelease.entitlements */,
 				C50B13FF2410D320000FD607 /* Resources */,
 				B4C4723923EC6060004834CF /* Exceptions */,
 				B4C4723823EC5573004834CF /* Controller */,
@@ -712,8 +714,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
@@ -725,9 +728,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -736,9 +739,10 @@
 			baseConfigurationReference = 8ED0E1C46C872EACAF9C68D6 /* Pods-Xchangerator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Xchangerator/XchangeratorRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
@@ -750,9 +754,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.YYES.Xchangerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = XchangeratorProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
