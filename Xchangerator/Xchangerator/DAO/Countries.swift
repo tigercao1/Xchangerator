@@ -101,7 +101,7 @@ class Countries: ObservableObject, NSCopying {
     }
 
     func getFullCountries() -> Countries {
-        var copyCountries = Countries(countries: countries, baseCountry: baseCountry)
+        let copyCountries = Countries(countries: countries, baseCountry: baseCountry)
         copyCountries.add(baseCountry)
         return copyCountries
     }
