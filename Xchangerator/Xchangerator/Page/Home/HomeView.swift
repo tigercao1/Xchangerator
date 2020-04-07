@@ -53,7 +53,7 @@ struct HomeView: View {
     private func isFavorite() -> Bool {
         let currentConversion = FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry)
         do {
-            try self.stateStore.favoriteConversions.find(currentConversion)
+            let _ = try self.stateStore.favoriteConversions.find(currentConversion)
             return true
         } catch {
             return false
@@ -64,14 +64,21 @@ struct HomeView: View {
     private func addToFavorite() -> String {
         let converter = Converter(stateStore.countries)
         if (!isFavorite()) {
-            stateStore.favoriteConversions.add(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+            let newConv = self.stateStore.favoriteConversions.copy() as! FavoriteConversions
+            newConv.add(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
+            stateStore.favoriteConversions = newConv
         }
         return ""
     }
     
     private func deleteFromFavorite() -> String {
         if (isFavorite()) {
-            try? stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry))
+            do{
+                try stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry)) }
+            catch {
+                Logger.error(error)
+            }
+            
         }
         return ""
     }
@@ -80,7 +87,7 @@ struct HomeView: View {
         let converter = Converter(stateStore.countries)
         let currentAlert = MyAlert(baseCurrency: self.stateStore.countries.baseCountry , targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0 ))
         do {
-            try self.stateStore.alerts.find(currentAlert)
+            let _ = try self.stateStore.alerts.find(currentAlert)
             return true
         } catch {
             return false
@@ -227,6 +234,7 @@ struct HomeView: View {
 
                 VStack {
                     Group {
+                        Divider().padding(20)
                         Toggle(isOn: self.$favourite) {
                             if (self.favourite) {
                                 Text("\(self.addToFavorite())")
@@ -242,7 +250,6 @@ struct HomeView: View {
                             }.foregroundColor(.black)
                         }.padding(.top,30)
                         .padding(.horizontal,30)
-                        .padding(.bottom,5)
                         HStack{
 //                            Button(action: {
 //                                          do {
@@ -278,11 +285,11 @@ struct HomeView: View {
                                         }
                             }.buttonStyle(GradientBackgroundStyle())
                         }
-                        Divider().padding(.bottom,10)
+                        Divider().padding(.bottom,40)
                     }
                 }
 
-            }.frame(height: 40)
+            }.frame(height: screenHeight/6)
                 .onAppear(perform: {
                     self.modalPresented = false
                     self.isDuplicateAlert = false
