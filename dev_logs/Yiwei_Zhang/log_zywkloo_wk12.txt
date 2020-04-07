@@ -1,0 +1,12 @@
+* refactor the alerts and favs view with shallow copy，
+  to apply observable pattern。remove the procedural reload func calls 
+  
+* D4 Documentation
+
+* Connect Alerts Page to DB, including Edit and Activate handlers
+
+* Polish UI when Favorites has 0 item
+
+* Appstore submission and material preparation
+
+* Init notification collection in Cloud Firestore on condition
