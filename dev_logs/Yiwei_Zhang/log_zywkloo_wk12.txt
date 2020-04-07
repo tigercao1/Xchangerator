@@ -10,3 +10,5 @@
 * Appstore submission and material preparation
 
 * Init notification collection in Cloud Firestore on condition
+
+* Fix email login
