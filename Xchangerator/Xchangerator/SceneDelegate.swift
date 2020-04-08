@@ -18,23 +18,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let rootView = LoginView()
         let stateStore = ReduxRootStateStore() // state store init
-        // https://firebase.google.com/docs/auth/ios/manage-users
-        if Auth.auth().currentUser != nil {
-            // User is signed in.
-            Logger.info("currentUser fetched ")
-            // ...
-        } else {
-            // No user is signed in.
-            Logger.info("currentUser none ")
-            // ...
-        }
+        print("test isLogin", Auth.auth().currentUser != nil)
+
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             stateStore.isLandscape = (windowScene.interfaceOrientation.isLandscape == true)
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: rootView.environmentObject(stateStore))
+
+            // if user is logged in
+            if let user = Auth.auth().currentUser {
+                stateStore.curRoute = .content
+
+                let userProfile = User_Profile(email: user.email ?? "New_\(user.uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: [], name: user.displayName ?? "Loyal User")
+                let userDoc = User_DBDoc(profile: userProfile)
+                stateStore.setDoc(userDoc: userDoc)
+            }
+
+            stateStore.setCountries(countries: ApiCall())
+
+            window.rootViewController = UIHostingController(rootView: LoginView().environmentObject(stateStore))
             self.window = window
             window.makeKeyAndVisible()
         }
