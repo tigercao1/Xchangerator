@@ -44,7 +44,6 @@
 		C5AADDEC240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */; };
 		C5D3D4F3240B651300AAF402 /* DatabaseManager.swift in Resources */ = {isa = PBXBuildFile; fileRef = C53C7C4423F0E8A800E0EA4F /* DatabaseManager.swift */; };
 		C5D3D4F4240B651300AAF402 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = CA05BDAD23F0CF6C000E6A39 /* PartialSheet */; };
-		C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */; };
 		C5FF8F46240E13B600C402E6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F45240E13B600C402E6 /* CardView.swift */; };
 		C5FF8F48240EBB1400C402E6 /* AlertCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */; };
 		C5FF8F4A240EE1FC00C402E6 /* EditableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */; };
@@ -103,7 +102,6 @@
 		C5AADDE524071B650077D669 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		C5AADDE9240747530077D669 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C5AADDEA240747530077D669 /* FUIAuthBaseViewControllerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUIAuthBaseViewControllerWrapper.swift; sourceTree = "<group>"; };
-		C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWrapper.swift; sourceTree = "<group>"; };
 		C5FF8F45240E13B600C402E6 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C5FF8F47240EBB1300C402E6 /* AlertCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCardView.swift; sourceTree = "<group>"; };
 		C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableCardView.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				B4C4722E23E0B60F004834CF /* HomeView.swift */,
-				C5D3D4F5240B956A00AAF402 /* UITextFieldWrapper.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -557,7 +554,6 @@
 				B4C4723B23EC6077004834CF /* Exceptions.swift in Sources */,
 				B4E40BD52418880800593366 /* FavoriteConversion.swift in Sources */,
 				B4C4723723E138C1004834CF /* Countries.swift in Sources */,
-				C5D3D4F6240B956A00AAF402 /* UITextFieldWrapper.swift in Sources */,
 				C50B13FC2410D0EA000FD607 /* History.swift in Sources */,
 				C58A36B223D6C2E900DB155A /* ContentView.swift in Sources */,
 				B4C4723D23EC6665004834CF /* APIController.swift in Sources */,

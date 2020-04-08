@@ -10,14 +10,12 @@ import SwiftUI
 
 struct EditableCardView: View {
     @State private var show = false
-//    @Binding var currentAlert: MyAlert
     @State var country1: Country
     @State var country2: Country
     @State var conditionOperator: String
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-//    @Binding var stateStore: ReduxRootStateStore
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @State var setSuccess: Bool = false
 
