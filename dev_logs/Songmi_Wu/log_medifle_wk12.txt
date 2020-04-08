@@ -1,9 +1,10 @@
 Team involvement
 - create, edit(Backend), format, proofread d4 document
 
-Individual work (Backend)
+Individual work
 - PR#55 introduct SwiftFormat, automatic formating Swift code in building phase
 - PR#64 support Apple signin
+- PR#66 User login info persistence
 - resolve conflicts on PR #56 #58 #59 #61
 - review and minor fix on PR#57
 - fix decimal keyboard issue on alerts page

@@ -80,7 +80,7 @@ extension URLSession {
     }
 }
 
-func ApiCall() -> Countries {
+func syncApiCall() -> Countries {
     let apiController = APIController()
     // Here it's running in the forground, later maybe change it to the background with another thread. For know-how, see comments in APIController
     let result = apiController.makeCountriesRequest()
