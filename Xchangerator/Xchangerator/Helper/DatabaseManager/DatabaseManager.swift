@@ -104,7 +104,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter { $0 != "" }
-                Logger.debug("Old user:pre tokens count \(String(describing: deviceTokens?.count)));new tokens coount\(newTokenArr.count)")
+                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0);new tokens count \(newTokenArr.count)")
 
             } else {
                 // create all the fields for the new user
