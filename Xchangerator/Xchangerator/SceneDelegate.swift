@@ -19,23 +19,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let stateStore = ReduxRootStateStore() // state store init
-        print("test isLogin", Auth.auth().currentUser != nil)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             stateStore.isLandscape = (windowScene.interfaceOrientation.isLandscape == true)
             let window = UIWindow(windowScene: windowScene)
 
-            // if user is logged in
+            // if user is already logged in
             if let user = Auth.auth().currentUser {
                 stateStore.curRoute = .content
 
+                // fetch user profile
                 let userProfile = User_Profile(email: user.email ?? "New_\(user.uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: [], name: user.displayName ?? "Loyal User")
                 let userDoc = User_DBDoc(profile: userProfile)
                 stateStore.setDoc(userDoc: userDoc)
+
+                // fetch user alerts
+                DatabaseManager.shared.asyncGetUserAlerts(user) { docSnapShots in
+                    for i in 0 ..< 2 {
+                        DatabaseManager.shared.setAlertToStore(stateStore, docSnapShots, id: i)
+                    }
+                }
             }
 
-            stateStore.setCountries(countries: ApiCall())
+            // fetch exchange rates
+            stateStore.setCountries(countries: syncApiCall())
 
             window.rootViewController = UIHostingController(rootView: LoginView().environmentObject(stateStore))
             self.window = window

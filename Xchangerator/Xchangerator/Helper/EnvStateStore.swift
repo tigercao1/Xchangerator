@@ -34,7 +34,7 @@ class ReduxRootStateStore: ObservableObject {
 
     func setDoc(userDoc: User_DBDoc) {
         user = userDoc
-        countries = ApiCall()
+        countries = syncApiCall()
     }
 
     func setCountries(countries: Countries) {

@@ -20,6 +20,8 @@ enum Constant {
     // DB
     static let xDBtokenPrefix = "V1_"
     static let xDBnotiSuffix = "_notif_"
+    static let xDBuserCollection = "users"
+    static let xDBnotiCollection = "notifications"
 
     // Asset
     static let xAvatarPlaceholder = "https://pbs.twimg.com/profile_images/1218947796671324162/oWGgRsyn_400x400.jpg"
