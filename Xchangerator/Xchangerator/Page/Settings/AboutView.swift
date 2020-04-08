@@ -13,7 +13,7 @@ struct AboutView: View {
 
     var body: some View {
         VStack {
-            CardView(image: "cover", category: Constant.xDesc, heading: "Xchangerator", author: "Exchange rate reminder - version 0.1")
+            CardView(image: "cover", category: Constant.xDesc, heading: "Xchangerator", author: "Exchange rate reminder - version 1.0(3)")
             Spacer()
 
             HStack {
