@@ -15,7 +15,8 @@ target 'Xchangerator' do
   pod 'FirebaseUI/Auth'
   pod 'FirebaseUI/Email'
   pod 'FirebaseUI/Google'
-  
+  pod 'FirebaseUI/OAuth'
+
   pod 'GoogleSignIn'
 
 # Optionally, include the Swift extensions if you're using Swift.
