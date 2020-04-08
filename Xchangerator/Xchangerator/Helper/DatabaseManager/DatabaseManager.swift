@@ -23,10 +23,10 @@ class DatabaseManager {
         let doc = Notification_Document(myAlerts.getModel()[index])
         if let user = Auth.auth().currentUser {
             // User is signed in.
-            let userCollectionRef = db.collection("users")
+            let userCollectionRef = db.collection(Constant.xDBuserCollection)
             try? userCollectionRef
                 .document("\(Constant.xDBtokenPrefix)\(user.uid)")
-                .collection("notifications")
+                .collection(Constant.xDBnotiCollection)
                 .document("\(user.uid)\(Constant.xDBnotiSuffix)\(index)")
                 .setData(from: doc) { err in
                     if let err = err {
@@ -52,14 +52,14 @@ class DatabaseManager {
     private func addDocsToNotifications(userRef: DocumentReference, alerts: MyAlerts, user: User) {
         let Doc1 = Notification_Document(alerts.getModel()[0])
         let Doc2 = Notification_Document(alerts.getModel()[1])
-        _ = try? userRef.collection("notifications")
+        _ = try? userRef.collection(Constant.xDBnotiCollection)
             .document("\(user.uid)\(Constant.xDBnotiSuffix)0")
             .setData(from: Doc1) { err in
                 if let err = err {
                     Logger.error("Err adding notif1: \(err)")
                 } else {
                     Logger.debug("added: \(user.uid)\(Constant.xDBnotiSuffix)0")
-                    _ = try? userRef.collection("notifications")
+                    _ = try? userRef.collection(Constant.xDBnotiCollection)
                         .document("\(user.uid)\(Constant.xDBnotiSuffix)1")
                         .setData(from: Doc2) { err in
                             if let err = err {
@@ -70,6 +70,36 @@ class DatabaseManager {
                         }
                 }
             }
+    }
+
+    func asyncGetUserAlerts(_ user: User, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
+        let userCollectionRef = db.collection(Constant.xDBuserCollection)
+        let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(user.uid)")
+        userRef.collection(Constant.xDBnotiCollection).getDocuments { querySnapshot, err in
+            if let err = err {
+                Logger.error("Error getting documents: \(err)")
+                return
+            }
+            completion(querySnapshot!.documents)
+        }
+    }
+
+    func setAlertToStore(_ stateStore: ReduxRootStateStore, _ docSnapShots: [QueryDocumentSnapshot], id i: Int) {
+        do {
+            let data = docSnapShots[i].data()
+            let str = data["condition"] as? String ?? "CAD-USD-LT"
+            let tar = data["target"] as! Double
+            let disabled = data["disabled"] as! Bool
+            let strArr = str.split(separator: "-")
+            let c1 = try stateStore.countries.findByUnit(String(strArr[0]))
+            let c2 = try stateStore.countries.findByUnit(String(strArr[1]))
+
+            let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2, conditionOperator: String(strArr.last ?? "LT"), rate: tar, disabled: disabled)
+            // set alerts in the local stateStore
+            stateStore.alerts.setById(i, newAlert)
+        } catch {
+            Logger.error(error)
+        }
     }
 
     func registerUser(fcmToken firebaseMsgDeviceToken: String?, fbAuthRet authDataResult: AuthDataResult, alerts: MyAlerts, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
@@ -87,7 +117,7 @@ class DatabaseManager {
         // Do NOT use this value to authenticate with your backend server,
         // if you have one. Use getTokenWithCompletion:completion: instead.
         let uid = user.uid
-        let userCollectionRef = db.collection("users")
+        let userCollectionRef = db.collection(Constant.xDBuserCollection)
         let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(uid)")
         userRef.getDocument { document, error in
             var userProfile: User_Profile
@@ -104,7 +134,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter { $0 != "" }
-                Logger.debug("Old user:pre tokens count \(String(describing: deviceTokens?.count)));new tokens coount\(newTokenArr.count)")
+                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0);new tokens count \(newTokenArr.count)")
 
             } else {
                 // create all the fields for the new user
@@ -112,15 +142,15 @@ class DatabaseManager {
                     newTokenArr.append(wrappedFcmToken)
                 }
             }
-            userProfile = User_Profile(email: user.email ?? "\(uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: newTokenArr, name: user.displayName ?? "Loyal Customer")
 
+            // set user profile everytime user logged in
+            userProfile = User_Profile(email: user.email ?? "\(uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: newTokenArr, name: user.displayName ?? "Loyal Customer")
             let userDoc = User_DBDoc(profile: userProfile)
-            // set user profile everytime you logged in
             try? userRef.setData(from: userDoc) { err in
                 if let err = err {
                     Logger.error("Error adding document: \(err), and token \(String(describing: firebaseMsgDeviceToken))")
                 } else {
-                    userRef.collection("notifications").getDocuments { querySnapshot, err in
+                    userRef.collection(Constant.xDBnotiCollection).getDocuments { querySnapshot, err in
                         if let err = err {
                             Logger.error("Error getting documents: \(err)")
                         } else { // notif docs in DB < 2

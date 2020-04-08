@@ -80,28 +80,11 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              */
             let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID: "current")
 
-            let countriesStarter = ApiCall()
-
             // Set Device token and notification Docs in DB
             Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
             DatabaseManager.shared.registerUser(fcmToken: fcmTokenString, fbAuthRet: retObj, alerts: parent.stateStore.alerts) { docSnapShots in
                 for i in 0 ..< 2 {
-                    do {
-                        let data = docSnapShots[i].data()
-                        let str = data["condition"] as? String ?? "CAD-USD-LT"
-                        let tar = data["target"] as! Double // this is the numstring stored in DB. It's 100 times
-                        let disabled = data["disabled"] as! Bool
-                        let strArr = str.split(separator: "-")
-                        let c1 = try countriesStarter.findByUnit(String(strArr[0]))
-                        let c2 = try countriesStarter.findByUnit(String(strArr[1]))
-
-                        let newAlert = MyAlert(baseCurrency: c1, targetCurrency: c2, conditionOperator: String(strArr.last ?? "LT"), rate: tar, disabled: disabled)
-                        // set alerts in the local stateStore
-                        self.parent.stateStore.alerts.setById(i, newAlert)
-
-                    } catch {
-                        Logger.error(error)
-                    }
+                    DatabaseManager.shared.setAlertToStore(self.parent.stateStore, docSnapShots, id: i)
                 }
             }
             parent.stateStore.curRoute = .content
@@ -112,7 +95,6 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
                 // TODO: refetch state store settings from DB
                 parent.stateStore.setDoc(userDoc: userDoc)
-                parent.stateStore.setCountries(countries: countriesStarter)
             }
             // parent.dismiss(authDataResult, error)
 //            authUI.authViewController().dismiss(animated: false, completion:nil)
