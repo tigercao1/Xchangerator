@@ -29,6 +29,13 @@ struct SettingsMain: View {
 
     private func signOut() {
         do {
+            let fcmTokenStr = UserRepoManager().getCurDeviceToken(forUserID: "current")
+            if let user = Auth.auth().currentUser {
+                DatabaseManager.shared.removeFcmTokenFromProfile(fcmTokenStr, user)
+            } else {
+                Logger.error("currentUser is nil")
+            }
+
             try FUIAuth.defaultAuthUI()!.signOut()
         } catch {
             Logger.error(error)

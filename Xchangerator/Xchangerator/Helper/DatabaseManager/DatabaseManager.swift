@@ -84,7 +84,7 @@ class DatabaseManager {
         }
     }
 
-    func setAlertToStore(_ stateStore: ReduxRootStateStore, _ docSnapShots: [QueryDocumentSnapshot], id i: Int) {
+    func setAlertToLocalStore(_ stateStore: ReduxRootStateStore, _ docSnapShots: [QueryDocumentSnapshot], id i: Int) {
         do {
             let data = docSnapShots[i].data()
             let str = data["condition"] as? String ?? "CAD-USD-LT"
@@ -99,6 +99,21 @@ class DatabaseManager {
             stateStore.alerts.setById(i, newAlert)
         } catch {
             Logger.error(error)
+        }
+    }
+
+    func removeFcmTokenFromProfile(_ fcmToken: String?, _ user: User) {
+        let userCollectionRef = db.collection(Constant.xDBuserCollection)
+        let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(user.uid)")
+        if let deviceToken = fcmToken {
+            // Atomically remove a fcmToken from the "deviceTokens" array field.
+            userRef.updateData([
+                "profile.deviceTokens": FieldValue.arrayRemove([deviceToken]),
+            ]) { err in
+                if let error = err {
+                    Logger.error("Error removing fcmToken: \(String(describing: error)), fcmToken \(deviceToken)")
+                }
+            }
         }
     }
 
@@ -133,7 +148,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter { $0 != "" }
-                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0);new tokens count \(newTokenArr.count)")
+//                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0); new tokens count \(newTokenArr.count)")
 
             } else {
                 // create all the fields for the new user
