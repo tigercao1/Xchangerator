@@ -51,23 +51,23 @@ struct SettingsMain: View {
                 }.frame(height: 120)
 
                 Spacer()
-                Button(action: self.signOut) {
-                    HStack {
-                        Image(systemName: "escape")
-                            .font(.headline)
-                            .padding(.trailing, 5)
-                        Text("Sign Out")
-                            .fontWeight(.semibold)
-                            .font(.subheadline)
+                VStack {
+                    Button(action: self.signOut) {
+                        HStack {
+                            Image(systemName: "escape")
+                                .font(.headline)
+                                .padding(.trailing, 5)
+                            Text("Sign Out")
+                                .fontWeight(.semibold)
+                                .font(.subheadline)
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 18)
+                        .foregroundColor(.white)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(0x448AFF)), Color(UIColor(0x4A75EA))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .cornerRadius(20)
                     }
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 18)
-                    .foregroundColor(.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(0x448AFF)), Color(UIColor(0x4A75EA))]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .cornerRadius(30)
-                    .padding(.horizontal, CGFloat(20))
-
-                }.padding()
+                }.padding(.bottom, 30)
             }.navigationBarTitle("Settings")
         }
     }
