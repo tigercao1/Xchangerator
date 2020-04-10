@@ -42,7 +42,6 @@ struct EditableCardView: View {
         }
         let newMyAlerts = stateStore.alerts.copy() as! MyAlerts
         newMyAlerts.setById(index, MyAlert(baseCurrency: country1, targetCurrency: country2, conditionOperator: conditionOperator, rate: dbValue / 100, disabled: newDisabled))
-        // rate in the stateStore is x string/100. in the DB the target is x string
         return newMyAlerts
     }
 
@@ -146,7 +145,6 @@ struct EditableCardView: View {
                         index: self.index
                     )
                     .frame(width: screenWidth * 0.45, alignment: .center)
-//                    .background(Color.green)//test
                 }
                 .padding(.top, 10.0)
             }
@@ -179,9 +177,9 @@ struct EditableCardView: View {
                             :
                             Alert(title: Text("Notification Updated"),
                                   message: Text("""
-                                  Xchangerate will notify you when:
+                                  You will receive an alert when:
                                       \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
-                                      \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
+                                      \(thisAlert.conditionOperator == "LT" ? "less than" : "greater than")
                                       \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
                                   """),
                                   dismissButton: .default(Text("OK")))
@@ -214,7 +212,7 @@ struct EditableCardView: View {
         }
 
         .frame(width: screenWidth * 0.9, height: show ? screenWidth * 0.78 : 90)
-        .background(disabled ? Color(UIColor(0x607D8B, 0.75)) : Color(UIColor(0x448AFF, 0.9)))
+        .background(disabled ? Color(UIColor(0x607D8B, 0.80)) : Color(UIColor(0x448AFF, 0.9)))
         .cornerRadius(20)
     }
 }
@@ -237,7 +235,6 @@ struct CountryHeadlineCardView: View {
                         .frame(width: !showFromParent ? 20 : 40, height: 15)
                         .padding(.leading, 8)
                         .padding(.trailing, 5)
-                        .background(Color.blue)
                 }
             } else {
                 Text(country.flag)
@@ -253,12 +250,10 @@ struct CountryHeadlineCardView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(showFromParent ? Color.lightBlue : Color.white)
                     .keyboardType(.decimalPad)
-//                    .background(Color.purple)//test
             } else {
                 Text(String(100))
                     .font(showFromParent ? Font.title : Font.headline)
                     .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.1)
-//                    .background(Color.orange)//test
             }
             if showFromParent {
                 Text(country.unit)
@@ -266,7 +261,6 @@ struct CountryHeadlineCardView: View {
                     .font(showFromParent ? Font.title : Font.subheadline)
             }
         }.foregroundColor(.white)
-//            .frame(width: showFromParent ? screenWidth * 0.8 : screenWidth * 0.40, alignment: .leading)
             .padding(.top, showFromParent ? 5 : 0)
             .padding(.bottom, showFromParent ? 5 : 0)
             .layoutPriority(100)
