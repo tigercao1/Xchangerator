@@ -62,10 +62,10 @@ struct SettingsMain: View {
                                 .font(.subheadline)
                         }
                         .padding(.vertical, 12)
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 20)
                         .foregroundColor(.white)
                         .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(0x448AFF)), Color(UIColor(0x4A75EA))]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .cornerRadius(20)
+                        .cornerRadius(30)
                     }
                 }.padding(.bottom, 30)
             }.navigationBarTitle("Settings")
