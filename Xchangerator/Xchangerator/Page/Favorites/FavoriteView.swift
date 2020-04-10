@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import SwiftUI
 
-// Bindable Obj https://stackoverflow.com/questions/56496359/swiftui-view-viewdidload
+// Bindable Obj  is Observable Obj https://stackoverflow.com/questions/56496359/swiftui-view-viewdidload
 struct FavoriteView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
 
