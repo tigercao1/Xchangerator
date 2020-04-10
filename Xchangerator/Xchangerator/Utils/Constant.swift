@@ -43,4 +43,9 @@ enum Constant {
     · Exchange rates update for every one hour
     · Or click the star to remove.
     """
+
+    // Color
+    static let cardActive = 0x448AFF
+    static let cardDisabled = 0x607D8B
+    static let cardHighlight = 0x64FFFD
 }

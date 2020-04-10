@@ -105,7 +105,7 @@ struct EditableCardView: View {
                              }) {
                         Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill" : "greaterthan.circle.fill")
 
-                            .foregroundColor(.lightBlue).layoutPriority(200)
+                            .foregroundColor(Color(UIColor(Constant.cardHighlight))).layoutPriority(200)
                     }.imageScale(.large).padding(.bottom, 5)
 
                     CountryHeadlineCardView(
@@ -159,7 +159,7 @@ struct EditableCardView: View {
                         self.toggleDisabled(!self.disabled)
                     }) {
                         HStack {
-                            Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color.lightBlue)
+                            Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color(UIColor(Constant.cardHighlight)))
                                 .font(Font.title.weight(.semibold))
                                 .imageScale(.small)
                             Text(disabled ? "Disabled" : "Active")
@@ -196,11 +196,11 @@ struct EditableCardView: View {
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")
-                            .foregroundColor(Color.lightBlue)
+                            .foregroundColor(Color(UIColor(Constant.cardHighlight)))
                             .font(Font.title.weight(.semibold))
                             .imageScale(.small)
                         Text(show ? "Done" : "Edit")
-                            .foregroundColor(Color.lightBlue)
+                            .foregroundColor(Color(UIColor(Constant.cardHighlight)))
                             .fontWeight(.bold)
                             .font(show ? Font.title : Font.headline)
                             .cornerRadius(5)
@@ -217,7 +217,7 @@ struct EditableCardView: View {
         }
 
         .frame(width: screenWidth * 0.9, height: show ? screenWidth * 0.78 : 90)
-        .background(disabled ? Color(UIColor(0x607D8B, 0.80)) : Color(UIColor(0x448AFF, 0.9)))
+        .background(disabled ? Color(UIColor(Constant.cardDisabled, 0.80)) : Color(UIColor(Constant.cardActive, 0.9)))
         .cornerRadius(20)
     }
 }
@@ -253,7 +253,7 @@ struct CountryHeadlineCardView: View {
                     .font(showFromParent ? Font.title : Font.headline)
                     .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.3)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(showFromParent ? Color.lightBlue : Color.white)
+                    .foregroundColor(showFromParent ? Color(UIColor(Constant.cardHighlight)) : Color.white)
                     .keyboardType(.decimalPad)
             } else {
                 Text(String(100))
@@ -270,30 +270,6 @@ struct CountryHeadlineCardView: View {
             .padding(.top, showFromParent ? 5 : 0)
             .padding(.bottom, showFromParent ? 5 : 0)
             .layoutPriority(100)
-    }
-}
-
-extension Color {
-    static let lightBlue = Color(hue: 0.498, saturation: 0.609, brightness: 1.0)
-}
-
-extension UIColor {
-    convenience init(_ red: Int, _ green: Int, _ blue: Int, _ a: CGFloat = 1.0) {
-        self.init(
-            red: CGFloat(red) / 255.0,
-            green: CGFloat(green) / 255.0,
-            blue: CGFloat(blue) / 255.0,
-            alpha: a
-        )
-    }
-
-    convenience init(_ rgb: Int, _ a: CGFloat = 1.0) {
-        self.init(
-            (rgb >> 16) & 0xFF,
-            (rgb >> 8) & 0xFF,
-            rgb & 0xFF,
-            a
-        )
     }
 }
 

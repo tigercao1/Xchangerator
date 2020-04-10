@@ -36,7 +36,7 @@ struct HistoryGraph: View {
     var color: Color {
         switch path {
         case \.month:
-            return Color.lightBlue
+            return Color(UIColor(Constant.cardHighlight))
         case \.week:
             return Color(hue: 0, saturation: 0.5, brightness: 0.7)
         case \.year:

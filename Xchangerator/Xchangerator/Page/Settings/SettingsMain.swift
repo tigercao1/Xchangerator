@@ -18,6 +18,7 @@ struct SettingItem: Identifiable {
 }
 
 struct SettingsMain: View {
+    @EnvironmentObject var stateStore: ReduxRootStateStore
     @Binding var selectionFromParent: Int
 
     var settingItems: [SettingItem] = [
@@ -25,7 +26,6 @@ struct SettingsMain: View {
 //    SettingItem(image: "envelope", text: "Notification"), //todo: recover it later
         SettingItem(image: "exclamationmark.circle", text: "About"),
     ]
-    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     private func signOut() {
         do {
@@ -48,26 +48,26 @@ struct SettingsMain: View {
                         Text(settingItem.text).font(.headline)
                         Spacer()
                     }
-                }
+                }.frame(height: 120)
 
                 Spacer()
                 Button(action: self.signOut) {
                     HStack {
                         Image(systemName: "escape")
-                            .font(.title).padding(.horizontal, 20)
+                            .font(.headline)
+                            .padding(.trailing, 5)
                         Text("Sign Out")
                             .fontWeight(.semibold)
-                            .font(.headline)
+                            .font(.subheadline)
                     }
-                    .frame(minWidth: 0, maxWidth: screenWidth * 0.6)
-                    .padding()
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 18)
                     .foregroundColor(.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing))
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(0x448AFF)), Color(UIColor(0x4A75EA))]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .cornerRadius(30)
                     .padding(.horizontal, CGFloat(20))
 
                 }.padding()
-                Spacer()
             }.navigationBarTitle("Settings")
         }
     }
@@ -90,6 +90,8 @@ struct SettingDetailView: View {
 
 struct SettingsMain_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(ReduxRootStateStore())
+        ForEach(["iPhone SE", "iPhone 8"], id: \.self) { deviceName in ContentView(selection: 3).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }
