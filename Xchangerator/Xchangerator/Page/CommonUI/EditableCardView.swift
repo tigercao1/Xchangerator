@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct EditableCardView: View {
+    @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var show = false
     @State var country1: Country
     @State var country2: Country
@@ -16,7 +17,6 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-    @EnvironmentObject var stateStore: ReduxRootStateStore
     @State var setSuccess: Bool = false
 
     private func toggleEdit() {
@@ -28,7 +28,6 @@ struct EditableCardView: View {
                 }
                 Logger.debug("#1 disabled: \(disabled)")
                 stateStore.alerts = newMyAlerts
-
             } else {
                 toggleDisabled(disabled)
             }
@@ -88,12 +87,10 @@ struct EditableCardView: View {
             if show {
                 VStack {
                     Text("Notify me when")
-                        .fontWeight(.bold)
-                        .padding(.top, 10)
-                        .lineLimit(.none)
+                        .fontWeight(.medium)
+                        .padding(.bottom, 10)
 
                     CountryHeadlineCardView(
-//                        currentAlert: $currentAlert,
                         country: $country1,
                         isEditable: false,
                         showFromParent: $show,
@@ -101,13 +98,15 @@ struct EditableCardView: View {
                         isCountry1: true,
                         index: self.index
                     )
+                    .frame(width: screenWidth * 0.8, alignment: .leading)
+
                     Button(action: {
                         self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
                              }) {
                         Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill" : "greaterthan.circle.fill")
 
                             .foregroundColor(.lightBlue).layoutPriority(200)
-                    }.animation(.spring())
+                    }.imageScale(.large).padding(.bottom, 5)
 
                     CountryHeadlineCardView(
                         country: $country2,
@@ -117,74 +116,83 @@ struct EditableCardView: View {
                         isCountry1: false,
                         index: self.index
                     )
+                    .frame(width: screenWidth * 0.8, alignment: .leading)
                 }
                 .foregroundColor(Color.white)
                 .animation(.easeInOut)
             } else {
-                ZStack {
-                    HStack {
-                        CountryHeadlineCardView(
-                            country: $country1,
-                            isEditable: false,
-                            showFromParent: $show,
-                            barNumFromParent: $numBar,
-                            isCountry1: true,
-                            index: self.index
-                        )
+                HStack {
+                    CountryHeadlineCardView(
+                        country: $country1,
+                        isEditable: false,
+                        showFromParent: $show,
+                        barNumFromParent: $numBar,
+                        isCountry1: true,
+                        index: self.index
+                    )
+                    .frame(width: screenWidth * 0.3, alignment: .center)
 
-                        CountryHeadlineCardView(
-                            country: $country2,
-                            isEditable: true,
-                            showFromParent: $show,
-                            barNumFromParent: $numBar,
-                            isCountry1: false,
-                            index: self.index
-                        )
-                    }
                     Image(systemName: conditionOperator == "LT" ? "lessthan" : "greaterthan")
                         .foregroundColor(Color.white)
                         .frame(width: 15, height: 15)
-                        .padding()
-                        .layoutPriority(500)
-                }.animation(.easeInOut)
+                        .imageScale(.small)
+
+                    CountryHeadlineCardView(
+                        country: $country2,
+                        isEditable: true,
+                        showFromParent: $show,
+                        barNumFromParent: $numBar,
+                        isCountry1: false,
+                        index: self.index
+                    )
+                    .frame(width: screenWidth * 0.45, alignment: .center)
+//                    .background(Color.green)//test
+                }
+                .padding(.top, 10.0)
             }
 
+            // Disabled and Edit buttons
             HStack {
-                Spacer()
-                Button(action: {
-                    self.toggleDisabled(!self.disabled)
-                }) {
-                    HStack {
-                        Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color.lightBlue)
-                            .font(Font.title.weight(.semibold))
-                            .imageScale(.small)
-                        Text(disabled ? "Disabled" : "Active")
-                            .foregroundColor(disabled ? Color.white : Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
-                            .fontWeight(.bold)
-                            .font(show ? Font.title : Font.headline)
+                if !show {
+                    Spacer()
+
+                    // Disabled button
+                    Button(action: {
+                        self.toggleDisabled(!self.disabled)
+                    }) {
+                        HStack {
+                            Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color.lightBlue)
+                                .font(Font.title.weight(.semibold))
+                                .imageScale(.small)
+                            Text(disabled ? "Disabled" : "Active")
+                                .foregroundColor(disabled ? Color.white : Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
+                                .fontWeight(.bold)
+                                .font(show ? Font.title : Font.headline)
+                        }
+                    }
+                    .alert(isPresented: self.$setSuccess) {
+                        let thisAlert = self.stateStore.alerts.getModel()[self.index]
+                        return thisAlert.disabled == true ?
+                            Alert(title: Text("Notification Disabled"),
+                                  message: Text("You can activate it later."),
+                                  dismissButton: .default(Text("OK")))
+                            :
+                            Alert(title: Text("Notification Updated"),
+                                  message: Text("""
+                                  Xchangerate will notify you when:
+                                      \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
+                                      \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
+                                      \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
+                                  """),
+                                  dismissButton: .default(Text("OK")))
                     }
                 }
-                .alert(isPresented: self.$setSuccess) {
-                    let thisAlert = self.stateStore.alerts.getModel()[self.index]
-                    return thisAlert.disabled == true ?
-                        Alert(title: Text("Notification Disabled"),
-                              message: Text("You can activate it later."),
-                              dismissButton: .default(Text("OK")))
-                        :
-                        Alert(title: Text("Notification Updated"),
-                              message: Text("""
-                              Xchangerate will notify you when:
-                                  \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
-                                  \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
-                                  \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
-                              """),
-                              dismissButton: .default(Text("OK")))
-                }
-                .padding(.bottom, show ? 20 : 15)
 
                 Spacer()
+
+                // Edit button
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 1)) {
+                    withAnimation(.spring()) {
                         self.toggleEdit()
                     }
                 }) {
@@ -200,24 +208,12 @@ struct EditableCardView: View {
                             .cornerRadius(5)
                     }
                 }
-                .alert(isPresented: self.$setSuccess) {
-                    let thisAlert = self.stateStore.alerts.getModel()[self.index]
-                    return
-                        Alert(title: Text("Notification Updated"),
-                              message: Text("""
-                              Xchangerate will notify you when:
-                                  \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
-                                  \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
-                                  \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
-                              """),
-                              dismissButton: .default(Text("OK")))
-                }
-                .padding(.bottom, show ? 20 : 15)
                 Spacer()
             }
+            .padding(.bottom, 10.0)
         }
 
-        .frame(width: screenWidth * 0.9, height: show ? 300 : 100)
+        .frame(width: screenWidth * 0.9, height: show ? screenWidth * 0.78 : 90)
         .background(disabled ? Color(UIColor(0x607D8B, 0.75)) : Color(UIColor(0x448AFF, 0.9)))
         .cornerRadius(20)
     }
@@ -231,7 +227,6 @@ struct CountryHeadlineCardView: View {
     @Binding var barNumFromParent: String
     var isCountry1: Bool
     var index: Int
-    // var formattedNumBar: String {return String(format:"%.2f",barNumFromParent)}
 
     var body: some View {
         HStack {
@@ -239,37 +234,39 @@ struct CountryHeadlineCardView: View {
                 NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent)) {
                     Text(country.flag)
                         .font(showFromParent ? Font.largeTitle : Font.subheadline)
-                        .multilineTextAlignment(.center)
                         .frame(width: !showFromParent ? 20 : 40, height: 15)
-                        .padding()
+                        .padding(.leading, 8)
+                        .padding(.trailing, 5)
+                        .background(Color.blue)
                 }
-
             } else {
                 Text(country.flag)
-                    .font(showFromParent ? Font.largeTitle : Font.subheadline)
-                    .multilineTextAlignment(.center)
-                    .frame(width: !showFromParent ? 20 : 40, height: 15)
-                    .padding()
+                    .font(Font.title)
+                    .frame(width: 24.0, height: 15)
             }
 
             if isEditable {
                 TextField("Amount", text: $barNumFromParent)
                     .disabled(!showFromParent)
                     .font(showFromParent ? Font.title : Font.headline)
-                    .frame(width: showFromParent ? screenWidth * 0.3 : 60)
+                    .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.3)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(showFromParent ? Color.lightBlue : Color.white)
                     .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.leading)
+//                    .background(Color.purple)//test
             } else {
                 Text(String(100))
                     .font(showFromParent ? Font.title : Font.headline)
-                    .frame(width: showFromParent ? screenWidth * 0.3 : 30)
+                    .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.1)
+//                    .background(Color.orange)//test
             }
-            Text(country.unit)
-                .fontWeight(.bold)
-                .font(showFromParent ? Font.title : Font.subheadline)
+            if showFromParent {
+                Text(country.unit)
+                    .fontWeight(.medium)
+                    .font(showFromParent ? Font.title : Font.subheadline)
+            }
         }.foregroundColor(.white)
-            .frame(width: showFromParent ? screenWidth * 0.8 : screenWidth * 0.40, alignment: .leading)
+//            .frame(width: showFromParent ? screenWidth * 0.8 : screenWidth * 0.40, alignment: .leading)
             .padding(.top, showFromParent ? 5 : 0)
             .padding(.bottom, showFromParent ? 5 : 0)
             .layoutPriority(100)
@@ -303,7 +300,7 @@ extension UIColor {
 #if DEBUG
     struct EditableCardView_Previews: PreviewProvider {
         static var previews: some View {
-            ForEach(["iPhone SE", "iPhone 11 Pro Max"], id: \.self) { deviceName in ContentView(selection: 2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            ForEach(["iPhone SE", "iPhone 8"], id: \.self) { deviceName in ContentView(selection: 2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
             }
         }
