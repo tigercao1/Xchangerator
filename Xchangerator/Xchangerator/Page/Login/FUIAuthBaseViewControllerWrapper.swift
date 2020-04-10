@@ -27,7 +27,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
 
         // You need to adopt a FUIAuthDelegate protocol to receive callback
         let providers: [FUIAuthProvider] = [
-            FUIEmailAuth(), // TODO: freeze or disable email input, after login successfully
+//            FUIEmailAuth(), // TODO: freeze or disable email input, after login successfully
             FUIGoogleAuth(),
             FUIOAuth.appleAuthProvider(),
         ]

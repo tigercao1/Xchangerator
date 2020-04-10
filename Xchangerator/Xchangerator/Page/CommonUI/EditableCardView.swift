@@ -26,7 +26,7 @@ struct EditableCardView: View {
                     Logger.error("number convert err")
                     return
                 }
-                Logger.info("#1 disabled: \(disabled)")
+                Logger.debug("#1 disabled: \(disabled)")
                 stateStore.alerts = newMyAlerts
 
             } else {
@@ -52,8 +52,8 @@ struct EditableCardView: View {
             Logger.error("number convert err")
             return
         }
-        Logger.info("#1 disabled: \(disabled)")
-        Logger.info("#2 new disabled: \(newDisabled)")
+//        Logger.debug("#1 disabled: \(disabled)")
+//        Logger.debug("#2 new disabled: \(newDisabled)")
 
         DatabaseManager.shared.updateUserAlert(index: index, myAlerts: newMyAlerts) { result in
             switch result {
@@ -62,26 +62,19 @@ struct EditableCardView: View {
                     Logger.error("alertsCopy build failed")
                     return
                 }
-                Logger.debug("🍎 alertsCopy will set")
+//                Logger.debug("🍎 alertsCopy will set")
                 self.stateStore.alerts = alertsCopy // copy()as! MyAlerts
-                Logger.info("#3 self.disabled after res: \(self.disabled)")
-                Logger.info("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
+//                Logger.debug("#3 self.disabled after res: \(self.disabled)")
+//                Logger.debug("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
                 self.setLocalState(alertsCopy.getModel()[self.index], index: self.index)
                 self.setSuccess = true
-                Logger.info("#5 self.disabled afterSetLocal: \(self.disabled)")
+//                Logger.debug("#5 self.disabled afterSetLocal: \(self.disabled)")
             case let .failure(error):
                 Logger.error(error)
             }
         }
     }
 
-//    private func convert(_ targetCurrencyUnit: String) -> String {
-//        let amount = 1.0
-//        let converter = Converter(stateStore.countries)
-//        let convertedAmount = converter.convert(targetCurrencyUnit, amount)
-//        return String(format:"%.2f",convertedAmount)
-//    }
-//
     private func setLocalState(_ myAlert: MyAlert, index: Int) {
         numBar = myAlert.numBar
         country1 = myAlert.baseCurrency
@@ -94,13 +87,9 @@ struct EditableCardView: View {
         VStack {
             if show {
                 VStack {
-                    Text("Notify Me When: ")
+                    Text("Notify me when")
                         .fontWeight(.bold)
-                        .padding(.top, 3)
-                        .font(Font.title)
-                        .multilineTextAlignment(.center)
-                        .animation(.spring())
-                        .cornerRadius(0)
+                        .padding(.top, 10)
                         .lineLimit(.none)
 
                     CountryHeadlineCardView(
@@ -173,7 +162,6 @@ struct EditableCardView: View {
                             .foregroundColor(disabled ? Color.white : Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
                             .fontWeight(.bold)
                             .font(show ? Font.title : Font.headline)
-                            .cornerRadius(5)
                     }
                 }
                 .alert(isPresented: self.$setSuccess) {
@@ -196,7 +184,9 @@ struct EditableCardView: View {
 
                 Spacer()
                 Button(action: {
-                    self.toggleEdit()
+                    withAnimation(.easeInOut(duration: 1)) {
+                        self.toggleEdit()
+                    }
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")
@@ -226,12 +216,10 @@ struct EditableCardView: View {
                 Spacer()
             }
         }
-        .padding()
-        .padding(.top, 15)
-        .frame(width: show ? screenWidth * 0.85 : screenWidth * 0.88, height: show ? 350 : 100)
-        .background(disabled ? Color.gray : Color.blue)
-        .cornerRadius(25)
-        .animation(.spring())
+
+        .frame(width: screenWidth * 0.9, height: show ? 300 : 100)
+        .background(disabled ? Color(UIColor(0x607D8B, 0.75)) : Color(UIColor(0x448AFF, 0.9)))
+        .cornerRadius(20)
     }
 }
 
@@ -290,6 +278,26 @@ struct CountryHeadlineCardView: View {
 
 extension Color {
     static let lightBlue = Color(hue: 0.498, saturation: 0.609, brightness: 1.0)
+}
+
+extension UIColor {
+    convenience init(_ red: Int, _ green: Int, _ blue: Int, _ a: CGFloat = 1.0) {
+        self.init(
+            red: CGFloat(red) / 255.0,
+            green: CGFloat(green) / 255.0,
+            blue: CGFloat(blue) / 255.0,
+            alpha: a
+        )
+    }
+
+    convenience init(_ rgb: Int, _ a: CGFloat = 1.0) {
+        self.init(
+            (rgb >> 16) & 0xFF,
+            (rgb >> 8) & 0xFF,
+            rgb & 0xFF,
+            a
+        )
+    }
 }
 
 #if DEBUG
