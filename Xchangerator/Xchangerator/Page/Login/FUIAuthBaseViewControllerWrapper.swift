@@ -93,8 +93,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 let userProfile = User_Profile(email: user.email ?? "New_\(user.uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: [], name: user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile: userProfile)
 
-                // TODO: refetch state store settings from DB
                 parent.stateStore.setDoc(userDoc: userDoc)
+                parent.stateStore.syncFetchCountries()
             }
             // parent.dismiss(authDataResult, error)
 //            authUI.authViewController().dismiss(animated: false, completion:nil)

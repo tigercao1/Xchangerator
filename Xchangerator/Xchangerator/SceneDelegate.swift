@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
 
             // fetch exchange rates
-            stateStore.setCountries(countries: syncApiCall())
+            stateStore.syncFetchCountries()
 
             window.rootViewController = UIHostingController(rootView: LoginView().environmentObject(stateStore))
             self.window = window

@@ -103,15 +103,14 @@ class DatabaseManager {
     }
 
     func registerUser(fcmToken firebaseMsgDeviceToken: String?, fbAuthRet authDataResult: AuthDataResult, alerts: MyAlerts, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
-        // Result<Countries?, NetworkError>
         // [START add_ada_lovelace]
         /*
-                    anonymous:BOOL
-                    emailVerified:BOOL
-                    refreshToken:NSString
-                    providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
-                    FIRUserMetadata:metadata
-         r  */
+         anonymous:BOOL
+         emailVerified:BOOL
+         refreshToken:NSString
+         providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
+         FIRUserMetadata:metadata
+         */
         let user = authDataResult.user
         // The user's ID, unique to the Firebase project.
         // Do NOT use this value to authenticate with your backend server,
