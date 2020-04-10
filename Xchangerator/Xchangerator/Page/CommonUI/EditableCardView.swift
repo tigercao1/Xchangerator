@@ -17,16 +17,17 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-    @State var setSuccess: Bool = false
+    @State var isSuccessResponse: Bool = false
+    @State var invalidAttempt: Bool = false
 
     private func toggleEdit() {
         if show {
+            guard let newMyAlerts = makeLocalAlertModel(disabled) else {
+                invalidAttempt.toggle()
+                Logger.error("makeLocalAlertModel err")
+                return
+            }
             if disabled {
-                guard let newMyAlerts = makeLocalAlertModel(disabled) else {
-                    Logger.error("number convert err")
-                    return
-                }
-                Logger.debug("#1 disabled: \(disabled)")
                 stateStore.alerts = newMyAlerts
             } else {
                 toggleDisabled(disabled)
@@ -47,7 +48,7 @@ struct EditableCardView: View {
 
     private func toggleDisabled(_ newDisabled: Bool) {
         guard let newMyAlerts = makeLocalAlertModel(newDisabled) else {
-            Logger.error("number convert err")
+            Logger.error("makeLocalAlertModel err")
             return
         }
 //        Logger.debug("#1 disabled: \(disabled)")
@@ -65,7 +66,7 @@ struct EditableCardView: View {
 //                Logger.debug("#3 self.disabled after res: \(self.disabled)")
 //                Logger.debug("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
                 self.setLocalState(alertsCopy.getModel()[self.index], index: self.index)
-                self.setSuccess = true
+                self.isSuccessResponse = true
 //                Logger.debug("#5 self.disabled afterSetLocal: \(self.disabled)")
             case let .failure(error):
                 Logger.error(error)
@@ -118,7 +119,6 @@ struct EditableCardView: View {
                     .frame(width: screenWidth * 0.8, alignment: .leading)
                 }
                 .foregroundColor(Color.white)
-                .animation(.easeInOut)
             } else {
                 HStack {
                     CountryHeadlineCardView(
@@ -168,7 +168,7 @@ struct EditableCardView: View {
                                 .font(show ? Font.title : Font.headline)
                         }
                     }
-                    .alert(isPresented: self.$setSuccess) {
+                    .alert(isPresented: self.$isSuccessResponse) {
                         let thisAlert = self.stateStore.alerts.getModel()[self.index]
                         return thisAlert.disabled == true ?
                             Alert(title: Text("Notification Disabled"),
@@ -205,6 +205,11 @@ struct EditableCardView: View {
                             .font(show ? Font.title : Font.headline)
                             .cornerRadius(5)
                     }
+                }
+                .alert(isPresented: self.$invalidAttempt) {
+                    Alert(title: Text("Invalid number format"),
+                          message: Text("Please try again."),
+                          dismissButton: .default(Text("OK")))
                 }
                 Spacer()
             }
@@ -255,6 +260,7 @@ struct CountryHeadlineCardView: View {
                     .font(showFromParent ? Font.title : Font.headline)
                     .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.1)
             }
+
             if showFromParent {
                 Text(country.unit)
                     .fontWeight(.medium)
