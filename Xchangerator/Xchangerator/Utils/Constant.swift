@@ -51,6 +51,6 @@ enum ConstantDevices {
     static let iPhoneSE = "iPhone SE"
     static let iPadPro = "iPad Pro (12.9-inch) (4th generation)"
     static let iPad = "iPad (7th generation)"
-    static let AllDevices = [iPhoneSE, iPhone11ProMax, iPadPro,iPad]
+    static let AllDevices = [iPhoneSE, iPhone11ProMax, iPadPro, iPad]
     static let AlliPhones = [iPhoneSE, iPhone11ProMax]
 }

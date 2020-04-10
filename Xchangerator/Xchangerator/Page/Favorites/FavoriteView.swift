@@ -6,11 +6,11 @@
 //  Copyright © 2020 YYES. All rights reserved.
 //
 
-import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import SwiftUI
 
+// Bindable Obj https://stackoverflow.com/questions/56496359/swiftui-view-viewdidload
 struct FavoriteView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
 
@@ -35,7 +35,6 @@ struct FavoriteView: View {
                                 Image(systemName: "star.fill").foregroundColor(Color.yellow)
                                     .transition(.slide)
                                     .imageScale(.large)
-                                    //                            .rotationEffect(.degrees(90))
                                     .scaleEffect(1.5)
                             }
                             .padding()

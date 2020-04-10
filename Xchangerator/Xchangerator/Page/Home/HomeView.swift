@@ -13,10 +13,28 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var baseCurrencyAmt: String = "100"
-    @State private var targetCountry: Country = Country()
+    @State private var targetCountry: Country = Country() {
+        didSet {
+            curIsFavourite = isFavorite(targetCountry: targetCountry)
+        }
+    }
+
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var modalPresented: Bool = false
-    @State private var favourite: Bool = false
+    @State private var curIsFavourite: Bool = false {
+        willSet(newFavorite) {
+            if newFavorite != isFavorite(targetCountry: targetCountry) {
+                if newFavorite {
+                    Logger.info("NewFavor \(newFavorite)")
+                    addToFavorite(targetCountry)
+                } else {
+                    Logger.info("NewFavor \(newFavorite)")
+                    deleteFromFavorite(targetCountry)
+                }
+            }
+        }
+    }
+
     @State private var showLinkTarget = false
     @State private var chartClicked = false
     @State private var setAlertClicked = false
@@ -36,21 +54,18 @@ struct HomeView: View {
         return name == stateStore.countries.baseCountry.name
     }
 
-//    private func setBaseCurrency(_ newBase: Country) {
-//        self.stateStore.countries.baseCountry = newBase
-//    }
-
-//    private func switchBase(_ newBase: Country) {
-//        self.favourite = false
-//        self.stateStore.setBaseCountry(newBase)
-//        Logger.debug(self.stateStore.countries.baseCountry)
-//    }
+    private func setBaseCurrency(_ newBase: Country) {
+        // need deep copy
+        let myNewCountires = stateStore.countries.copy() as! Countries
+        myNewCountires.setBaseCountry(newBase)
+        stateStore.countries = myNewCountires
+    }
 
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
 
-    private func isFavorite() -> Bool {
+    private func isFavorite(targetCountry: Country) -> Bool {
         let currentConversion = FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry)
         do {
             _ = try stateStore.favoriteConversions.find(currentConversion)
@@ -60,25 +75,23 @@ struct HomeView: View {
         }
     }
 
-    private func addToFavorite() -> String {
+    private func addToFavorite(_ countryToAdd: Country) {
         let converter = Converter(stateStore.countries)
-        if !isFavorite() {
+        if !isFavorite(targetCountry: countryToAdd) {
             let newConv = stateStore.favoriteConversions.copy() as! FavoriteConversions
             newConv.add(FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
             stateStore.favoriteConversions = newConv
         }
-        return ""
     }
 
-    private func deleteFromFavorite() -> String {
-        if isFavorite() {
+    private func deleteFromFavorite(_ countryToDel: Country) {
+        if isFavorite(targetCountry: countryToDel) {
             do {
                 try stateStore.favoriteConversions.delete(FavoriteConversion(baseCurrency: stateStore.countries.baseCountry, targetCurrency: targetCountry))
             } catch {
                 Logger.error(error)
             }
         }
-        return ""
     }
 
     private func isInAlerts() -> Bool {
@@ -92,45 +105,21 @@ struct HomeView: View {
         }
     }
 
-//    private func addToAlerts() -> String {
-//        let converter = Converter(stateStore.countries)
-//        if (!isInAlerts()) {
-//            stateStore.alerts.addToFirst(MyAlert(baseCurrency: baseCountry, targetCurrency: targetCountry, conditionOperator: conditionOperator, rate: converter.getRate(targetCountry.unit, Double(baseCurrencyAmt) ?? 0)))
-//        }
-//        Logger.debug(stateStore.alerts.getModel())
-//        return ""
-//    }
-
     private func changeFirstDisabledAlert() {
-//        stateStore.alerts.test()
         let converter = Converter(stateStore.countries)
-
+        let myNewAlert = MyAlert(baseCurrency: stateStore.countries.baseCountry,
+                                 targetCurrency: targetCountry,
+                                 conditionOperator: conditionOperator,
+                                 rate: converter.getRate(targetCountry.unit,
+                                                         Double(baseCurrencyAmt) ?? 0))
+        // 0 to count-1 (included)
         for index in 0 ... stateStore.alerts.getModel().count - 1 {
             if stateStore.alerts.getModel()[index].disabled {
-                stateStore.alerts.changeAlert(index,
-                                              MyAlert(baseCurrency: stateStore.countries.baseCountry,
-                                                      targetCurrency: targetCountry,
-                                                      conditionOperator: conditionOperator,
-                                                      rate: converter.getRate(targetCountry.unit,
-                                                                              Double(baseCurrencyAmt) ?? 0)))
+                stateStore.alerts.changeAlert(index, myNewAlert)
                 break
             }
         }
     }
-
-//    private func checkIfMoreThanTwoActiveAlerts() -> Bool {
-//        var count = 0
-//
-//        for i in 0...stateStore.alerts.getModel().count-1 {
-//            if (!stateStore.alerts.getModel()[i].disabled){
-//                count += 1
-//            }
-//        }
-//        if (count >= 2){
-//            self.moreThanTwoActiveAlerts = true
-//        }
-//        return self.moreThanTwoActiveAlerts
-//    }
 
     var body: some View {
         NavigationView {
@@ -186,20 +175,24 @@ struct HomeView: View {
                                 Text(country.name)
                                     .font(.system(size: 15))
                                     .foregroundColor(.gray)
-                                    .frame(maxWidth: screenWidth * 0.6, alignment: .leading)
+                                    .frame(width: screenWidth * 0.6, alignment: .leading)
                                     .padding([.bottom, .top], 5)
                                     .fixedSize()
+//                                Image(systemName: "suit.heart.fill")
+//                                    .foregroundColor(Color.yellow)
+//                                    .frame(width: 20, alignment: .trailing)
+
                             }.frame(alignment: .leading)
                         }.padding(.leading, screenWidth * 0.06)
                             .contentShape(Rectangle())
                             .gesture(
                                 TapGesture()
                                     .onEnded { _ in
-                                        self.stateStore.countries.setBaseCountry(country)
-                                        self.stateStore.countries = self.stateStore.countries.copy() as! Countries
+                                        self.setBaseCurrency(country)
                                     }
                             )
                         // }
+
                         Divider()
                         Image(systemName: "ellipsis")
                             .aspectRatio(contentMode: .fill)
@@ -208,7 +201,6 @@ struct HomeView: View {
                                 TapGesture()
                                     .onEnded { _ in
                                         self.targetCountry = country
-                                        self.favourite = self.isFavorite()
                                         self.modalPresented = true
                                     }
                             )
@@ -219,25 +211,17 @@ struct HomeView: View {
 
         }.onTapGesture {
             self.endEditing()
-
         }.partialSheet(
             presented: $modalPresented
         ) {
             // Package: https://github.com/AndreaMiotto/PartialSheet
             ZStack {
                 Color.partialSheetBg
-//                    .cornerRadius(30)
-//                    .padding(.horizontal, 5)
 
                 VStack {
                     Group {
                         Divider().padding(20)
-                        Toggle(isOn: self.$favourite) {
-                            if self.favourite {
-                                Text("\(self.addToFavorite())")
-                            } else {
-                                Text("\(self.deleteFromFavorite())")
-                            }
+                        Toggle(isOn: self.$curIsFavourite) {
                             HStack {
                                 Image(systemName: "heart")
                                     .font(.title)
@@ -248,6 +232,7 @@ struct HomeView: View {
                         }.padding(.top, 30)
                             .padding(.horizontal, 30)
                         HStack {
+                            // TODO: implement chart. don't remove
 //                            Button(action: {
 //                                          do {
 //                                            self.chartClicked.toggle()
