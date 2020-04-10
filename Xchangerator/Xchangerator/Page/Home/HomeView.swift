@@ -178,9 +178,9 @@ struct HomeView: View {
                                     .frame(width: screenWidth * 0.6, alignment: .leading)
                                     .padding([.bottom, .top], 5)
                                     .fixedSize()
-//                                Image(systemName: "suit.heart.fill")
-//                                    .foregroundColor(Color.yellow)
-//                                    .frame(width: 20, alignment: .trailing)
+                                Image(systemName: "suit.heart.fill")
+                                    .foregroundColor(Color.yellow)
+                                    .frame(width: 20, alignment: .trailing)
 
                             }.frame(alignment: .leading)
                         }.padding(.leading, screenWidth * 0.06)
