@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct AboutView: View {
-//    let links = ["LinkedIn", "Twitter"]
-
     var body: some View {
         VStack {
             CardView(image: "cover", category: Constant.xDesc, heading: "Xchangerator", author: "Exchange rate reminder - version 1.0(3)")
@@ -23,14 +21,6 @@ struct AboutView: View {
                     UIApplication.shared.open(url)
                          }) {
                     Text("LinkedIn").font(.headline)
-
-                }.padding()
-                Spacer(minLength: screenWidth * 0.1)
-                Button(action: {
-                    let url = URL(string: Constant.xTwitter)!
-                    UIApplication.shared.open(url)
-                       }) {
-                    Text("Twitter").font(.headline)
 
                 }.padding()
                 Spacer(minLength: screenWidth * 0.1)

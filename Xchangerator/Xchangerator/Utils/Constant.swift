@@ -29,7 +29,6 @@ enum Constant {
 
     // Website link
     static let xLinkedIn = "https://www.linkedin.com/company/xchangerator/"
-    static let xTwitter = "https://twitter.com/xchangerator"
 
     // description
     static let xDesc = """
