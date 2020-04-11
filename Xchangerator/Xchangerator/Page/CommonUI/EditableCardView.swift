@@ -276,7 +276,7 @@ struct CountryHeadlineCardView: View {
 #if DEBUG
     struct EditableCardView_Previews: PreviewProvider {
         static var previews: some View {
-            ForEach(["iPhone SE", "iPhone 8"], id: \.self) { deviceName in ContentView(selection: 2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            ForEach(ConstantDevices.AlliPhones, id: \.self) { deviceName in ContentView(selection: 2).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
             }
         }
