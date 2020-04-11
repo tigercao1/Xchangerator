@@ -710,7 +710,7 @@
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
@@ -736,7 +736,7 @@
 				CODE_SIGN_ENTITLEMENTS = Xchangerator/Xchangerator.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Xchangerator/Preview Content\"";
 				DEVELOPMENT_TEAM = DZ729KZRG3;
 				ENABLE_PREVIEWS = YES;
