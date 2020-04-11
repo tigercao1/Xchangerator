@@ -10,9 +10,9 @@ import Foundation
 import SwiftUI
 struct CardView: View {
     var image: String
-    var category: String
-    var heading: String
-    var author: String
+    var description: String
+    var title: String
+    var version: String
 
     var body: some View {
         VStack {
@@ -21,24 +21,24 @@ struct CardView: View {
                 .aspectRatio(contentMode: .fit)
 
             HStack {
-                VStack(alignment: .leading) {
-                    Text(category)
+                VStack {
+                    Text(description)
                         .font(.headline)
+                        .fontWeight(.regular)
                         .foregroundColor(.secondary)
-                        .frame(height: screenHeight * 0.2)
-                    Text(heading)
+                        .frame(height: screenWidth * 0.35).padding(.bottom, 20)
+
+                    Text(title)
                         .font(.title)
                         .fontWeight(.black)
                         .foregroundColor(.primary)
                         .lineLimit(3)
-                    Text(author.uppercased())
+                    Text(version.uppercased())
                         .font(.caption)
                         .foregroundColor(.secondary)
-                }.layoutPriority(100)
-
-                Spacer()
+                }
             }
-            .padding()
+            .padding(8)
         }
         .cornerRadius(10)
         .overlay(
@@ -46,5 +46,12 @@ struct CardView: View {
                 .stroke(Color(.sRGB, red: 150 / 255, green: 150 / 255, blue: 150 / 255, opacity: 0.1), lineWidth: 1)
         )
         .padding([.top, .horizontal])
+    }
+}
+
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        ForEach([ConstantDevices.iPhoneSE, ConstantDevices.iPhone8], id: \.self) { deviceName in CardView(image: "cover", description: Constant.xDesc, title: "Xchangerator", version: "Exchange rate reminder - version 1.0")
+        }
     }
 }

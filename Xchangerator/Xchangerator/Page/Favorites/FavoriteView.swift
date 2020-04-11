@@ -25,7 +25,7 @@ struct FavoriteView: View {
             Group {
                 stateStore.favoriteConversions.getModel().count <= 0 ?
                     AnyView(
-                        CardView(image: "cover", category: Constant.xDescFav, heading: "No item available", author: "Xchangerator"))
+                        CardView(image: "cover", description: Constant.xDescFav, title: "No item available", version: "Xchangerator"))
                     :
                     AnyView(List(stateStore.favoriteConversions.getModel(), id: \.self) { country in
                         HStack {

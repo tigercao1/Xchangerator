@@ -11,7 +11,7 @@ import SwiftUI
 struct AboutView: View {
     var body: some View {
         VStack {
-            CardView(image: "cover", category: Constant.xDesc, heading: "Xchangerator", author: "Exchange rate reminder - version 1.0")
+            CardView(image: "cover", description: Constant.xDesc, title: "Xchangerator", version: "Exchange rate reminder - version 1.0")
             Spacer()
 
             HStack {
@@ -40,6 +40,8 @@ struct AboutView: View {
 
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {
-        AboutView()
+        ForEach([ConstantDevices.iPhoneSE, ConstantDevices.iPhone8], id: \.self) { deviceName in AboutView().environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }

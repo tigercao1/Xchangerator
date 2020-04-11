@@ -97,7 +97,7 @@ struct SettingDetailView: View {
 
 struct SettingsMain_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(["iPhone SE", "iPhone 8"], id: \.self) { deviceName in ContentView(selection: 3).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+        ForEach([ConstantDevices.iPhoneSE, ConstantDevices.iPhone8], id: \.self) { deviceName in ContentView(selection: 3).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
             .previewDisplayName(deviceName)
         }
     }
