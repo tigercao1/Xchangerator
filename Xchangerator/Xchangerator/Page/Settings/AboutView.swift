@@ -37,7 +37,7 @@ struct AboutView: View {
             }
             Spacer()
             HStack(alignment: .center) {
-                Text("Build by YYES. with")
+                Text("Built by YYES. with")
                     .fontWeight(.regular)
                     .foregroundColor(Color.blue)
                 Image(systemName: "heart.circle").foregroundColor(Color.blue)

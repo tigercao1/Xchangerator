@@ -34,14 +34,14 @@ struct LoginView: View {
                 FUIAuthBaseViewControllerWrapper()
                 VStack(alignment: .trailing, spacing: screenHeight * 0.2) {
                     HStack(alignment: .center) {
-                        Text("Build by YYES. with")
+                        Text("Built by YYES. with")
                             .fontWeight(.regular)
                             .foregroundColor(Color.blue)
                         Image(systemName: "heart.circle").foregroundColor(Color.blue)
-                    }.padding(20).frame(width: screenWidth, height: screenHeight * 0.85,
-                                        alignment: .bottom)
+                    }.padding(.top, 20).frame(width: screenWidth, height: screenHeight * 0.85,
+                                              alignment: .bottom)
                 }
-                .animation(/*@START_MENU_TOKEN@*/ .easeInOut/*@END_MENU_TOKEN@*/)
+                .animation(.easeInOut)
             }.offset(y: self.stateStore.curRoute == .auth ? self.mainViewState.height : self.bottomViewState.height).animation(.spring())
 
             // #2 home fav alerts setting

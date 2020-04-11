@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct EditableCardView: View {
+    @EnvironmentObject var stateStore: ReduxRootStateStore
     @State private var show = false
     @State var country1: Country
     @State var country2: Country
@@ -16,19 +17,18 @@ struct EditableCardView: View {
     @State var numBar: String
     @State var disabled: Bool
     @State var index: Int
-    @EnvironmentObject var stateStore: ReduxRootStateStore
-    @State var setSuccess: Bool = false
+    @State var isSuccessResponse: Bool = false
+    @State var invalidAttempt: Bool = false
 
     private func toggleEdit() {
         if show {
+            guard let newMyAlerts = makeLocalAlertModel(disabled) else {
+                invalidAttempt.toggle()
+                Logger.error("makeLocalAlertModel err")
+                return
+            }
             if disabled {
-                guard let newMyAlerts = makeLocalAlertModel(disabled) else {
-                    Logger.error("number convert err")
-                    return
-                }
-                Logger.info("#1 disabled: \(disabled)")
                 stateStore.alerts = newMyAlerts
-
             } else {
                 toggleDisabled(disabled)
             }
@@ -43,17 +43,16 @@ struct EditableCardView: View {
         }
         let newMyAlerts = stateStore.alerts.copy() as! MyAlerts
         newMyAlerts.setById(index, MyAlert(baseCurrency: country1, targetCurrency: country2, conditionOperator: conditionOperator, rate: dbValue / 100, disabled: newDisabled))
-        // rate in the stateStore is x string/100. in the DB the target is x string
         return newMyAlerts
     }
 
     private func toggleDisabled(_ newDisabled: Bool) {
         guard let newMyAlerts = makeLocalAlertModel(newDisabled) else {
-            Logger.error("number convert err")
+            Logger.error("makeLocalAlertModel err")
             return
         }
-        Logger.info("#1 disabled: \(disabled)")
-        Logger.info("#2 new disabled: \(newDisabled)")
+//        Logger.debug("#1 disabled: \(disabled)")
+//        Logger.debug("#2 new disabled: \(newDisabled)")
 
         DatabaseManager.shared.updateUserAlert(index: index, myAlerts: newMyAlerts) { result in
             switch result {
@@ -62,26 +61,19 @@ struct EditableCardView: View {
                     Logger.error("alertsCopy build failed")
                     return
                 }
-                Logger.debug("🍎 alertsCopy will set")
+//                Logger.debug("🍎 alertsCopy will set")
                 self.stateStore.alerts = alertsCopy // copy()as! MyAlerts
-                Logger.info("#3 self.disabled after res: \(self.disabled)")
-                Logger.info("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
+//                Logger.debug("#3 self.disabled after res: \(self.disabled)")
+//                Logger.debug("#4 myAlerts idx\(self.index): \(alertsCopy.getModel()[self.index])")
                 self.setLocalState(alertsCopy.getModel()[self.index], index: self.index)
-                self.setSuccess = true
-                Logger.info("#5 self.disabled afterSetLocal: \(self.disabled)")
+                self.isSuccessResponse = true
+//                Logger.debug("#5 self.disabled afterSetLocal: \(self.disabled)")
             case let .failure(error):
                 Logger.error(error)
             }
         }
     }
 
-//    private func convert(_ targetCurrencyUnit: String) -> String {
-//        let amount = 1.0
-//        let converter = Converter(stateStore.countries)
-//        let convertedAmount = converter.convert(targetCurrencyUnit, amount)
-//        return String(format:"%.2f",convertedAmount)
-//    }
-//
     private func setLocalState(_ myAlert: MyAlert, index: Int) {
         numBar = myAlert.numBar
         country1 = myAlert.baseCurrency
@@ -94,17 +86,11 @@ struct EditableCardView: View {
         VStack {
             if show {
                 VStack {
-                    Text("Notify Me When: ")
-                        .fontWeight(.bold)
-                        .padding(.top, 3)
-                        .font(Font.title)
-                        .multilineTextAlignment(.center)
-                        .animation(.spring())
-                        .cornerRadius(0)
-                        .lineLimit(.none)
+                    Text("Notify me when")
+                        .fontWeight(.medium)
+                        .padding(.bottom, 10)
 
                     CountryHeadlineCardView(
-//                        currentAlert: $currentAlert,
                         country: $country1,
                         isEditable: false,
                         showFromParent: $show,
@@ -112,13 +98,15 @@ struct EditableCardView: View {
                         isCountry1: true,
                         index: self.index
                     )
+                    .frame(width: screenWidth * 0.8, alignment: .leading)
+
                     Button(action: {
                         self.conditionOperator = self.conditionOperator == "LT" ? "GT" : "LT"
                              }) {
                         Image(systemName: conditionOperator == "LT" ? "lessthan.circle.fill" : "greaterthan.circle.fill")
 
                             .foregroundColor(.lightBlue).layoutPriority(200)
-                    }.animation(.spring())
+                    }.imageScale(.large).padding(.bottom, 5)
 
                     CountryHeadlineCardView(
                         country: $country2,
@@ -128,75 +116,83 @@ struct EditableCardView: View {
                         isCountry1: false,
                         index: self.index
                     )
+                    .frame(width: screenWidth * 0.8, alignment: .leading)
                 }
                 .foregroundColor(Color.white)
-                .animation(.easeInOut)
             } else {
-                ZStack {
-                    HStack {
-                        CountryHeadlineCardView(
-                            country: $country1,
-                            isEditable: false,
-                            showFromParent: $show,
-                            barNumFromParent: $numBar,
-                            isCountry1: true,
-                            index: self.index
-                        )
+                HStack {
+                    CountryHeadlineCardView(
+                        country: $country1,
+                        isEditable: false,
+                        showFromParent: $show,
+                        barNumFromParent: $numBar,
+                        isCountry1: true,
+                        index: self.index
+                    )
+                    .frame(width: screenWidth * 0.3, alignment: .center)
 
-                        CountryHeadlineCardView(
-                            country: $country2,
-                            isEditable: true,
-                            showFromParent: $show,
-                            barNumFromParent: $numBar,
-                            isCountry1: false,
-                            index: self.index
-                        )
-                    }
                     Image(systemName: conditionOperator == "LT" ? "lessthan" : "greaterthan")
                         .foregroundColor(Color.white)
                         .frame(width: 15, height: 15)
-                        .padding()
-                        .layoutPriority(500)
-                }.animation(.easeInOut)
+                        .imageScale(.small)
+
+                    CountryHeadlineCardView(
+                        country: $country2,
+                        isEditable: true,
+                        showFromParent: $show,
+                        barNumFromParent: $numBar,
+                        isCountry1: false,
+                        index: self.index
+                    )
+                    .frame(width: screenWidth * 0.45, alignment: .center)
+                }
+                .padding(.top, 10.0)
             }
 
+            // Disabled and Edit buttons
             HStack {
-                Spacer()
-                Button(action: {
-                    self.toggleDisabled(!self.disabled)
-                }) {
-                    HStack {
-                        Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color.lightBlue)
-                            .font(Font.title.weight(.semibold))
-                            .imageScale(.small)
-                        Text(disabled ? "Disabled" : "Active")
-                            .foregroundColor(disabled ? Color.white : Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
-                            .fontWeight(.bold)
-                            .font(show ? Font.title : Font.headline)
-                            .cornerRadius(5)
+                if !show {
+                    Spacer()
+
+                    // Disabled button
+                    Button(action: {
+                        self.toggleDisabled(!self.disabled)
+                    }) {
+                        HStack {
+                            Image(systemName: disabled ? "bell.slash" : "bell.fill").foregroundColor(disabled ? Color.white : Color.lightBlue)
+                                .font(Font.title.weight(.semibold))
+                                .imageScale(.small)
+                            Text(disabled ? "Disabled" : "Active")
+                                .foregroundColor(disabled ? Color.white : Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
+                                .fontWeight(.bold)
+                                .font(show ? Font.title : Font.headline)
+                        }
+                    }
+                    .alert(isPresented: self.$isSuccessResponse) {
+                        let thisAlert = self.stateStore.alerts.getModel()[self.index]
+                        return thisAlert.disabled == true ?
+                            Alert(title: Text("Notification Disabled"),
+                                  message: Text("You can activate it later."),
+                                  dismissButton: .default(Text("OK")))
+                            :
+                            Alert(title: Text("Notification Updated"),
+                                  message: Text("""
+                                  You will receive an alert when:
+                                      \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
+                                      \(thisAlert.conditionOperator == "LT" ? "less than" : "greater than")
+                                      \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
+                                  """),
+                                  dismissButton: .default(Text("OK")))
                     }
                 }
-                .alert(isPresented: self.$setSuccess) {
-                    let thisAlert = self.stateStore.alerts.getModel()[self.index]
-                    return thisAlert.disabled == true ?
-                        Alert(title: Text("Notification Disabled"),
-                              message: Text("You can activate it later."),
-                              dismissButton: .default(Text("OK")))
-                        :
-                        Alert(title: Text("Notification Updated"),
-                              message: Text("""
-                              Xchangerate will notify you when:
-                                  \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
-                                  \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
-                                  \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
-                              """),
-                              dismissButton: .default(Text("OK")))
-                }
-                .padding(.bottom, show ? 20 : 15)
 
                 Spacer()
+
+                // Edit button
                 Button(action: {
-                    self.toggleEdit()
+                    withAnimation(.spring()) {
+                        self.toggleEdit()
+                    }
                 }) {
                     HStack {
                         Image(systemName: show ? "slash.circle.fill" : "slash.circle")
@@ -210,28 +206,19 @@ struct EditableCardView: View {
                             .cornerRadius(5)
                     }
                 }
-                .alert(isPresented: self.$setSuccess) {
-                    let thisAlert = self.stateStore.alerts.getModel()[self.index]
-                    return
-                        Alert(title: Text("Notification Updated"),
-                              message: Text("""
-                              Xchangerate will notify you when:
-                                  \(thisAlert.baseCurrency.flag) 100 \(thisAlert.baseCurrency.unit)
-                                  \(thisAlert.conditionOperator == "LT" ? "Less than" : "Great than")
-                                  \(thisAlert.targetCurrency.flag) \(thisAlert.numBar) \(thisAlert.targetCurrency.unit)
-                              """),
-                              dismissButton: .default(Text("OK")))
+                .alert(isPresented: self.$invalidAttempt) {
+                    Alert(title: Text("Invalid number format"),
+                          message: Text("Please try again."),
+                          dismissButton: .default(Text("OK")))
                 }
-                .padding(.bottom, show ? 20 : 15)
                 Spacer()
             }
+            .padding(.bottom, 10.0)
         }
-        .padding()
-        .padding(.top, 15)
-        .frame(width: show ? screenWidth * 0.85 : screenWidth * 0.88, height: show ? 350 : 100)
-        .background(disabled ? Color.gray : Color.blue)
-        .cornerRadius(25)
-        .animation(.spring())
+
+        .frame(width: screenWidth * 0.9, height: show ? screenWidth * 0.78 : 90)
+        .background(disabled ? Color(UIColor(0x607D8B, 0.80)) : Color(UIColor(0x448AFF, 0.9)))
+        .cornerRadius(20)
     }
 }
 
@@ -243,7 +230,6 @@ struct CountryHeadlineCardView: View {
     @Binding var barNumFromParent: String
     var isCountry1: Bool
     var index: Int
-    // var formattedNumBar: String {return String(format:"%.2f",barNumFromParent)}
 
     var body: some View {
         HStack {
@@ -251,37 +237,36 @@ struct CountryHeadlineCardView: View {
                 NavigationLink(destination: CountryPickerView(index: index, isCountry1: isCountry1, toCurrency: $country, newNumBar: $barNumFromParent)) {
                     Text(country.flag)
                         .font(showFromParent ? Font.largeTitle : Font.subheadline)
-                        .multilineTextAlignment(.center)
                         .frame(width: !showFromParent ? 20 : 40, height: 15)
-                        .padding()
+                        .padding(.leading, 8)
+                        .padding(.trailing, 5)
                 }
-
             } else {
                 Text(country.flag)
-                    .font(showFromParent ? Font.largeTitle : Font.subheadline)
-                    .multilineTextAlignment(.center)
-                    .frame(width: !showFromParent ? 20 : 40, height: 15)
-                    .padding()
+                    .font(Font.title)
+                    .frame(width: 24.0, height: 15)
             }
 
             if isEditable {
                 TextField("Amount", text: $barNumFromParent)
                     .disabled(!showFromParent)
                     .font(showFromParent ? Font.title : Font.headline)
-                    .frame(width: showFromParent ? screenWidth * 0.3 : 60)
+                    .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.3)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(showFromParent ? Color.lightBlue : Color.white)
                     .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.leading)
             } else {
                 Text(String(100))
                     .font(showFromParent ? Font.title : Font.headline)
-                    .frame(width: showFromParent ? screenWidth * 0.3 : 30)
+                    .frame(width: showFromParent ? screenWidth * 0.4 : screenWidth * 0.1)
             }
-            Text(country.unit)
-                .fontWeight(.bold)
-                .font(showFromParent ? Font.title : Font.subheadline)
+
+            if showFromParent {
+                Text(country.unit)
+                    .fontWeight(.medium)
+                    .font(showFromParent ? Font.title : Font.subheadline)
+            }
         }.foregroundColor(.white)
-            .frame(width: showFromParent ? screenWidth * 0.8 : screenWidth * 0.40, alignment: .leading)
             .padding(.top, showFromParent ? 5 : 0)
             .padding(.bottom, showFromParent ? 5 : 0)
             .layoutPriority(100)
@@ -290,6 +275,26 @@ struct CountryHeadlineCardView: View {
 
 extension Color {
     static let lightBlue = Color(hue: 0.498, saturation: 0.609, brightness: 1.0)
+}
+
+extension UIColor {
+    convenience init(_ red: Int, _ green: Int, _ blue: Int, _ a: CGFloat = 1.0) {
+        self.init(
+            red: CGFloat(red) / 255.0,
+            green: CGFloat(green) / 255.0,
+            blue: CGFloat(blue) / 255.0,
+            alpha: a
+        )
+    }
+
+    convenience init(_ rgb: Int, _ a: CGFloat = 1.0) {
+        self.init(
+            (rgb >> 16) & 0xFF,
+            (rgb >> 8) & 0xFF,
+            rgb & 0xFF,
+            a
+        )
+    }
 }
 
 #if DEBUG

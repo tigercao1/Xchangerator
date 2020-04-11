@@ -13,28 +13,22 @@ struct MyAlert: Equatable, Hashable {
     var targetCurrency: Country
     var conditionOperator: String
     var rate: Double
-    var numBar: String { return String(100 * rate) }
-    var disabled: Bool = true
+    var numBar: String { return String(round(100 * rate * 10000) / 10000) } // round numBar to 4 digits
+    var disabled: Bool
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String) {
-        self.baseCurrency = baseCurrency
-        self.targetCurrency = targetCurrency
-        self.conditionOperator = conditionOperator
-        rate = 0
+        self.init(baseCurrency: baseCurrency, targetCurrency: targetCurrency, conditionOperator: conditionOperator, rate: 0, disabled: true)
     }
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double) {
-        self.baseCurrency = baseCurrency
-        self.targetCurrency = targetCurrency
-        self.conditionOperator = conditionOperator
-        self.rate = rate
+        self.init(baseCurrency: baseCurrency, targetCurrency: targetCurrency, conditionOperator: conditionOperator, rate: rate, disabled: true)
     }
 
     init(baseCurrency: Country, targetCurrency: Country, conditionOperator: String, rate: Double, disabled: Bool) {
         self.baseCurrency = baseCurrency
         self.targetCurrency = targetCurrency
         self.conditionOperator = conditionOperator
-        self.rate = rate
+        self.rate = round(rate * 1_000_000) / 1_000_000 // round rate to 6 digits
         self.disabled = disabled
     }
 
