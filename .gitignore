@@ -5,7 +5,6 @@ node_modules
 Xchangerator/Pods/
 Xchangerator/Xchangerator.xcworkspace/xcuserdata
 Xchangerator/Xchangerator.xcodeproj/xcuserdata
-Xchangerator.xcworkspace/xcshareddata
 AppServer/xchangerator-firebase-adminsdk*.json
 Xchangerator/BuildTools/.build
 Xchangerator/BuildTools/.swiftpm
