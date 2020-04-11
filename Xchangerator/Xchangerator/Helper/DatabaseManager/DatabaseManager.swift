@@ -102,7 +102,7 @@ class DatabaseManager {
         }
     }
 
-    func removeFcmTokenFromProfile(_ fcmToken: String?, _ user: User) {
+    func removeFcmTokenFromProfile(_ fcmToken: String?, _ user: User, completion: @escaping () -> Void) {
         let userCollectionRef = db.collection(Constant.xDBuserCollection)
         let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(user.uid)")
         if let deviceToken = fcmToken {
@@ -111,7 +111,12 @@ class DatabaseManager {
                 "profile.deviceTokens": FieldValue.arrayRemove([deviceToken]),
             ]) { err in
                 if let error = err {
-                    Logger.error("Error removing fcmToken: \(String(describing: error)), fcmToken \(deviceToken)")
+                    Logger.error("Error removing fcmToken: \(error), fcmToken \(deviceToken)")
+                    return
+                } else {
+                    // if no success response and no err, security rule might have been triggered
+                    Logger.debug("fcmToken \(deviceToken) is successfully removed")
+                    completion()
                 }
             }
         }

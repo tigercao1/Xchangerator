@@ -28,18 +28,18 @@ struct SettingsMain: View {
     ]
 
     private func signOut() {
-        do {
-            let fcmTokenStr = UserRepoManager().getCurDeviceToken(forUserID: "current")
-            if let user = Auth.auth().currentUser {
-                DatabaseManager.shared.removeFcmTokenFromProfile(fcmTokenStr, user)
-            } else {
-                Logger.error("currentUser is nil")
+        let fcmTokenStr = UserRepoManager().getCurDeviceToken(forUserID: "current")
+        if let user = Auth.auth().currentUser {
+            DatabaseManager.shared.removeFcmTokenFromProfile(fcmTokenStr, user) {
+                do {
+                    try FUIAuth.defaultAuthUI()!.signOut()
+                } catch {
+                    Logger.error("signOut error: \(error).")
+                    return
+                }
             }
-
-            try FUIAuth.defaultAuthUI()!.signOut()
-        } catch {
-            Logger.error(error)
-            return
+        } else {
+            Logger.error("currentUser is nil")
         }
         stateStore.resetRoute()
         selectionFromParent = 0
