@@ -17,7 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
         let stateStore = ReduxRootStateStore() // state store init
 
         // Use a UIHostingController as window root view controller.
@@ -37,13 +36,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 // fetch user alerts
                 DatabaseManager.shared.asyncGetUserAlerts(user) { docSnapShots in
                     for i in 0 ..< 2 {
-                        DatabaseManager.shared.setAlertToStore(stateStore, docSnapShots, id: i)
+                        DatabaseManager.shared.setAlertToLocalStore(stateStore, docSnapShots, id: i)
                     }
                 }
             }
 
             // fetch exchange rates
-            stateStore.setCountries(countries: syncApiCall())
+            stateStore.syncFetchCountries()
 
             window.rootViewController = UIHostingController(rootView: LoginView().environmentObject(stateStore))
             self.window = window

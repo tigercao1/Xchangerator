@@ -63,6 +63,7 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
         func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
             UIApplication.shared.endEditing()
             guard error == nil else {
+                // Attention: authUI will be called twice. The second call will end up here.
                 Logger.error("Err: Failed to sign in with user. User:\(String(describing: authDataResult));Error:\(String(describing: error)) ")
                 return
             }
@@ -78,13 +79,13 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
              providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
              FIRUserMetadata:metadata
              */
-            let fcmTokenString = UserRepoManager().getCurDeviceToken(forUserID: "current")
+            let fcmTokenStr = UserRepoManager().getCurDeviceToken(forUserID: "current")
 
             // Set Device token and notification Docs in DB
-            Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenString))")
-            DatabaseManager.shared.registerUser(fcmToken: fcmTokenString, fbAuthRet: retObj, alerts: parent.stateStore.alerts) { docSnapShots in
+            Logger.debug("UserRepofcmToken get: \(String(describing: fcmTokenStr))")
+            DatabaseManager.shared.registerUser(fcmToken: fcmTokenStr, fbAuthRet: retObj, alerts: parent.stateStore.alerts) { docSnapShots in
                 for i in 0 ..< 2 {
-                    DatabaseManager.shared.setAlertToStore(self.parent.stateStore, docSnapShots, id: i)
+                    DatabaseManager.shared.setAlertToLocalStore(self.parent.stateStore, docSnapShots, id: i)
                 }
             }
             parent.stateStore.curRoute = .content
@@ -93,8 +94,8 @@ struct FUIAuthBaseViewControllerWrapper: UIViewControllerRepresentable {
                 let userProfile = User_Profile(email: user.email ?? "New_\(user.uid)@Xchangerator.com", photoURL: user.photoURL, deviceTokens: [], name: user.displayName ?? "New User")
                 let userDoc = User_DBDoc(profile: userProfile)
 
-                // TODO: refetch state store settings from DB
                 parent.stateStore.setDoc(userDoc: userDoc)
+                parent.stateStore.syncFetchCountries()
             }
             // parent.dismiss(authDataResult, error)
 //            authUI.authViewController().dismiss(animated: false, completion:nil)

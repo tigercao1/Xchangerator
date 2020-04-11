@@ -9,11 +9,9 @@
 import SwiftUI
 
 struct AboutView: View {
-//    let links = ["LinkedIn", "Twitter"]
-
     var body: some View {
         VStack {
-            CardView(image: "cover", category: Constant.xDesc, heading: "Xchangerator", author: "Exchange rate reminder - version 1.0(3)")
+            CardView(image: "cover", description: Constant.xDesc, title: "Xchangerator", version: "Exchange rate reminder - version 1.0")
             Spacer()
 
             HStack {
@@ -23,14 +21,6 @@ struct AboutView: View {
                     UIApplication.shared.open(url)
                          }) {
                     Text("LinkedIn").font(.headline)
-
-                }.padding()
-                Spacer(minLength: screenWidth * 0.1)
-                Button(action: {
-                    let url = URL(string: Constant.xTwitter)!
-                    UIApplication.shared.open(url)
-                       }) {
-                    Text("Twitter").font(.headline)
 
                 }.padding()
                 Spacer(minLength: screenWidth * 0.1)
@@ -50,6 +40,8 @@ struct AboutView: View {
 
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {
-        AboutView()
+        ForEach([ConstantDevices.iPhoneSE, ConstantDevices.iPhone8], id: \.self) { deviceName in AboutView().environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }

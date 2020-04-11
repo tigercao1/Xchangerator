@@ -84,7 +84,7 @@ class DatabaseManager {
         }
     }
 
-    func setAlertToStore(_ stateStore: ReduxRootStateStore, _ docSnapShots: [QueryDocumentSnapshot], id i: Int) {
+    func setAlertToLocalStore(_ stateStore: ReduxRootStateStore, _ docSnapShots: [QueryDocumentSnapshot], id i: Int) {
         do {
             let data = docSnapShots[i].data()
             let str = data["condition"] as? String ?? "CAD-USD-LT"
@@ -102,16 +102,30 @@ class DatabaseManager {
         }
     }
 
+    func removeFcmTokenFromProfile(_ fcmToken: String?, _ user: User) {
+        let userCollectionRef = db.collection(Constant.xDBuserCollection)
+        let userRef = userCollectionRef.document("\(Constant.xDBtokenPrefix)\(user.uid)")
+        if let deviceToken = fcmToken {
+            // Atomically remove a fcmToken from the "deviceTokens" array field.
+            userRef.updateData([
+                "profile.deviceTokens": FieldValue.arrayRemove([deviceToken]),
+            ]) { err in
+                if let error = err {
+                    Logger.error("Error removing fcmToken: \(String(describing: error)), fcmToken \(deviceToken)")
+                }
+            }
+        }
+    }
+
     func registerUser(fcmToken firebaseMsgDeviceToken: String?, fbAuthRet authDataResult: AuthDataResult, alerts: MyAlerts, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
-        // Result<Countries?, NetworkError>
         // [START add_ada_lovelace]
         /*
-                    anonymous:BOOL
-                    emailVerified:BOOL
-                    refreshToken:NSString
-                    providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
-                    FIRUserMetadata:metadata
-         r  */
+         anonymous:BOOL
+         emailVerified:BOOL
+         refreshToken:NSString
+         providerData:NSArray https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Protocols/FIRUserInfo.html
+         FIRUserMetadata:metadata
+         */
         let user = authDataResult.user
         // The user's ID, unique to the Firebase project.
         // Do NOT use this value to authenticate with your backend server,
@@ -134,7 +148,7 @@ class DatabaseManager {
                     }
                 }
                 newTokenArr = newTokenArr.filter { $0 != "" }
-                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0);new tokens count \(newTokenArr.count)")
+//                Logger.debug("Old user:pre tokens count \(deviceTokens?.count ?? 0); new tokens count \(newTokenArr.count)")
 
             } else {
                 // create all the fields for the new user

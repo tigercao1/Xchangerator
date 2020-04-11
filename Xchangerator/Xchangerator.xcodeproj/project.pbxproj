@@ -55,6 +55,7 @@
 		CAB49F6C240DDA0D008ED8C6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */; };
 		CAB49F6E240DDA2C008ED8C6 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */; };
 		D5093B907A1AB4064084CAE6 /* Pods_Xchangerator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDCFBB8823BAB512FFA40B2 /* Pods_Xchangerator.framework */; };
+		EB8D9810244110A10047E244 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D980F244110A10047E244 /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		CAB49F66240DACD4008ED8C6 /* SettingsMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMain.swift; sourceTree = "<group>"; };
 		CAB49F6B240DDA0D008ED8C6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		CAB49F6D240DDA2C008ED8C6 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		EB8D980F244110A10047E244 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 		C58A36AC23D6C2E900DB155A /* Xchangerator */ = {
 			isa = PBXGroup;
 			children = (
+				EB8D980C244110500047E244 /* Extensions */,
 				C50B13FF2410D320000FD607 /* Resources */,
 				B4C4723923EC6060004834CF /* Exceptions */,
 				B4C4723823EC5573004834CF /* Controller */,
@@ -368,6 +371,14 @@
 				C5FF8F49240EE1FC00C402E6 /* EditableCardView.swift */,
 			);
 			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		EB8D980C244110500047E244 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EB8D980F244110A10047E244 /* Color.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,6 +563,7 @@
 				B4C4723F23F0B3BC004834CF /* Converter.swift in Sources */,
 				B4C4722F23E0B60F004834CF /* HomeView.swift in Sources */,
 				B4C4723B23EC6077004834CF /* Exceptions.swift in Sources */,
+				EB8D9810244110A10047E244 /* Color.swift in Sources */,
 				B4E40BD52418880800593366 /* FavoriteConversion.swift in Sources */,
 				B4C4723723E138C1004834CF /* Countries.swift in Sources */,
 				C50B13FC2410D0EA000FD607 /* History.swift in Sources */,

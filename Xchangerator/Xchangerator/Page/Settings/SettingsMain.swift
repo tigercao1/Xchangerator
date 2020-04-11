@@ -18,6 +18,7 @@ struct SettingItem: Identifiable {
 }
 
 struct SettingsMain: View {
+    @EnvironmentObject var stateStore: ReduxRootStateStore
     @Binding var selectionFromParent: Int
 
     var settingItems: [SettingItem] = [
@@ -25,10 +26,16 @@ struct SettingsMain: View {
 //    SettingItem(image: "envelope", text: "Notification"), //todo: recover it later
         SettingItem(image: "exclamationmark.circle", text: "About"),
     ]
-    @EnvironmentObject var stateStore: ReduxRootStateStore
 
     private func signOut() {
         do {
+            let fcmTokenStr = UserRepoManager().getCurDeviceToken(forUserID: "current")
+            if let user = Auth.auth().currentUser {
+                DatabaseManager.shared.removeFcmTokenFromProfile(fcmTokenStr, user)
+            } else {
+                Logger.error("currentUser is nil")
+            }
+
             try FUIAuth.defaultAuthUI()!.signOut()
         } catch {
             Logger.error(error)
@@ -48,26 +55,26 @@ struct SettingsMain: View {
                         Text(settingItem.text).font(.headline)
                         Spacer()
                     }
-                }
+                }.frame(height: 120)
 
                 Spacer()
-                Button(action: self.signOut) {
-                    HStack {
-                        Image(systemName: "escape")
-                            .font(.title).padding(.horizontal, 20)
-                        Text("Sign Out")
-                            .fontWeight(.semibold)
-                            .font(.headline)
+                VStack {
+                    Button(action: self.signOut) {
+                        HStack {
+                            Image(systemName: "escape")
+                                .font(.headline)
+                                .padding(.trailing, 5)
+                            Text("Sign Out")
+                                .fontWeight(.semibold)
+                                .font(.subheadline)
+                        }
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 20)
+                        .foregroundColor(.white)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color(UIColor(0x448AFF)), Color(UIColor(0x4A75EA))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .cornerRadius(30)
                     }
-                    .frame(minWidth: 0, maxWidth: screenWidth * 0.6)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing))
-                    .cornerRadius(30)
-                    .padding(.horizontal, CGFloat(20))
-
-                }.padding()
-                Spacer()
+                }.padding(.bottom, 30)
             }.navigationBarTitle("Settings")
         }
     }
@@ -90,6 +97,8 @@ struct SettingDetailView: View {
 
 struct SettingsMain_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(ReduxRootStateStore())
+        ForEach([ConstantDevices.iPhoneSE, ConstantDevices.iPhone8], id: \.self) { deviceName in ContentView(selection: 3).environmentObject(ReduxRootStateStore()).previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }
