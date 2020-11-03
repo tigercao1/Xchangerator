@@ -17,7 +17,7 @@
     "firebase-admin": "^8.9.2",
     "helmet": "^3.21.2",
     "http-errors": "~1.6.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "morgan": "~1.9.1",
     "redis": "^2.8.0",
     "response-time": "^2.3.2",
