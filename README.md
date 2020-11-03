@@ -1,14 +1,24 @@
 # Comp 3004 Project
 Carleton University COMP 3004 Project Repo
 
-## Group name: YYES
+All-in-one tool for exchange rates.
+* Mobile notification on demand;
+* Foreign Exchange calculation on the go;
+* Bookmark the most used currencies with no limit;
+* Ad-free!
 
-* Meeting Time: Tues 4:00pm - 5:30pm
+Download here: https://www.xchangerator.com
 
-* Meeting Location: Library Room 463 -- may be a different room
+Public API: https://www.xchangerator.com/api/latest
 
+## Technology
+* SwiftUI + Firebase SDK
+* Express.js + Redis + Cloudflare
+* Firestore + Firebase cloud messaging + Firebase Authentication
+
+## Credits
+* Group name: YYES.
 * Project name: Xchangerator
-
 * Emails:
   
   Songmi | Elaine | Tiger | Yiwei   
