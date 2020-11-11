@@ -1,5 +1,4 @@
-# Comp 3004 Project
-Carleton University COMP 3004 Project Repo
+# Xchangerator
 
 All-in-one tool for exchange rates.
 * Mobile notification on demand;
