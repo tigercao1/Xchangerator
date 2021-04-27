@@ -19,7 +19,7 @@
     "http-errors": "~1.6.3",
     "lodash": "^4.17.15",
     "morgan": "~1.9.1",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "response-time": "^2.3.2",
     "superagent": "^5.2.1",
     "winston": "^3.2.1"
